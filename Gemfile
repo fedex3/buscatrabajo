@@ -2,12 +2,15 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.8'
-
+gem 'canonical-rails', '0.2.9'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '5.1.6.2'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+gem 'therubyracer'
+gem "execjs"
+gem "pkg-config"
 gem 'pg', '~> 1.1', '>= 1.1.4'
+#gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 4.1', '>= 4.1.0'
 # Use SCSS for stylesheets

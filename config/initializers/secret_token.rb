@@ -1,0 +1,1 @@
+Buscatrabajo::Application.config.secret_key_base = 'cfe4c2e4f7e9d4f32d936736e4da8a01cf73b0708f35c2f3df57bc5d37ca65f8529b9eb6893d71129970333266f3ffb55d65dbf8f33fc21c176c850b3b550fb9'

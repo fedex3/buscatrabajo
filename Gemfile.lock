@@ -99,6 +99,8 @@ GEM
       momentjs-rails (>= 2.8.1)
     builder (3.2.4)
     byebug (11.1.3)
+    canonical-rails (0.2.9)
+      rails (>= 4.1, < 6.1)
     childprocess (3.0.0)
     ckeditor (5.1.1)
       orm_adapter (~> 0.5.0)
@@ -161,6 +163,7 @@ GEM
     kaminari-core (1.1.1)
     lazyload-rails (0.5.0)
       nokogiri (~> 1.5)
+    libv8 (3.16.14.19-x86_64-linux)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -174,7 +177,6 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
     minitest (5.15.0)
     mobility (0.8.13)
       i18n (>= 0.6.10, < 2)
@@ -188,6 +190,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.4.3)
+    pkg-config (1.4.9)
     popper_js (1.16.0)
     puma (4.3.12)
       nio4r (~> 2.0)
@@ -232,6 +235,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.8.0)
+    ref (2.0.0)
     regexp_parser (2.5.0)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -269,8 +273,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.5.0)
-      mini_portile2 (~> 2.8.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.11)
@@ -309,9 +314,11 @@ DEPENDENCIES
   bootstrap-3-sass (~> 3.3, >= 3.3.7)!
   bootstrap3-datetimepicker-rails (~> 4.17, >= 4.17.47)
   byebug
+  canonical-rails (= 0.2.9)
   ckeditor (~> 5.0, >= 5.0.0)
   delayed_paperclip (~> 3.0, >= 3.0.1)
   devise (~> 4.7, >= 4.7.0)
+  execjs
   font-awesome-rails (~> 4.7.0, >= 4.7.0.5)
   jbuilder (~> 2.7)
   jquery-infinite-pages (~> 0.2, >= 0.2.0)
@@ -326,6 +333,7 @@ DEPENDENCIES
   nokogiri (~> 1.12, >= 1.12.4)
   paperclip!
   pg (~> 1.1, >= 1.1.4)
+  pkg-config
   puma (~> 4.1, >= 4.1.0)
   pundit (~> 2.1, >= 2.1.0)
   rack-cors (~> 1.0, >= 1.0.3)
@@ -336,7 +344,7 @@ DEPENDENCIES
   sidekiq (~> 6.2, >= 6.2.1)
   spring (~> 2.1, >= 2.1.0)
   sprockets (~> 3.0, >= 3.0.0)
-  sqlite3 (~> 1.4)
+  therubyracer
   turbolinks (~> 5)
   tzinfo-data
   watir-rails (~> 2.2, >= 2.2.1)
@@ -347,4 +355,4 @@ RUBY VERSION
    ruby 2.5.8p224
 
 BUNDLED WITH
-   2.2.27
+   2.3.22
