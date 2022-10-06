@@ -1,0 +1,42 @@
+// Place all the styles related to the homes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+#cover{
+    background-image: url('/assets/cover-photo-robada.webp');
+    min-height: 90vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#home-companies{
+
+    #home-companies-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        #home-companies-card{
+            position: relative;
+            width: 25vw;
+            margin: 1em 3em;
+            #home-company-photo{
+                width: 100%;
+                height: auto;
+            }
+        }
+        h4{
+            position: absolute;
+            top: 5px;
+            left: 25px;
+        }
+        #home-company-logo{
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+        }
+    }
+}
