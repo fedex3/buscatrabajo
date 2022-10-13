@@ -14,3 +14,16 @@
  *= require_self
  *= require font-awesome
  */
+ @import "bootstrap-3-sprockets";
+ @import "bootstrap-3";
+ 
+$primary-color-dark:   #00796B;
+$primary-color:        #0DDEC1;
+$primary-color-light:  #B2DFDB;
+$primary-color-text:   #FFFFFF;
+
+
+$colorPrimaryLink: #311B92;
+$colorPrimaryLinkButton: #673AB7;
+$colorPrimaryLinkDark: #5E35B1;
+

@@ -1,4 +1,4 @@
-<header>
+<!--<header>
     <a id="header-logo" href="" class="navbar-brand"><img alt="Buscatrabajo" loading="lazy" src=""></a>
 
     <ul id="navbar-links">
@@ -31,4 +31,94 @@
             <a data-toggle="modal" data-target="#modalSignIn" class="hidden-xs" id="header_signin" rel="nofollow" data-remote="true" href="/ar/users/session_newform">Ingresa</a>
         </li>
     </ul>
-</header>
+</header> -->
+
+<nav class="navbar navbar-header  navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+
+        <a href="/" class="navbar-brand"><%=image_tag("logo.jpg", :alt => "buscatrabajo", loading: "lazy")%></a>
+        <div class="navbar-container">
+          <ul class="nav navbar-nav navbar-right">
+
+            <%unless false#current_user%>
+
+                <li class="action">
+                  <%= link_to t('header.signup'), user_registration_newform_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modalSignUp', :class => 'hidden-xs', :id =>"header_signup", :rel => "nofollow"}  %>
+                </li>
+                <li class="action">
+                  <%= link_to t('header.signup_in'), user_registration_newform_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modalSignUp', :class => 'hidden-sm hidden-md hidden-lg', :id => "header_signup", :rel => "nofollow"}  %>
+                </li>
+
+              <li>
+                <%= link_to t('header.signin'), user_session_newform_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modalSignIn', :class => 'hidden-xs', :id => "header_signin", :rel => "nofollow"}  %>
+              </li>
+            <%else%>
+              <% if current_user.admin? || current_user.superadmin? || current_user.company_role? || current_user.recruiter? || current_user.content_editor? || current_user.content_editor_plus? %>
+                <li class="action">
+                  <%= link_to t('header.gotoadmin'), admin_path %>
+                </li>
+              <% end %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="fa fa-user"></span>
+                  <%= !current_user.name.nil? ? current_user.name.split(' ')[0] : current_user.email %>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                      <a href="<%#company_favorites_path%>"  rel="nofollow">
+                        <span class="fa fa-building"></span>&nbsp;
+                        <%=t('header.company_favorites')%>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="<%#job_applications_path%>"  rel="nofollow">
+                        <span class="fa fa-check-circle-o"></span>&nbsp;
+                        <%=t('header.job_applications')%>
+                      </a>
+                    </li>
+                  <li>
+                    <a href="<%#destroy_user_session_path%>" data-method="delete" rel="nofollow">
+                      <span class="fa fa-sign-out"></span>&nbsp;
+                      <%=t('header.logout')%>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <%end%>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-center" id="header_menu">
+
+
+              <li class="active">
+                <a class="navbar-header-companies-long" href="<%=companies_path%>"><%=t :'header.companies' %>
+                    <span class="sr-only">(current)</span>
+                </a>
+                <a class="navbar-header-companies-short" href="<%=companies_path%>"><%=t :'header.companies_short' %>
+                    <span class="sr-only">(current)</span>
+                </a>
+              </li>
+
+
+              <li class="active">
+                <a href="<%=jobs_path%>"><%=t :'header.jobs' %>
+                    <span class="sr-only">(current)</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+  </div>
+</nav>
+
+<%unless false#current_user%>
+  <!-- Modal -->
+  <div class="modal fade" id="modalSignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalSignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  </div>
+
+<%end%>
