@@ -1,0 +1,22 @@
+<nav class="navbar navbar-fixed-top navbar-subheader-employer-branding" id="navbar_subheader_employer_branding">
+  <div class="container-fluid no-padding">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-subheader-sub" id="multioffice_subheader_links">
+        <li><%= link_to "Informacion", '#' %></li>
+        <li class="dropdown">
+          <%= link_to "Oficinas <b class='caret'></b>".html_safe, '#oficinas', class: "dropdown-toggle", data: {toggle:"dropdown"}%>
+          <ul id="multioffice_subheader_menu" class="dropdown-menu">
+            <% @offices.each_with_index do |office, index| %>
+              <li id="multioffice_subheader_<%= office.name_id%>" class="<%= multioffice_dropdown_class(@selected_office_id, office, index)%>">
+                <%= link_to office.name, company_path(name_id: office.company.name_id, office_name_id: office.name_id), class: "multioffice_subheader", 'data-id' => office.name_id, remote: true  %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+        <% unless @recommended_jobs.blank? %>
+          <li><%= link_to "Trabajos", '#company-jobs', id: 'multioffice_subheader_jobs' %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

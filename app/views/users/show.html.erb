@@ -1,0 +1,115 @@
+<% content_for :title, t('users.header.profile.title') %>
+
+<div class="container-fluid">
+  <div class="profile-page">
+    <div class="profile-card">
+      <section id="profile-header">
+        <%if current_user.show_photo%>
+          <div class="img-container">
+            <%if current_user.photo%>
+              <%= image_tag current_user.photo(:thumbnail), size:"100x100", alt: "Avatar", :class=>"img-fluid img-responsive img-avatar"%>
+            <%else%>
+              <%= image_tag "persona1" , size:"100x100", alt: "Avatar", :class=>"img-fluid img-responsive img-avatar"%>
+            <%end%>
+          </div>
+        <%end%>
+        <div class="profile-summary">
+          <h1>
+            <%=current_user.name%>
+          </h1>
+          <h2>
+            <%=current_user.short_summary.present? ? current_user.short_summary : "Título o puesto actual"%>
+          </h2>
+        </div>
+        <section id="profile-social-links">
+          <ul class="list-inline">
+              <li class="list-inline-item" id="email-button">
+                <a target="_blank" href="mailto:<%=current_user.email%>" rel="nofollow noopener noreferrer">
+                  <i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+                </a>
+              </li>
+            <%if current_user.github_url.present?%>
+              <li class="list-inline-item" id="github-button">
+                <a target="_blank" rel="nofollow noopener noreferrer" href=<%=current_user.github_url%> >
+                  <i class="fa fa-github-square fa-2x" aria-hidden="true"></i>
+                </a>
+              </li>
+            <%end%>
+
+            <%if current_user.linkedin_url.present?%>
+              <li class="list-inline-item" id="linkedin-button">
+                <a target="_blank" rel="nofollow noopener noreferrer" href="<%=current_user.linkedin_url%>" >
+                  <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                </a>
+              </li>
+            <%end%>
+          </ul>
+        </section>
+      </section>
+      <section id="profile-about-me">
+        <p>
+          <%=current_user.long_summary.present? ? current_user.long_summary : "Completa tu perfil para que las mejores empresas se contacten contigo y consigas el trabajo de tus sueños."%>
+        </p>
+      </section>
+      <section id="edit-profile-link-section">
+        <%if current_user.user_tests.present? && current_user.user_tests.last.finished == true && 
+        !current_user.user_in_spain?(session) && !current_user.user_in_chile?(session)%>
+          <%= link_to 'Descargar test', download_report_for_user_user_tests_url, :class=>"edit-link" %>
+        <%end%>
+        <%= link_to t('header.edit_profile'), edit_user_url, :class=>"edit-link" %>
+      </section>
+    </div>
+    <%unless current_user.skill_list.empty? or current_user.language_list.empty?%>
+      <div class="skills-card">
+        <%unless current_user.skill_list.empty?%>
+          <div id="technical-skills">
+            <h3>
+              <%=t('users.skills.technical_skills')%>
+            </h3>
+            <div class="skills text-center">
+              <%current_user.skill_list.each do |skill|%>
+                <div class="skill">
+                  <%= skill%>
+                </div>
+              <%end%>
+            </div>
+          </div>
+        <%end%>
+        <%unless current_user.language_list.empty?%>
+          <div id="language-tags">
+            <h3>
+              <%=t('users.skills.languages')%>
+            </h3>
+            <div class="skills text-center">
+              <%current_user.language_list.each do |skill|%>
+                <div class="skill">
+                  <%= skill%>
+                </div>
+              <%end%>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    <%end%>
+  </div>
+</div>
+
+<% if (current_user.user_tests.blank? || current_user.user_tests.last.sended_mail != true) &&
+  !current_user.user_in_spain?(session) && !current_user.user_in_chile?(session)%>
+  <div class="container-fluid">
+    <div class="profile-page-edit">
+      <div class="skills-card-edit">
+        <h3>Descubre tus habilidades</h3>
+        <br>
+        <i>Completa el test para aumentar tu autoconocimiento, mejorar tu perfil profesional y conseguir el trabajo que deseas. No te tomará más de 15 minutos.</i>
+        <br>
+        <i>Te enviaremos un e-mail desde el remitente “Hirint” para que puedas completarlo.</i>
+        <br>
+        <br>
+        <%= form_with url: user_tests_path do |f| %>
+          <%= f.submit "Recibir test por e-mail",  class:"btn btn-primary", style: "background-color: #007deb", data: { disable_with: t('messages.sending') } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

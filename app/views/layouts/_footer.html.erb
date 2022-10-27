@@ -1,0 +1,83 @@
+<%= render partial: 'home/newsletter_form' %>
+
+<nav class="navbar navbar-default navbar-static-bottom" id="footer">
+  <div class="container" id="footer-div">
+    <div class="row">
+      <% if !@company_special_event.present? %>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <h5><a href="<%=home_path%>"><%=image_tag("logo-v3.webp", :alt => "mibucle.com", :width => "200", loading: "lazy")%></a></h5>
+            <p>© <%= Time.current.year %> Mibucle</p>
+            <p><a href="mailto:info@mibucle.com"> <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> info@mibucle.com</a></p>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <h5><%=t('footer.services.title')%></h5>
+          <ul>
+            <li><a href="<%=advices_path%>"><%=t('footer.services.advices')%></a></li>
+            <li><a href="<%=coaching_path%>"><%=t('footer.services.coaching')%></a></li>
+            <%if ENV['COMPANIES_ACTIVE'].to_i == 1%>
+              <li><a href="<%=companies_path%>"><%=t('footer.services.companies')%></a></li>
+            <%end%>
+            <%if ENV['JOBS_ACTIVE'].to_i == 1%>
+              <li><a href="<%=jobs_path%>"><%=t('footer.services.jobs')%></a></li>
+            <%end%>
+            <%if ENV['COURSES_ACTIVE'].to_i == 1%>
+              <li><a href="<%=courses_path%>"><%=t('footer.services.courses')%></a></li>
+            <%end%>
+            <li><a href="<%=employer_branding_path%>"><%=t('footer.mibucle.employer_branding')%></a></li>
+            <li><a href="<%=company_special_event_path('premium')%>"><%= 'Mibucle Premium' %></a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <h5><%=t('footer.mibucle.title')%></h5>
+          <ul>
+            <li><a href="<%=about_us_path%>"><%=t('footer.mibucle.aboutus')%></a></li>
+            <li><a href="<%=new_contact_path%>"><%=t('footer.mibucle.contact')%></a></li>
+            <li><a href="<%=become_author_path%>"><%=t('footer.mibucle.become_author')%></a></li>
+            <li><a href="<%=faqs_path%>"><%=t('footer.mibucle.faq')%></a></li>
+            <li><a href="<%=terms_path%>"><%=t('footer.mibucle.terms')%></a></li>
+            <li><a href="<%=cookies_configuration_path%>">Configuración de cookies<%#t('footer.mibucle.privacy')%></a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <h5><%=t('footer.followus.title')%></h5>
+          <ul class="social">
+            <li><a class="btn btn-social-icon btn-linkedin" href="https://www.linkedin.com/company/mibucle" target="_blank">
+                <span class="fa fa-linkedin"></span>
+              </a>
+            </li>
+            <li>
+              <a class="btn btn-social-icon btn-facebook" href=<%= t('footer.links.facebook')%> target="_blank">
+                <span class="fa fa-facebook"></span>
+              </a>
+            </li>
+            <li>
+              <a class="btn btn-social-icon btn-instagram" href=<%= t('footer.links.instagram')%> target="_blank">
+                <span class="fa fa-instagram"></span>
+              </a>
+            </li>
+            <li>
+              <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/mibuclecom" target="_blank">
+                <span class="fa fa-twitter"></span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="row">
+            <div class="col-xs-6" id="employer-branding-certificate">
+              <a href="https://verify.truecrt.com/?crt=459097B0-95FB-082E-3B2D-FB600BCED606&ref=badge" target="_blank" rel="noopener">
+                <%=image_tag "employer_branding_certified.webp", loading: "lazy"%>
+              </a>
+            </div>
+            <div class="col-xs-3" id='data-fiscal-img'>
+              <a href="http://qr.afip.gob.ar/?qr=ggJaaWQQh9aNGaJPbA_bzg,," target="_F960AFIPInfo" rel="noopener">
+                <%=image_tag "afip.webp", loading: "lazy"%>
+              </a>
+            </div>
+          </div>
+        </div>
+      <%else%>
+        <%=render partial: 'company_special_events/footers/special_event_footer'%>
+      <%end%>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>

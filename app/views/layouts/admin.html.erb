@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mibucle empresas</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <%= stylesheet_link_tag 'admin/application-admin' %>
+    <%= javascript_include_tag 'admin/application.js' %>
+    <%= javascript_include_tag Ckeditor.cdn_url%>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 navbar-expand-lg justify-content-between">
+      <div class="col-md-6 col-lg-4 nav-left-admin">
+        <%= link_to '<b>mibucle</b> <small>empresas</small>'.html_safe, admin_path, class:"navbar-brand col-md-6" %>
+        <%= link_to t("admin.back"), :back, class:" align-self-center nav-item nav-link" %>
+      </div>
+      <div class="navbar-nav mx-2">
+        <%= link_to t('admin.back_to_home') , root_path, class:"nav-item nav-link" %>
+        <%= link_to t('admin.leave') , destroy_user_session_path, method: :delete, class:"nav-item nav-link" %>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <%= render "admin/partials/navigation" %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

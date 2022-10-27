@@ -1,0 +1,14 @@
+<div class="row">
+  <%unless @recommended_jobs.nil? || @recommended_jobs.empty?%>
+    <section class="section-other-jobs">
+      <div class="other-job-list">
+        <div class="col-lg-12">
+          <div class="other-jobs-title">
+            <%=t('job.other.top') %>
+          </div>
+        </div>
+        <%= render :partial => 'jobs/list_other_jobs' %>
+      </div>    
+    </section>
+  <%end%>  
+</div>

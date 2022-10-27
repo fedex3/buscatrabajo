@@ -1,0 +1,61 @@
+<%unless @companies.blank?%>
+  <div class="row">
+    <section class="section-companies">
+      <div class="company-list">
+        <%if !@company_special_event.present?%>
+          <div class="col-sm-12">
+            <div class="company-order">
+              <i><%=t('company.sortby.title') %></i>
+              <%= @order_columns.map { |oc| link_to t('company.sortby.fields.' + oc),  params.permit.merge(:order => oc), :class => (oc == @order ? "active" : "") }.join('<span>|</span>').html_safe%>
+            </div>
+          </div>
+        <%end%>
+        <div class="infinite-table">
+          <div class="companies_list">
+            <% if @company_special_event.present? %>
+              <%= render :partial => 'companies/special_event_companies_list' %>
+            <% else %>
+              <%= render :partial => 'companies/companies_list' %>
+            <% end %>
+          </div>
+          <%if !@company_special_event.present?%>
+            <p class="pagination">
+              <%= link_to_next_page(@companies, '...', :remote => true, params: request.query_parameters.except("page")) %>
+            </p>
+          <%end%>
+        </div>
+      </div>
+    </section>
+    <% if @company_special_event.present? && @company_special_event.agenda_active? %>
+      <%= render :partial => 'companies/special_event_agenda' %>
+    <% end %>
+    <% if @company_special_event.present? && @company_special_event.registration_form_active? %>
+      <%= render :partial => 'event_users/registration_form' %>
+    <% end %>
+
+    <% if @company_special_event.present? && @company_special_event.company_special_event_logo_sections.present? %>
+      <br>
+      <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <%= render partial: 'company_special_event_logo_sections/index' %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @company_special_event.present? && @company_special_event.section_one_active? %>
+      <%= render partial: 'companies/special_event_section_one' %>
+    <% end %>
+
+    <% if @company_special_event.present? && @company_special_event.section_two_active? %>
+      <%= render partial: 'companies/special_event_section_two' %>
+    <% end %>
+
+    <% if @company_special_event.present? && @company_special_event.section_three_active? %>
+      <%= render partial: 'companies/special_event_section_three' %>
+    <% end %>
+
+    <% if @company_special_event.present? && @company_special_event.media_articles.present? %>
+      <%= render partial: 'companies/media_articles_cards' %>
+    <% end %>
+  </div>
+<% end %>

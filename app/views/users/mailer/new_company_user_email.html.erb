@@ -1,0 +1,31 @@
+<tr style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
+    <td class="m_wrapper--inner" align="left" style="padding:0;border-collapse:collapse!important;line-height:120%;font-size:12px;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;word-break:break-word;word-wrap:break-word">
+        <span style="display:block;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;line-height:normal">
+            <div style="text-align:left">
+                <b>
+                    <span style="font-family:arial,&quot;helvetica neue&quot;,helvetica,sans-serif;font-size:18px;line-height:1.2" class="m_font-line-height-large">
+                        <%=t('users.mailer.newcompanyuseremail.title') %> 
+                    </span>
+                </b>
+            </div>
+            <div style="text-align:left">
+                <br>
+            </div>
+            <div style="text-align:left">
+                <span style="color:rgb(0,0,0);font-family:arial,&quot;helvetica neue&quot;,helvetica,sans-serif">
+                    <p><%= @user.name %></p>
+                    <p><%= @user.email %></p>
+                </span>
+            </div>
+        </span>
+    </td>
+</tr>
+<tr style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;vertical-align:top">
+    <td class="m_wrapper--inner" style="border-collapse:collapse!important;word-break:break-word;vertical-align:top;font-family:arial,helvetica neue,helvetica,sans-serif;font-weight:bold;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;color:#333333;padding-top:20px;padding-bottom:0px;padding-right:0px;padding-left:0px;text-align:left">
+        <div style="display:inline-block;margin-left:auto;margin-right:auto;">
+            <a href="<%= admin_users_url %>" class="m_button-component" style="box-sizing:content-box;background-color:#6dc497;border-radius:5px;color:#ffffff;display:inline-block;font-family:arial,helvetica neue,helvetica,sans-serif;font-size:15px;font-style:normal;font-weight:bold;line-height:20px;text-align:center;text-decoration:none;padding:13px 20px;max-width:560px;min-width:100px;word-break:break-all" target="_blank" rel="noreferrer">
+                <%=t('users.mailer.newcompanyuseremail.button')%>
+            </a>
+        </div>
+    </td>
+</tr>

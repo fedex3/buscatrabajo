@@ -1,0 +1,34 @@
+<% content_for :title, t('users.header.passwords.new.title') %>
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="form-body">
+      	<h2><%=t :'users.password.new.title' %></h2>
+					<% if @user and @user.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+					<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+
+					  <div class="form-group input-group-lg">
+					    <%= f.label User.human_attribute_name("email"), :class => "form-label"%>
+					    <%= f.email_field :email, autofocus: true, :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("email") %>
+					  </div>
+
+					  <div class="form-group">
+					    <%= f.submit  t('users.password.new.sendinstructions') , :class => "btn btn-lg btn-primary btn-block", data: { disable_with: t('messages.sending') } %>
+					  </div>
+					<%end%>
+					<%= render "users/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
+

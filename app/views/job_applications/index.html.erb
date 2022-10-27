@@ -1,0 +1,38 @@
+<% content_for :title, t('job_application.header.title') %>
+<% content_for :metadescription, t('job_application.header.description') %>
+<% content_for :script, '<meta name="robots" content="noindex, nofollow" />'.html_safe %>
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-2 col-sm-0">
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <div class="job-applications-header">
+        <h1><%=t('job_application.main.title')%></h1>
+        <%unless @jobs.nil? || @jobs.empty?%>
+          <p>
+            <%=t('job_application.main.detail')%>
+          </p>
+        <%else%>
+          <p>
+            <%=t('job_application.main.empty')%>
+          </p>
+          <a href="<%=jobs_path%>" class="btn btn-primary btn-xl page-scroll btn-margin"><%=t('job_application.main.viewall')%></a>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-0">
+    </div>
+  </div>
+  <%= render :partial => 'jobs/jobs_list_default' %>
+  <%unless @jobs.nil? || @jobs.empty?%>
+    <div class="row no-gutter">
+      <div class="col-lg-12 ">
+        <div class="job-applications-viewmore">
+          <a href="<%=jobs_path%>" class="btn btn-primary btn-xl page-scroll btn-margin"><%=t('job_application.main.viewmore')%></a>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+

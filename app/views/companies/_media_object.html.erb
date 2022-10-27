@@ -1,0 +1,65 @@
+<% if media_object.company_video.present? %>
+    <%if media_object.company_video.vimeo?%>
+        <div class="company-story-video-image">
+        <a id="company_video_<%=media_object.position%>" onclick="replaceThumbforYoutubeVideo('vimeo', '#company_video_<%=media_object.position%>','<%=media_object.company_video.url%>');ga('send', 'event', 'Video Company', 'Play', '<%=office.name.html_safe%>');">
+            <i class="material-icons companies-video-icon">play_circle_filled</i>
+            <img src="https://img.youtube.com/vi/<%=media_object.company_video.url%>1ITC2eO7Q/sddefault.jpg" class="img-responsive">
+            <%=image_tag 'https://img.youtube.com/vi/' + media_object.company_video.url + '/sddefault.jpg', :alt => 'Video ' + media_object.company_video.title, :class => "img-responsive"%>
+            <div class="company-story-video-image-caption">
+                <div class="company-story-video-image-caption-title"><%=media_object.company_video.title%></div>
+                <div class="company-story-video-image-caption-position"><%=media_object.company_video.position%></div>
+            </div>
+        </a>
+        </div>
+    <%elsif media_object.company_video.youtube?%>
+        <div class="company-story-video-image">
+            <a id="company_video_<%=media_object.position%>" onclick="replaceThumbforYoutubeVideo('youtube', '#company_video_<%=media_object.position%>','<%=media_object.company_video.url%>');ga('send', 'event', 'Video Company', 'Play', '<%=office.name.html_safe%>');">
+                <i class="material-icons companies-video-icon">play_circle_filled</i>
+                <img src="https://img.youtube.com/vi/<%=media_object.company_video.url%>/sddefault.jpg" class="img-responsive">
+                <div class="company-story-video-image-caption">
+                    <div class="company-story-video-image-caption-title"><%=media_object.company_video.title%></div>
+                    <div class="company-story-video-image-caption-position"><%=media_object.company_video.position%></div>
+                </div>
+            </a>
+        </div>
+    <%end%>
+<% end %>
+<% if media_object.company_speech.present? %>
+    <div class="company-margin">
+        <blockquote class="<%= media_object.company_speech.speech_type %> mibucle-box">
+            <% if media_object.company_speech.detail.starts_with?('<p>') %>
+            <%= media_object.company_speech.detail.html_safe %>
+            <% else %>
+            <%= ('<p>' + media_object.company_speech.detail + '</p>').html_safe %>
+            <% end %>
+
+            <% unless media_object.company_speech.author.blank? %>
+            <div class="company-speech-author"><%= media_object.company_speech.author %></div>
+            <% end %>
+            <% unless media_object.company_speech.position.blank? %>
+            <div class="company-speech-author-position"><%= media_object.company_speech.position %></div>
+            <% end %>
+        </blockquote>
+        </div>
+<% end %>
+<% if media_object.company_photo.present? %>
+    <div class="company-story-image">
+        <% if media_object.company_photo.photo_content_type.include?("gif")%>
+            <%=image_tag media_object.company_photo.photo(:original),  :alt => office.name + ' - ' + media_object.company_photo.title, :class => "img-responsive", loading: "lazy"%>
+        <% else %>
+            <%=image_tag media_object.company_photo.photo(:medium),  :alt => office.name + ' - ' + media_object.company_photo.title, :class => "img-responsive", loading: "lazy"%>
+        <% end %>
+    </div>
+<% end %>
+<% if media_object.company_story.present? %>
+    <div class="company-story">
+        <h3>
+            <%=media_object.company_story.title.html_safe%>
+        </h3>
+        <%if media_object.company_story.detail.starts_with?('<p>')%>
+            <%=media_object.company_story.detail.html_safe%>
+        <%else%>
+            <%=('<p>' + media_object.company_story.detail + '</p>').html_safe%>
+        <%end%>
+    </div>
+<% end %>

@@ -1,0 +1,15 @@
+// Append new data
+$("<%=j render(:partial => 'companies/companies_list', :object => @companies) %>")
+  .appendTo($(".infinite-table  .companies_list"));
+
+// Update pagination link
+<% if @companies.last_page? %>
+  $('.pagination').html("");
+<% else %>
+  $('.pagination')
+    .html("<%=j link_to_next_page(@companies, '...', :remote => true, params: request.query_parameters.except('page')) %>");
+<% end %>
+
+<% if Rails.env.production? %>
+	ga('send', 'event', 'Companies', 'Scroll', 'Page_ + <%= @companies.current_page.to_s %>');
+<% end %>

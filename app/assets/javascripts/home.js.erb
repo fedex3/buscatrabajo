@@ -1,0 +1,77 @@
+$(function(){ // document ready
+  $(".home").each(function(e) {
+    $("#home_viewmore").click(function() {
+       $("body, html").animate({ 
+        scrollTop: $("#viewmore").offset().top - 80
+      }, 600);
+    });
+
+    $("#homeMenuAdvices").click(function() {
+       $("body, html").animate({ 
+        scrollTop: $("#homeAdvices").offset().top - 80
+      }, 600);
+    });
+
+    $("#homeMenuCompanies").click(function() {
+       $("body, html").animate({ 
+        scrollTop: $("#homeCompanies").offset().top - 80
+      }, 600);
+    });
+
+    $("#homeMenuJobs").click(function() {
+       $("body, html").animate({ 
+        scrollTop: $("#homeJobs").offset().top - 80
+      }, 600);
+    });
+
+    $("#homeMenuCoaching").click(function() {
+       $("body, html").animate({ 
+        scrollTop: $("#homeCoaching").offset().top - 80
+      }, 600);
+    });
+
+
+    $(window).scroll(function(){ // scroll event
+      var windowTop = $(window).scrollTop(); // returns number
+
+      if (windowTop > $("#homeCompanies").offset().top - 70 &&  windowTop <= $("#homeJobs").offset().top - 70){
+        $("#homeMenuAdvices").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuJobs").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCoaching").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCompanies").addClass('home-product-menu-list-text-active'); 
+      }
+      
+      if (windowTop > $("#homeJobs").offset().top - 70 &&  windowTop <= $("#homeCoaching").offset().top - 70){
+        $("#homeMenuAdvices").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCompanies").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCoaching").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuJobs").addClass('home-product-menu-list-text-active');  
+      }
+
+
+      if (windowTop > $("#homeCoaching").offset().top - 70 &&  windowTop <= $("#homeAdvices").offset().top - 70){
+        $("#homeMenuAdvices").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuJobs").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCompanies").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCoaching").addClass('home-product-menu-list-text-active');  
+      }
+
+      if (windowTop > $("#homeAdvices").offset().top - 70){
+        $("#homeMenuCompanies").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuJobs").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuCoaching").removeClass('home-product-menu-list-text-active');  
+        $("#homeMenuAdvices").addClass('home-product-menu-list-text-active'); 
+      }
+
+      if (windowTop > $('#homeProducts').offset().top - 0) {
+        if (!$('#homeProductsMenu').hasClass('home-product-menu-list-top')){
+          $('#homeProductsMenu').addClass('home-product-menu-list-top');
+        }
+      } else {
+        if ($('#homeProductsMenu').hasClass('home-product-menu-list-top')){
+          $('#homeProductsMenu').removeClass('home-product-menu-list-top');
+        }
+      }
+    });
+  });  
+});

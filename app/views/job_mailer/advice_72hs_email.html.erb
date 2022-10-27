@@ -1,0 +1,21 @@
+<tr style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
+    <td class="m_wrapper--inner" align="left" style="padding:0;border-collapse:collapse!important;line-height:120%;font-size:12px;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;word-break:break-word;word-wrap:break-word">
+        <span style="display:block;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;line-height:normal">
+            <div style="text-align:left">
+                <b>
+                    <span style="font-family:arial,&quot;helvetica neue&quot;,helvetica,sans-serif;font-size:18px;line-height:1.2" class="m_font-line-height-large">
+                        <%= t('job.mailer.title') %>
+                    </span>
+                </b>
+            </div>
+            <div style="text-align:left">
+                <br>
+            </div>
+            <div style="text-align:left">
+                <span style="color:rgb(0,0,0);font-family:arial,&quot;helvetica neue&quot;,helvetica,sans-serif">
+                    <%= t('job.mailer.body_html', job:@job.name, views: @job.views, count: @job.application_counter, date: @job.end_date.in_time_zone('Buenos Aires').strftime("%d/%m/%Y")) %>
+                </span>
+            </div>
+        </span>
+    </td>
+</tr>

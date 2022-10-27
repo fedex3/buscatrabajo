@@ -1,0 +1,41 @@
+<div class="row" id="other-companies-div">
+	<%unless @recommended_companies.nil? || @recommended_companies.empty?%>
+		<section class="section-width">
+			<div class="other-company-list">
+				<div class="col-lg-12">
+					<div class="other-companies-title">
+						<%=t('company.other.title') %>
+					</div>
+				</div>
+		    <% @recommended_companies.each do |recommended_company| %>
+		    	<% cache [:locale => I18n.locale, :recommended_company => recommended_company], :expires_in => 1.hour do %>
+				    <div class="col-sm-3 col-xs-6">
+				    	<a href="<%=company_path(recommended_company.name_id)%>">
+								<% if recommended_company.main_photo.present? %>
+					    		<div class="other-company-summary">
+										<div class="other-company-summary-image">
+						  				<img src="<%=recommended_company.main_photo(:small)%>" alt="<%=recommended_company.name%>" class="img-responsive" loading="lazy">
+						  			</div>
+								<% else %>
+									<div class="other-company-summary-small">
+								<% end %>
+					  			<div class="other-company-summary-info">
+				            <h3>
+				            	<%=recommended_company.name%>
+				            </h3>
+				            <div class="other-company-summary-bottom">
+				            	<div class="other-company-summary-bottom-text">
+				            		<%= recommended_company.industries.map { |t| t.name }.join(' | ').html_safe%><br>
+					            	<%= show_company_countries(recommended_company) %>
+						      		</div>
+					          </div>
+				          </div>
+					  		</div>
+					  	</a>
+				    </div>
+				  <%end%>
+			  <%end%>
+		  </div>
+	  </section>
+	<%end%>
+</div>

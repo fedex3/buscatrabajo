@@ -1,0 +1,122 @@
+<% unless @company_special_event.alphabetize?%>
+	<% if @gold_companies.present?%>
+		<% @gold_companies.shuffle.each do |company| %>
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<a href="<%= company_path(company.name_id, special_event: @company_special_event.code, token: @company_special_event.token) %>">
+					<% if company.main_photo.present? %>
+					<div class="company-summary">
+						<div class="company-summary-image">
+							<img src="<%= company.main_photo(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+						</div>
+					<% else %>
+						<div class="company-summary-small">
+					<% end %>
+						<div class="company-summary-info">
+							<div class="company-summary-bottom-logo">
+								<img src="<%= company.icon(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+							</div>
+							<h3><%= company.name %></h3>
+							<div class="company-summary-bottom">
+								<div class="company-summary-bottom-text">
+									<%= company.industries.map { |t| t.name }.join(' | ').html_safe %><br>
+									<%= show_company_countries(company) %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<% end %>
+	<% end %>
+	<div class="col-sm-12"></div>
+	<% if @silver_companies.present?%>
+		<% @silver_companies.shuffle.each do |company| %>
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<a href="<%= company_path(company.name_id, special_event: @company_special_event.code, token: @company_special_event.token) %>">
+					<% if company.main_photo.present? %>
+						<div class="company-summary-medium">
+							<div class="company-summary-image-medium">
+								<img src="<%= company.main_photo(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+							</div>
+					<% else %>
+						<div class="company-summary-small">
+					<% end %>
+						<div class="company-summary-info">
+							<div class="company-summary-bottom-logo">
+								<img src="<%= company.icon(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+							</div>
+							<h3><%= company.name %></h3>
+							<div class="company-summary-bottom">
+								<div class="company-summary-bottom-text">
+									<%= company.industries.map { |t| t.name }.join(' | ').html_safe %><br>
+									<%= show_company_countries(company) %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<% end %>
+	<% end %>
+	<div class="col-sm-12"></div>
+	<% if @bronze_and_free_companies.present?%>
+		<%# Para dejar a la UADE como último siempre%>
+		<% @bronze_and_free_companies -= [Company.find_by(name_id: "uade")] %>
+		<% @bronze_and_free_companies.shuffle%>	
+		<% @bronze_and_free_companies += [Company.find_by(name_id: "uade")] %>
+		<% @bronze_and_free_companies.each do |company| %>
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+					<a href="<%= company_companies_jobs_path(company_name_id: company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?)) %>">
+				<% else %>
+					<a href="<%= company_path(company.name_id, special_event: @company_special_event.code, token: @company_special_event.token) %>">
+				<% end %>
+					<div class="company-summary-small">
+						<div class="company-summary-info">
+							<div class="company-summary-bottom-logo">
+								<img src="<%= company.icon(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+							</div>
+							<h3><%= company.name %></h3>
+							<div class="company-summary-bottom">
+								<div class="company-summary-bottom-text">
+									<%= company.industries.map { |t| t.name }.join(' | ').html_safe %><br>
+									<%= show_company_countries(company) %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<% end %>
+	<% end %>
+<%else%>
+	<% if @companies.present?%>
+		<% @companies.each do |company| %>
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<a href="<%= company_path(company.name_id, special_event: @company_special_event.code, token: @company_special_event.token) %>">
+					<% if company.main_photo.present? %>
+					<div class="company-summary">
+						<div class="company-summary-image">
+							<img src="<%= company.main_photo(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+						</div>
+					<% else %>
+						<div class="company-summary-small">
+					<% end %>
+						<div class="company-summary-info">
+							<div class="company-summary-bottom-logo">
+								<img src="<%= company.icon(:small) %>" alt="<%= company.name %>" class="img-responsive" loading="lazy">
+							</div>
+							<h3><%= company.name %></h3>
+							<div class="company-summary-bottom">
+								<div class="company-summary-bottom-text">
+									<%= company.industries.map { |t| t.name }.join(' | ').html_safe %><br>
+									<%= show_company_countries(company) %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<% end %>
+	<% end %>
+<%end%>

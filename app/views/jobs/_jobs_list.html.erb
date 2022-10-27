@@ -1,0 +1,54 @@
+<% @jobs.each do |job| %>
+	<div class="col-md-4 col-sm-6 col-xs-12">
+		<% if job.photo.present? %>
+			<div class="job-summary">
+				<div class="job-summary-image">
+					<a href="<%=company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" target="<%= a_target_for_iframe %>">
+						<img src="<%=job.photo(:small)%>" alt="<%=job.name + ' - ' +job.company.name%>" class="img-responsive" loading="lazy">
+					</a>
+				</div>
+		<% else %>
+			<% if job.company.offices.listable.first.photos.show_jobs.present? %>
+				<div class="job-summary">
+					<div class="job-summary-image">
+						<a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" target="<%= a_target_for_iframe %>">
+							<img src="<%= job.company.offices.listable.first.photos.show_jobs.sample.photo(:small_for_job)%>" alt="<%=job.name + ' - ' +job.company.name%>" class="img-responsive" loading="lazy">
+						</a>
+					</div>
+			<% else %>
+				<div class="job-summary-small">
+			<% end %>
+		<% end %>
+			<div class="job-summary-info text-left">
+				<h3>
+					<a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=job.name[0..50]%>
+						<% if job.name.length>50%>
+							...
+						<% end%>
+					</a>
+				</h3>
+				<div class="job-summary-bottom">
+					<div class="job-summary-bottom-logo">
+						<a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><img loading="lazy" src="<%=job.company.icon%>" alt="<%=job.name%>" class="img-responsive"></a>
+					</div>
+					<div class="job-summary-bottom-text">
+						<h4><a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%= job.company.name%></a></h4>
+						<%if job.level.present?%>
+							<%=job.level.name + ' | '%>
+						<%end%>
+						<%=job.industry.name %>
+						<%if job.part_time%>
+							<%=' | ' + Job.human_attribute_name("part_time")%>
+						<%end%>
+						<br>
+						<% if job.remote? %>
+							<%= '100% Remoto' %>
+						<% else %>
+							<%= show_job_countries(job) %>
+						<% end %>
+					</div>
+				</div>
+      		</div>
+		</div>
+  	</div>
+<% end %>

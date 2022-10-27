@@ -1,0 +1,40 @@
+<% content_for :title, (t('.header.title')) %>
+<% content_for :metadescription, (t('.header.description')) %>
+<%= render :partial => 'layouts/structured_data' %>
+
+<%
+opengraph = ""
+opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
+opengraph += '<meta property="og:title" content="' + (t('.header.title')) + '" />'
+opengraph += '<meta property="og:description" content="' + (t('.header.description')) + '" />'
+opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
+opengraph += '<meta property="og:image" content="' + image_url("logoFB.webp") + '" />'
+opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
+%>
+<% content_for :opengraph, opengraph.html_safe %>
+
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 text-center">
+        <%= image_tag("registration_thank_you.webp", loading: "lazy") %>
+        <div class="main-title">
+          <h3><%= t('.main-title') %></h3>
+        </div>
+        <div class="main-text">
+          <%= t('.main-text') %>
+        </div>
+        <div class="main-button">
+        <table>
+          <%= link_to t('.main-button'), jobs_path, class:"btn btn-primary btn-xs-block" %>
+          <%= link_to t('.secondary-button'), companies_path, class:"btn btn-company btn-xs-block" %>
+          <% if !current_user.nil? && !current_user.user_in_spain?(session) && !current_user.user_in_chile?(session) %>
+            <%= form_with url: user_tests_path do |f| %>
+              <%= f.submit "Realiza tu test",  class:"btn btn-primary btn-xs-block", style: "background-color: #007deb;", data: { disable_with: t('messages.sending') } %>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

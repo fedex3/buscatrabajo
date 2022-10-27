@@ -1,0 +1,49 @@
+<% content_for :analytics_event, ("ga(function(tracker) { $('input#analytics_client_id').val(tracker.get('clientId'));});").html_safe %>
+
+<div class="modal askmail" id="modalJobApplicationSoft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body" id="modal_job_application_soft_body">
+        <%= hidden_field_tag :locale, I18n.locale %>
+        <%= hidden_field_tag :analytics_client_id %>
+        <input type="hidden" id="txt_job_application_source" value="<%=session[:source].nil? ? "" : session[:source]%>">
+        <input type="hidden" id="txt_job_application_medium" value="<%=session[:medium].nil? ? "" : session[:medium]%>">
+        <input type="hidden" id="txt_job_application_campaign" value="<%=session[:campaign].nil? ? "" : session[:campaign]%>">
+        <input type="hidden" id="txt_job_application_term" value="<%=session[:term].nil? ? "" : session[:term]%>">
+        <h2><%=t :'job_application.soft_application.title' %></h2>
+        <div id="job-application-soft-alert" class="alert alert-danger" role="alert" style="display:none;">
+          <label for="job-application-soft-error"></label>
+        </div>
+        <div class="form-group input-group-lg">
+          <label class="form-label"><%=User.human_attribute_name("name")%></label>
+          <input id="txt_user_name" type="text" name="txt_user_name" class="form-control"/>
+        </div>
+        <div class="form-group input-group-lg">
+          <label class="form-label"><%=User.human_attribute_name("email")%></label>
+          <input id="txt_newsletter_email" type="email" name="txt_newsletter_email" class="form-control"/>
+        </div>
+        <div class="form-group input-group-lg">
+          <label class="form-label"><%=User.human_attribute_name("password")%></label>
+          <input id="txt_user_password" type="password" name="txt_user_password" class="form-control"/>
+        </div>
+        <div class="form-group input-group-lg">
+          <label class="form-label"><%=User.human_attribute_name("country")%></label>
+          <%selected_country = geokit_country_code%>
+          <%= select_tag :select_user_country, options_for_select(reduced_countries_list, selected_country), class: "form-control margin-bottom-sm" %>
+        </div>
+        <p>
+          <%=t('job_application.accept')%> <%= link_to t('job_application.terms'), terms_path, target: "_blank", :class => "link-soft" %>
+        </p>  
+        <div class="form-group">
+          <input type="button" data-disable-with="<%=t('messages.sending')%>" class="btn btn-lg btn-primary btn-block" value="<%=t :'job_application.soft_application.submit' %>" id="btn_job_application_soft_submit">
+        </div>
+        <p>
+          <%= link_to t('header.signin'), user_session_newform_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modalJobApplicationSignIn', "data-dismiss" => "modal" ,:id => "btn_job_application_soft_modal", :rel => "nofollow"} %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

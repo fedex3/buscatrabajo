@@ -1,0 +1,83 @@
+
+<div class="modal-body job_applications" id="job_application_form">
+  <h2 class="text-center"><%=t :'job_application.title' %></h2>
+  <div id="job-application-alert" class="alert alert-danger" role="alert" style="display:none;">
+    <label for="job-application-error"></label>
+  </div>
+  <%unless current_user%>
+    <div class="form-group">
+      <%= link_to 'Logueate y aplicá', user_session_newform_path,  {:remote => true, 'data-toggle' =>  "modal",
+      'data-target' => '#modalJobApplicationSignIn', "data-dismiss" => "modal" ,:id => "btn_job_application_soft_modal",
+      :rel => "nofollow", :class => "btn btn-lg btn-job btn-block mt-2"} %>
+    </div>
+
+    <p class="text-center fs-1-5">o</p>
+
+    <p class="text-center fs-1-5">Registrate y aplicá</p>
+  <%end%>
+  <%= form_for [@job.company, @job, JobApplication.new], :url => company_job_job_applications_path(@job.company.id, @job.id, :special_event => (params[:special_event] if params[:special_event].present?)), :html => { :multipart => true }, :remote => true, :authenticity_token => true do |f| %>
+    <%= hidden_field_tag :analytics_client_id %>
+    <%= hidden_field_tag :job_application_full_apply, "true" %>
+    <%= hidden_field_tag :job_application_user_source, session[:source].nil? ? "" : session[:source] %>
+    <%= hidden_field_tag :job_application_user_medium, session[:medium].nil? ? "" : session[:medium] %>
+    <%= hidden_field_tag :job_application_user_campaign, session[:campaign].nil? ? "" : session[:campaign] %>
+    <%= hidden_field_tag :job_application_user_term, session[:term].nil? ? "" : session[:term] %>
+
+    <%if current_user.nil?%>
+      <%= hidden_field_tag :job_application_new_user, "true" %>
+      <div class="form-group input-group-lg">
+        <label class="form-label"><%=User.human_attribute_name("name")%></label>
+        <%= text_field_tag :job_application_user_name, '', :class => "form-control" %>
+      </div>
+      <div class="form-group input-group-lg">
+        <label class="form-label"><%=User.human_attribute_name("email")%></label>
+        <%= email_field_tag :job_application_user_email, '', :class => "form-control" %>
+      </div>
+      <div class="form-group input-group-lg">
+        <label class="form-label"><%=User.human_attribute_name("create_password")%></label>
+        <%= password_field_tag :job_application_user_password, '', :class => "form-control" %>
+      </div>
+    <%end%>
+    <div class="form-group input-group-lg">
+      <%if !current_user.nil? && !current_user.user_cvs.active.take().nil?%>
+
+        <div id='job_application_view_cv' class='alert alert-info' role='alert'>
+          <%=t('job_application.use_cv')%>
+          <a href="<%=current_user.user_cvs.active.take().cv.url%>">
+          <%=t('job_application.view_cv')%>
+          </a>
+        </div>
+
+        <a id="job_application_new_cv" type="button" style="cursor:pointer;">
+          <%=t('job_application.new_cv')%>
+        </a>
+
+        <%= file_field_tag :job_application_user_cv, accept: '.pdf,.doc,.docx', :class => "form-control", :placeholder => JobApplication.human_attribute_name("cv"), :style => "display:none;"%>
+
+      <%else%>
+        <label class="form-label"><%=JobApplication.human_attribute_name("cv")%></label>
+        <%= file_field_tag :job_application_user_cv, accept: '.pdf,.doc,.docx', :class => "form-control", :placeholder => JobApplication.human_attribute_name("cv") %>
+      <%end%>
+    </div>
+
+    <div class="form-group input-group-lg">
+      <label class="form-label"><%=JobApplication.human_attribute_name("comment")%></label>
+      <%= f.text_area :comment, :class => "form-control", :maxlength => 500, :placeholder => t('job_application.optional'), :cols => 30, :rows => 4%>
+    </div>
+
+    <p>
+      <%=t('job_application.accept')%> <%= link_to t('job_application.terms'), terms_path, target: "_blank", :class => "link-soft" %>
+    </p>
+    <div class="form-group">
+      <%= f.submit  t('job_application.submit') , :class => "btn btn-lg btn-job btn-block", data: { disable_with: t('messages.sending') } %>
+    </div>
+  <%end%>
+</div>
+
+<div id='job_application_thanks' class='alert alert-success' role='alert' style="display:none;">
+  <% if ENV['TESTS_ENABLED'].to_boolean && @job.company.enable_tests %>
+    <%=t('job_application.thanks_for_active_tests', :company => @job.company.name)%>
+  <% else %>
+    <%=t('job_application.thanks', :company => @job.company.name)%>
+  <% end %>
+</div>

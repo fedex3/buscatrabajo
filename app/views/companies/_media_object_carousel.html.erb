@@ -1,0 +1,21 @@
+<% if mo.company_photo.present? %>
+    <% if mo.company_photo.photo_content_type.include?("gif")%>
+    <%=image_tag mo.company_photo.photo(:original),  :alt => mo.office.name + ' - ' + mo.company_photo.title, :class => "img-responsive carousel-gif", loading: "lazy"%>
+    <% else %>
+        <%=image_tag mo.company_photo.photo(:medium),  :alt => mo.office.name + ' - ' + mo.company_photo.title, :class => "img-responsive", loading: "lazy"%>
+    <% end %>
+    <div class="carousel-caption company-carousel-caption">
+    <h3><%=mo.company_photo.detail%></h3>
+    </div>
+<% else %>
+    <div class="company-main-video-image">
+        <a id="company_main_video_<%=mo.office_id%>_<%=index.to_s%>" onclick="replaceThumbforYoutubeVideo('youtube', '#company_main_video_<%=mo.office_id%>_<%=index.to_s%>','<%=mo.company_video.url%>');ga('send', 'event', 'Video Company Main', 'Play', '<%=mo.office.name.html_safe%>');">
+            <i class="material-icons companies-main-video-icon">play_circle_filled</i>
+            <img src="https://img.youtube.com/vi/<%=mo.company_video.url%>/sddefault.jpg" class="img-responsive">
+            <div class="company-main-video-image-caption hidden-sm hidden-xs">
+            <div class="company-main-video-image-caption-title"><%=mo.company_video.title%></div>
+            <div class="company-main-video-image-caption-position"><%=mo.company_video.position%></div>
+            </div>
+        </a>
+    </div>
+<% end %>

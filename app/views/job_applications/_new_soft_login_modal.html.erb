@@ -1,0 +1,37 @@
+<div class="modal fade" id="modalJobApplicationSignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body" id="modal_job_application_soft_body">
+        <h2><%=t :'users.sessions.title' %></h2>
+        <% if alert %>
+          <div class="alert alert-danger" role="alert">
+            <p><%= alert %></p>
+          </div>
+        <% end %>
+        <% session[:job_name_id] = params[:name_id]%>
+        
+        <p><br><%=t :'users.sessions.withemail' %></p>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name, soft_login_application: "true", external_job_link: (@job.url if @job.url.present?), internal_job_link: (request.original_url if @job.url.blank?))) do |f| %>
+          <div class="form-group input-group-lg">
+            <%= f.label User.human_attribute_name("email"), :class => "form-label"%>
+            <%= f.email_field :email, autofocus: true, :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("email") %>
+          </div>
+          <div class="form-group input-group-lg">
+            <%= f.label User.human_attribute_name("password"), :class => "form-label"%>
+            <%= f.password_field :password, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("password") %>
+          </div>
+          <div class="form-group">
+            <%= f.submit  t('users.actions.signin') , :class => "btn btn-lg btn-primary btn-block", :id => "btn_job_application_soft_login_submit", data: { disable_with: t('messages.sending') } %> 
+          </div>
+          <p class="rs ta-c">
+            <%= link_to t('users.actions.forgetpassword'), new_password_path(resource_name)  %><br/>
+            <%= link_to t('header.signup'), user_session_newform_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modalJobApplicationSoft', "data-dismiss" => "modal" ,:id => "btn_job_application_soft_modal", :rel => "nofollow"} %>
+          </p>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="row">
+  <section class="section-jobs text-center">
+    <% if @jobs_not_found && params[:company_name_id] %>
+      <h3 class ="jobs-not-found"><%=t('job.index.empty_in_company', href: link_to(t('job.index.empty_href'), jobs_path)).html_safe%></h3>
+    <% elsif @jobs_not_found%>
+      <h3 class ="jobs-not-found"><%=t('job.index.empty')%></h3>
+    <%end%>
+    <div class="job-list">
+      <div class="infinite-table">
+        <div class="jobs_list">
+          <%= render :partial => 'jobs/jobs_list' %>
+        </div>
+        <%unless @jobs_not_found%>
+        <p class="pagination">
+          <%= link_to_next_page(@jobs, '...', :remote => true, params: request.query_parameters.except("page")) %>
+        </p>
+        <%end%>
+      </div>
+    </div>
+  </section>
+</div>
+

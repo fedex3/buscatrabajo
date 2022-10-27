@@ -1,0 +1,36 @@
+<div class="carousel slide" >
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <% photos.each_with_index do |photo, index| %>
+      <li data-target="#company-carousel"  onclick="ga('send', 'event', 'Photo Company', 'Select', '<%= office.name.html_safe%>');" data-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : ''%>">
+      </li>
+    <%end%>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <% photos.each_with_index do |photo, index| %>
+      <div class="item <%= index == 0 ? 'active' : ''%>">
+        <% if media_object.company_photo.photo_content_type.include?("gif")%>
+            <%=image_tag photo.photo(:original),  :alt => @office.name + ' - ' + photo.title, :class => "img-responsive", loading: "lazy"%>
+        <% else %>
+            <%=image_tag photo.photo(:medium),  :alt => @office.name + ' - ' + photo.title, :class => "img-responsive", loading: "lazy"%>
+        <% end %>
+        <div class="carousel-caption company-carousel-caption">
+          <h3><%= photo.detail %></h3>
+        </div>
+      </div>
+    <%end%>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#company-carousel" role="button" data-slide="prev" onclick="ga('send', 'event', 'Photo Company', 'Prev', '<%=office.name.html_safe%>');">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only"><%=t('company.carousel.prev')%></span>
+  </a>
+  <a class="right carousel-control" href="#company-carousel" role="button" data-slide="next" onclick="ga('send', 'event', 'Photo Company', 'Next', '<%=office.name.html_safe%>');">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only"><%=t('company.carousel.next')%></span>
+  </a>
+</div>
+

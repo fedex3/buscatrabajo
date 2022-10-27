@@ -1,0 +1,263 @@
+//=require collections/mercado_pago
+$(function(){ // document ready
+  $(".coaching_bookings").each(function(e) {
+
+  	$('#method').change(function() {
+      var checked_method = $('#method input:radio:checked').val()
+      var checked_collection = $('#collection input:radio:checked').val()
+      if (checked_method == 'face'){
+        $("#face_method_alert").show();
+        $("#coaching-booking-summary-amount-face").show();
+        $("#coaching-booking-summary-amount").hide();
+        $("#coaching-booking-summary-amount-usd").hide();
+
+      } else {
+        $("#face_method_alert").hide();
+        $("#coaching-booking-summary-amount-face").hide();
+       	
+       	//si clickeo, muestro segun el metodo de pagi
+        if (checked_collection == 'paypal'){
+	        $("#coaching-booking-summary-amount").hide();
+	        $("#coaching-booking-summary-amount-usd").show();
+	      } else {
+	        $("#coaching-booking-summary-amount").show();
+	        $("#coaching-booking-summary-amount-usd").hide();
+	      }
+      }
+
+      
+    });
+
+  	$('#collection').change(function() {
+      var checked_collection = $('#collection input:radio:checked').val()
+      var checked_method = $('#method input:radio:checked').val()
+      if (checked_collection == 'mercado_pago'){
+        $("#mercado_pago_collection").show();
+      } else {
+        $("#mercado_pago_collection").hide();
+      } 
+    });
+
+  	$('#chk_has_coupon').click(function() {
+  		var checked_collection = $('#collection input:radio:checked').val()
+		  //if ($('input[name="chk_has_coupon"]:checked').length > 0 && checked_collection != 'paypal'){
+		  if ($('input[name="chk_has_coupon"]:checked').length > 0){
+		  	$("#coaching-bookings-coupon").show();
+		  } else {
+		  	$("#coaching-bookings-coupon").hide();
+		  	$("label[for='coaching-pack-amount-coupon']").html('');
+	    	$("label[for='coaching-pack-amount']").removeClass('coaching-booking-summary-pack-amount-line');
+	    	$("label[for='coaching-pack-amount-coupon-usd']").html('');
+	    	$("label[for='coaching-pack-amount-usd']").removeClass('coaching-booking-summary-pack-amount-line');
+	    	$("label[for='coaching-pack-amount-coupon-face']").html('');
+	    	$("label[for='coaching-pack-amount-face']").removeClass('coaching-booking-summary-pack-amount-line');
+		  }
+		});
+
+    /*Popup Contacto POST*/
+		$("#btn_coaching_booking_coupon").on("click",function(event){
+	    $('#btn_coaching_booking_coupon').attr('disabled', '');
+	    var txt_coaching_booking_coupon = $("#coaching_booking_coupon_code").val();
+	    var coaching_pack_amount = parseFloat($("#coaching_pack_amount").val());
+	    var coaching_pack_amount_usd = parseFloat($("#coaching_pack_amount_usd").val());
+	    var coaching_pack_amount_face = parseFloat($("#coaching_pack_amount_face").val());
+	    var checked_collection = $('#collection input:radio:checked').val()
+      //if (txt_coaching_booking_coupon != "" && checked_collection != 'paypal'){
+      if (txt_coaching_booking_coupon != ""){	
+	      $.ajax({
+	        type: "GET",
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: "/coupons/" + txt_coaching_booking_coupon,
+	        success: function(resp){
+	          $('#coaching-bookings-coupon-alert').hide();
+	          $("label[for='coaching-bookings-coupon-error']").html('');
+	          if (resp.coupon_type == 'percentage') {
+	          	coaching_pack_amount = parseInt(coaching_pack_amount * (1 - parseFloat(resp.value)/100));
+	          	coaching_pack_amount_usd = parseInt(coaching_pack_amount_usd * (1 - parseFloat(resp.value)/100));
+	          	coaching_pack_amount_face = parseInt(coaching_pack_amount_face * (1 - parseFloat(resp.value)/100));
+	          }
+	          if (resp.coupon_type == 'numeric') {
+	          	//coaching_pack_amount = coaching_pack_amount- parseFloat(resp.value);
+	          }
+	          $("label[for='coaching-pack-amount-coupon']").html(coaching_pack_amount);
+	          $("label[for='coaching-pack-amount']").addClass('coaching-booking-summary-pack-amount-line');
+	          $("label[for='coaching-pack-amount-coupon-usd']").html(coaching_pack_amount_usd);
+	          $("label[for='coaching-pack-amount-usd']").addClass('coaching-booking-summary-pack-amount-line');
+	          $("label[for='coaching-pack-amount-coupon-face']").html(coaching_pack_amount_face);
+	          $("label[for='coaching-pack-amount-face']").addClass('coaching-booking-summary-pack-amount-line');
+	        },
+	        error: function(resp){
+	          var errors = $.parseJSON(resp.responseText).errors;
+	          $('#coaching-bookings-coupon-alert').show();
+	          $("label[for='coaching-bookings-coupon-error']").html(errors);
+	          $("label[for='coaching-pack-amount-coupon']").html('');
+	          $("label[for='coaching-pack-amount']").removeClass('coaching-booking-summary-pack-amount-line');
+	          $("label[for='coaching-pack-amount-coupon-usd']").html('');
+	          $("label[for='coaching-pack-amount-usd']").removeClass('coaching-booking-summary-pack-amount-line');
+	          $("label[for='coaching-pack-amount-coupon-face']").html('');
+	          $("label[for='coaching-pack-amount-face']").removeClass('coaching-booking-summary-pack-amount-line');
+	        }
+	      });
+	    } else{
+	    	$("label[for='coaching-pack-amount-coupon']").html('');
+	    	$("label[for='coaching-pack-amount']").removeClass('coaching-booking-summary-pack-amount-line');
+	    	$("label[for='coaching-pack-amount-coupon-usd']").html('');
+	    	$("label[for='coaching-pack-amount-usd']").removeClass('coaching-booking-summary-pack-amount-line');
+	    	$("label[for='coaching-pack-amount-coupon-face']").html('');
+	    	$("label[for='coaching-pack-amount-face']").removeClass('coaching-booking-summary-pack-amount-line');
+	    }
+      $('#btn_coaching_booking_coupon').removeAttr('disabled');
+    });
+
+    $('#user_country').change(function() {
+      var txtcountry = $("#user_country").val();
+      var checked_collection = $('#collection input:radio:checked').val()
+
+      if (txtcountry == 'AR') {
+        $("#mercado_pago_collection_radio").show();
+        $("#bank_transfer_collection_radio").show();
+        $("#paypal_collection_radio").hide();
+
+        $("#face_method_radio").show();
+        $("#mercado_pago_collection").show();
+
+        $('#paypal').prop('checked', false);
+        $('#bank_transfer').prop('checked', false);
+        $('#mercado_pago').prop('checked', true);
+
+        $("#coaching-booking-summary-amount").show();
+        $("#coaching-booking-summary-amount-usd").hide();
+
+        $("#coaching-booking-method-amount-ars").show();
+        $("#coaching-booking-method-amount-usd").hide();
+
+      } else{
+        $("#mercado_pago_collection_radio").hide();
+        $("#bank_transfer_collection_radio").hide();
+        $("#paypal_collection_radio").show();
+
+        $("#mercado_pago_collection").hide();
+        $("#face_method_alert").hide();
+        $("#face_method_radio").hide();
+        $("#coaching-booking-summary-amount-face").hide();
+
+        $('#face').prop('checked', false);
+        $('#online').prop('checked', true);
+        
+        $('#mercado_pago').prop('checked', false);
+        $('#bank_transfer').prop('checked', false);
+        $('#paypal').prop('checked', true);
+
+        $("#coaching-booking-summary-amount").hide();
+        $("#coaching-booking-summary-amount-usd").show();
+
+        $("#coaching-booking-method-amount-ars").hide();
+        $("#coaching-booking-method-amount-usd").show();
+      }
+    });
+
+    function addEvent(el, eventName, handler){
+		  if (el.addEventListener) {
+		         el.addEventListener(eventName, handler);
+		  } else {
+		      el.attachEvent('on' + eventName, function(){
+		        handler.call(el);
+		      });
+		  }
+		};
+
+		function getBin() {
+		    var ccNumber = document.querySelector('input[data-checkout="cardNumber"]');
+		    return ccNumber.value.replace(/[ .-]/g, '').slice(0, 6);
+		};
+
+		function guessingPaymentMethod(event) {
+		  var bin = getBin();
+
+		  if (event.type == "keyup") {
+		    if (bin.length >= 6) {
+		      Mercadopago.getPaymentMethod({
+		          "bin": bin
+		      }, setPaymentMethodInfo);
+		    }
+		  } else {
+		    setTimeout(function() {
+		      if (bin.length >= 6) {
+		        Mercadopago.getPaymentMethod({
+		            "bin": bin
+		        }, setPaymentMethodInfo);
+		      }
+		    }, 100);
+		  }
+		};
+
+		function setPaymentMethodInfo(status, response) {
+		  if (status == 200) {
+		    // do somethings ex: show logo of the payment method
+		    var form = document.querySelector('#new_coaching_booking');
+
+		    if (document.querySelector("input[name=paymentMethodId]") == null) {
+		      var paymentMethod = document.createElement('input');
+		      paymentMethod.setAttribute('name', "paymentMethodId");
+		      paymentMethod.setAttribute('type', "hidden");
+		      paymentMethod.setAttribute('value', response[0].id);
+
+		      form.appendChild(paymentMethod);
+		    } else {
+		      document.querySelector("input[name=paymentMethodId]").value = response[0].id;
+		    }
+		  }
+		};
+		  
+		if ($('#mercado_pago').length > 0){
+		  addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', guessingPaymentMethod);
+		  addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'change', guessingPaymentMethod);
+		}
+		doSubmit = false;
+		addEvent(document.querySelector('#new_coaching_booking'),'submit',doPay);
+		function doPay(event){
+		  $('#btn_coaching_booking_submit').attr("disabled","disabled");
+		  $('#btn_coaching_booking_submit').val('<%=I18n.t("messages.sending")%>');
+
+		  var form = document.querySelector('#new_coaching_booking');
+
+		  if ($('#collection input:radio:checked').val() == 'mercado_pago'){
+		    var email = document.createElement('input');
+		    email.setAttribute('name',"email");
+		    email.setAttribute('id',"email");
+		    email.setAttribute('type',"hidden");
+		    email.setAttribute('value',$('#user_email').val());
+		    form.appendChild(email);
+
+		    event.preventDefault();
+		    if(!doSubmit){
+		      var $form = document.querySelector('#new_coaching_booking');
+		      Mercadopago.createToken($form, sdkResponseHandler); // The function "sdkResponseHandler" is defined below
+		      return false;
+		    }  
+		  } else {
+		    form.submit();
+		  }
+
+		};
+		function sdkResponseHandler(status, response) {
+		  if (status != 200 && status != 201) {
+		    alert("<%=I18n.t('collection.mercado_pago.error.data')%>");
+		    $('#btn_coaching_booking_submit').removeAttr('disabled');
+		    $('#btn_coaching_booking_submit').val('<%=I18n.t("coaching_booking.main.action")%>');
+		  }else{
+		     
+		    var form = document.querySelector('#new_coaching_booking');
+
+		    var card = document.createElement('input');
+		    card.setAttribute('name',"token");
+		    card.setAttribute('type',"hidden");
+		    card.setAttribute('value',response.id);
+		    form.appendChild(card);
+		    doSubmit=true;
+		    form.submit();
+		  }
+		};
+  });  
+});
+

@@ -1,0 +1,156 @@
+<% if @company_special_event.present? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+  <% content_for :title, (t('company.show.header.title_fintechile', :name => @company.name)) %>
+<% else %>
+  <% content_for :title, (t('company.show.header.title', :name => @company.name)) %>
+<% end %>
+
+<% content_for :metadescription, (t('company.show.header.description',:name => @company.name)) %>
+
+<% content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
+
+<%if !@company.active || @preview %>
+	<% content_for :script, '<meta name="robots" content="noindex, nofollow" />'.html_safe %>
+<%end%>
+<%= render :partial => 'layouts/structured_data' %>
+
+<% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
+
+<%
+opengraph = ""
+opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
+opengraph += '<meta property="og:title" content="' + t('company.share.opengraph.title', :name => @company.name) + '" />'
+opengraph += '<meta property="og:description" content="' + t('company.share.opengraph.summary', :name => @company.name, :location => (@company.city.blank? ? @company.state : @company.city ) )  + ((@company_jobs.length  > 0 || !@company.jobs_url.blank?) ? t('company.share.opengraph.summary_jobs') : '' ) + '" />'
+opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
+opengraph += '<meta property="og:image" content="' + @company.main_photo.url(:large) + '" />'
+opengraph += '<meta property="og:image:width" content="1200" />'
+opengraph += '<meta property="og:image:height" content="630" />'
+opengraph += '<meta property="og:type" content="' + "article" + '" />'
+opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
+opengraph += '<meta property="article:published_time" content="' + @company.created_at.strftime('%FT%T') + '" />'
+opengraph += '<meta property="article:tag" content="' + (@company.industries.map { |t| t.name }.join(',') ) + '" />'
+opengraph += '<meta name="twitter:card" content="summary_large_image">'
+opengraph += '<meta name="twitter:site" content="@mibuclecom">'
+opengraph += '<meta name="twitter:title" content="' + t('company.share.opengraph.title', :name => @company.name) + '">'
+opengraph += '<meta name="twitter:description" content="' + @company.long_summary + '">'
+opengraph += '<meta name="twitter:image" content="' + @company.main_photo.url(:large) + '">'
+opengraph += '<meta name="twitter:domain" content="mibucle.com">'
+opengraph += '<meta name="twitter:url" content="' + request.original_url + '">'
+
+%>
+<% content_for :opengraph, opengraph.html_safe %>
+
+<% if Setting.show_subheader_company? %>
+  <%= render :partial => 'layouts/subheader_jobs' %>
+<% end %>
+
+<input type="hidden" id="hdn_company_id" name="hdn_company_id" value="<%=@company.id%>">
+<div class="container-fluid">
+
+	<%= render partial: 'information' %>
+
+	<% if @multioffice %>
+	  <%= render partial: 'multioffice' %>
+	<% else %>
+    <%= render partial: 'office_detail', locals: { office: @company.office, office_id: 0 } %>
+  <% end %>
+
+  <%if @company.facebook.present? || @company.twitter.present?%>
+	  <div class="row company-width">
+	    <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
+	    </div>
+	    <div class="col-lg-10 col-md-10 col-sm-12">
+	      <div class="row no-gutter">
+	      	<%if @company.facebook.present?%>
+	      		<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="company-social-feed-icon"><a class="fa fa-facebook"></a></div>
+							<div class="company-social-feed-text">@<%= @company.facebook%></div>
+							<div class="company-social-feed" id="company_facebook_feed">
+							</div>
+							<script type="text/javascript">
+						    <%= render 'companies/company_facebook_feed.js' %>
+						  </script>
+						</div>
+					<%end%>
+					<%if @company.twitter.present?%>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="company-social-feed-icon"><a class="fa fa-twitter"></a></div>
+							<div class="company-social-feed-text">@<%= @company.twitter%></div>
+							<div class="company-social-feed">
+								<a class="twitter-timeline" data-lang="es" data-height="850" target="_blank" href="https://twitter.com/<%=@company.twitter%>?ref_src=twsrc%5Etfw">Tweets por <%=@company.name%></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+							</div>
+						</div>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	<%end%>
+
+
+	<div id="company_social_bar_top">
+  </div>
+
+  <div class="row no-gutter">
+    <div class="col-md-2 col-sm-0">
+    </div>
+    <div class="col-md-8 col-sm-12">
+			<nav class="navbar navbar-social navbar-fixed-bottom" id="company-social-bar-nav">
+  			<div class="container-fluid">
+					<div class="company-social-bar" id="company-social-bar">
+						<ul>
+							<li>
+								<%if current_user%>
+									<a id="btn_company_favorite" name="btn_company_favorite" href="#" onclick="ga('send', 'event', 'LikeCompany', 'Mibucle', '<%=@company.name.html_safe%>');">
+										<i id="btn_favorite_heart" class="fa fa-heart
+										<%if current_user.company.include?(@company)%>
+											fa-heart-favorite
+										<%end%>
+										">
+										</i>
+									</a>
+								<%else%>
+									<a href="" data-toggle="tooltip" data-placement="top" title="<%=t('users.validations.like')%>">
+										<i id="btn_favorite_heart" class="fa fa-heart ">
+										</i>
+									</a>
+								<%end%>
+							</li>
+              <% if ENV['SOCIAL_NETWORK_FACEBOOK'].to_boolean %>
+							<%link_facebook = "https://www.facebook.com/sharer/sharer.php?u=" + url_encode(request.original_url)%>
+							<li><a onclick="open('<%=link_facebook%>', 'facebook', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');ga('send', 'event', 'Share Company', 'Facebook', '<%=@company.name.html_safe%>');"><i class="fa fa-facebook"></i></a></li>
+							<% end %>
+              <% if ENV['SOCIAL_NETWORK_LINKEDIN'].to_boolean %>
+							<%link_linkedin = "http://www.linkedin.com/shareArticle?mini=true&url=" + url_encode(request.original_url) + "&source=" + ENV['SITE_NAME'] + "&title=" + url_encode(@company.name)%>
+							<li><a onclick="open('<%=link_linkedin%>', 'linkedin', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');ga('send', 'event', 'Share Company', 'Linkedin', '<%=@company.name.html_safe%>');"><i class="fa fa-linkedin"></i></a></li>
+							<% end %>
+              <% if ENV['SOCIAL_NETWORK_TWITTER'].to_boolean %>
+							<%link_twitter = "https://twitter.com/share?text=" + t('company.share.twitter') + @company.name + "&url" + url_encode(request.original_url) + "&via=mibuclecom"%>
+							<li><a  onclick="open('<%=link_twitter%>', 'twitter', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');ga('send', 'event', 'Share Company', 'Twitter', '<%=@company.name.html_safe%>');"><i class="fa fa-twitter"></i></a></li>
+							<% end %>
+              <% if ENV['SOCIAL_NETWORK_EMAIL'].to_boolean %>
+							<li class="hidden-xs"><a href="mailto:?subject=<%=@company.name.html_safe%>&body=<%=t('company.share.mail', :url => request.original_url)%>" onclick="ga('send', 'event', 'Share Company', 'Mail', '<%=@company.name.html_safe%>');"><i class="fa fa-envelope"></i> </a></li>
+							<% end %>
+              <% if ENV['SOCIAL_NETWORK_WHATSAPP'].to_boolean %>
+							<%link_whatsapp = "whatsapp://send?text=" + t('company.share.twitter') + @company.name + " " + url_encode(request.original_url)%>
+              <li class="hidden-sm hidden-md hidden-lg"><a onclick="ga('send', 'event', 'Share Company', 'Whatsapp', '<%=@company.name.html_safe%>');" href="<%=link_whatsapp%>"><i class="fa fa-whatsapp"></i></a></li>
+              <% end %>
+						</ul>
+					</div>
+				</div>
+			</nav>
+    </div>
+    <div class="col-md-2 col-sm-0">
+    </div>
+  </div>
+</div>
+<div id="company-social-bar-limit"></div>
+<div class="container-fluid">
+  <div id="company-jobs" class="anchor"></div>
+	<%= render :partial => 'other_jobs' %>
+	<%#if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true') %>
+		<%#= render :partial => 'list_other_companies' %>
+	<%#end%>
+</div>
+
+<%if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true') %>
+	<%= render :partial => 'layouts/askmail' %>
+<%end%>

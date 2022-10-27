@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row no-gutter">
+      <% if @company.logo_name %>
+
+        <div class="col-xs-12">
+          <div class="company-box" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= @company.cover_photo.present? ? @company.cover_photo(:large) : @company.main_photo(:large) %>');-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;background-position: center;">
+            <div class="company-box-logo btn btn-basic">
+              <div class="company-box-logo-image">
+                <img src="<%= @company.logo(:small) %>" alt="<%= @company.name %>" class="company-logo" loading="lazy">
+              </div>
+            </div>
+            <div class="company-box-caption">
+              <div class="company-box-caption-content">
+                <h1 class="h2 company-name"><%= @company.name %></h1>
+                <%= @company.summary %>
+              </div>
+            </div>
+          </div>
+
+          <div class="company-subheader">
+            <ul class="list-inline">
+              <% if @company.linkedin.present? %>
+                <li class="linkedin-follow-btn">
+                  <div class="company-social-feed-linkedin" id="company_linkedin_feed">
+                    <div class="follow-container">
+                      <svg viewBox="-12 -10 60 60" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="logo">
+                        <rect width="28" height="28" x="5" y="5" class="fill-white"></rect>
+                        <g class="fill-blue">
+                          <path d="M34.5,3H5.6C4.2,3,3,4.1,3,5.4v29.1C3,35.9,4.2,37,5.6,37h29C35.9,37,37,35.9,37,34.6V5.4C37,4.1,35.9,3,34.5,3zM13,32H8V16h5V32zM10.5,13.9c-1.9,0-3.4-1.5-3.4-3.4c0-1.9,1.5-3.4,3.4-3.4s3.4,1.5,3.4,3.4C13.9,12.4,12.4,13.9,10.5,13.9zM32,32h-5v-7.9c0-2.4-1-4-2.6-4c-2.3,0-3.4,2.1-3.4,4.6V32h-5V16h5v2.1c0.8-1.4,2.2-2.5,4.7-2.5c4.7,0,6.3,1.7,6.3,5.4V32z"></path>
+                        </g>
+                      </svg>
+                      <a target="_blank" rel="noopener noreferer nofollow" href="https://www.linkedin.com/company/<%=@company.linkedin%>/?isFollowingPage=true" class="follow-btn--no-count">Seguir</a>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+              <li>
+                <%if current_user%>
+									<a data-color="
+                    <%if current_user.company.include?(@company)%>
+                      purple
+                    <%else%>
+                      green
+                    <% end %>
+                    " 
+                  id="btn_company_favorite" name="btn_company_favorite" title="Agregar empresa a favoritos" href="#" onclick="ga('send', 'event', 'LikeCompany', 'Mibucle', '<%=@company.name.html_safe%>');">
+										<i id="company-btn-favourite-heart" class="fa fa-heart 
+										<%if current_user.advice.include?(@company)%>
+											fa-heart-favorite
+										<%end%>
+                    <%if current_user.company.include?(@company)%>
+											company-in-favorite
+										<%else%>
+                      company-not-favorite
+                    <% end %>
+										">
+										</i>
+									</a>
+								<%end%>
+              </li>
+              <li><span class='marker hidden-xs'><i class='fa fa-map-marker' aria-hidden='true'></i></span></li> 
+
+              <% if @multioffice %>
+                <li><%= render partial: "multioffice_text_menu" %></li>
+              <% else %>
+                <li class="company-address">
+                  <%= show_company_countries(@company) %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+        </div>
+
+      <% else %>
+
+      <!-- ESTO ES PARA ROCHE, QUE TIENE EL LOGO A LA DERECHA Y EL NOMBRE ROCHE A LA IZQUIERDA -->
+
+        <div class="col-sm-8 col-xs-12">
+          <div class="company-name-left">
+            <h1><%= @company.name %></h1>
+            <div class="company-services-left">
+              <i><%=@company.summary %></i><br>
+              <% unless @multioffice %>
+                <%= show_company_countries(@company) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 hidden-xs">
+          <div class="company-header-image">
+            <img src="<%= @company.logo(:small) %>" alt="<%= @company.name %>" class="img-responsive" loading="lazy">
+          </div>
+        </div>
+        <% if @company.linkedin.present? %>
+          <div class="company-social-feed-left" id="company_linkedin_feed">
+          </div>
+          <script type="text/javascript">
+            <%= render 'companies/company_linkedin_feed.js' %>
+          </script>
+        <% end %>
+
+      <!-- FIN DE ROCHE -->
+
+      <% end %>
+    </div>
+  </div>
+</div>

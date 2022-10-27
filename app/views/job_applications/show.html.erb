@@ -1,0 +1,7 @@
+<div id="job_application_thanks" class="alert alert-success" role="alert">
+  <% if @job.company.enable_tests == true %>
+    <%=t('job_application.thanks_for_active_tests', :company => @job.company.name)%>
+  <% else %>
+    <%=t('job_application.thanks', :company => @job.company.name)%>
+  <% end %>
+</div>

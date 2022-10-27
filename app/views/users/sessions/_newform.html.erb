@@ -1,0 +1,44 @@
+<h2><%=t :'users.sessions.title' %></h2>
+<% if alert %>
+  <div class="alert alert-danger" role="alert">
+    <p><%= alert %></p>
+  </div>
+<% end %>
+
+<p>
+  <%= button_to user_linkedin_omniauth_authorize_path, class: "btn btn-block btn-social btn-linkedin" do %>
+    <span class="fa fa-linkedin"></span> <%=t :'users.sessions.withlinkedin' %>
+  <% end %>
+</p>
+
+<p><br><%=t :'users.sessions.withemail' %></p>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <div class="form-group input-group-lg">
+    <%= f.label User.human_attribute_name("email"), :class => "form-label"%>
+    <%= f.email_field :email, autofocus: true, :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("email") %>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <%= f.label User.human_attribute_name("password"), :class => "form-label"%>
+    <%= f.password_field :password, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("password") %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+  <div class="form-group">
+    <label for="chk_remember">
+        <%= f.check_box :remember_me%>
+        <span class="lbl-remember"><%=t :'users.actions.rememberme' %></span>
+    </label>
+  </div>
+  <% end -%>
+
+  <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+  <div class="form-group">
+    <%= f.submit  t('users.actions.signin') , :class => "btn btn-lg btn-primary btn-block", data: { disable_with: t('messages.sending') } %>
+  </div>
+  <p class="rs ta-c">
+    <%= link_to t('users.actions.forgetpassword'), new_password_path(resource_name)  %><br/>
+    <a href="<%=new_user_registration_path%>"><%=(t ('users.actions.signup')).upcase %></a>
+  </p>
+<%end%>

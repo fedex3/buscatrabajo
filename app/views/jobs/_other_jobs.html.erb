@@ -1,0 +1,16 @@
+<div class="row" id="other-jobs-div">
+  <%unless @recommended_jobs.blank?%>
+    <section class="section-other-jobs">
+      <div class="other-job-list">
+        <div class="col-lg-12">
+          <div class="other-jobs-title">
+            <%=t('job.other.title') %>
+          </div>
+        </div>
+        <%= render :partial => 'jobs/list_other_jobs' %>
+      </div>    
+    </section>
+  <%end%>  
+</div>
+
+

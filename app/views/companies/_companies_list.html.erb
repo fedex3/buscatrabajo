@@ -1,0 +1,55 @@
+<% @companies.each do |company| %>
+	<% cache [:locale => I18n.locale, :company => company], :expires_in => 1.hour do %>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+			<% if company.main_photo.present?   %>
+				<a href="<%= company_path(company.name_id) %>">
+			<% else %>
+				<a href="<%= company_companies_jobs_path(company_name_id: company.name_id) %>">
+			<% end %>
+				<% if company.main_photo.present? %>
+				<div class="company-summary">
+					<% if company.company_special_events.where( status: 'in_progress').where.not(code: 'PortalEmpleoFinteChile').present?%>
+            <div class="company-label-tech-week">
+              <span><%=company.company_special_events.where( status: 'in_progress')[-1].code %></span>
+              <%# -1 so it shows last active event name if many are active at the same time%>
+            </div>
+					<% else %>
+						<%if company.created_at + 30.days > Date.today && company.active%>
+	            <div class="company-label-newcompany">
+	              <span><%=t :'company.label.new_company' %></span>
+	            </div>
+	          <%elsif company.list_label  && company.active%>
+	            <div class="company-label-newoffice">
+	              <span><%=t :'company.label.new_office' %></span>
+	            </div>
+	          <%end%>
+          <% end %>
+				<% else %>
+				<div class="company-summary-small">
+				<% end %>
+
+					<% if company.main_photo.present? %>
+					<div class="company-summary-image">
+						<img loading="lazy" src="<%=company.main_photo(:medium)%>" alt="<%=company.name%>" class="img-responsive">
+					</div>
+					<% end %>
+
+    			<div class="company-summary-info">
+            <div class="company-summary-bottom-logo">
+              <img loading="lazy" src="<%=company.icon(:small)%>" alt="<%=company.name%>" class="img-responsive">
+            </div>
+            <h3>
+            	<%=company.name%>
+            </h3>
+          	<div class="company-summary-bottom">
+            	<div class="company-summary-bottom-text">
+				<%= company.industries.map { |t| t.name }.join(' | ').html_safe%><br>
+              	<%= show_company_countries(company) %>
+  	      		</div>
+          	</div>
+          </div>
+    		</div>
+      </a>
+    </div>
+  <%end%>
+<%end%>

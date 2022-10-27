@@ -1,0 +1,90 @@
+<% content_for :title, t('users.header.registrations.edit.title') %>
+
+<div class="container-fluid">
+  <%= form_for(@user, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>    
+    <div class="profile-page-edit">
+      <div class="profile-card-edit">
+        <section id="profile-header">
+          <div class="image-section">
+            <div class="img-container">
+              <%if current_user.photo%>
+                <%= image_tag current_user.photo(:thumbnail), size:"100x100", alt: "Avatar", :class=>"img-fluid img-responsive img-avatar"%>
+              <%else%>
+                <%= image_tag "persona1" , size:"100x100", alt: "Avatar", :class=>"img-fluid img-responsive img-avatar"%>
+              <%end%>
+              <div class="profile-image-upload">
+                <label for="file-input">
+                  <i class="fa fa-edit"></i>
+                </label>
+                <%= f.file_field :photo, id:"file-input" %>
+              </div>
+            </div>
+            
+            <span class="btn-toggle">
+              <%=f.check_box :show_photo%>
+              <label class="toggle" for="user_show_photo"></label>
+              <p><%=t('users.photo.show_photo')%></p>
+            </span>
+          </div>
+          <div class="profile-summary">
+            <div class="form-group">
+                <%= f.label User.human_attribute_name("Nombre"), :class => "form-label"%>
+              <%= f.text_field :name, autofocus: true, :class => "form-control", :placeholder => "Nombre" %>
+            </div>
+                <%= f.label User.human_attribute_name("Título o puesto actual"), :class => "form-label"%>
+              <%= f.text_field :short_summary, :class => "form-control", :placeholder => t('users.placeholders.short_summary')%>
+          </div>
+          <section id="profile-social-links">
+            <ul class="list-unstyled">
+              <li class="list-inline-item" id="email-button">
+                <%= f.label t('users.placeholders.email'), :class => "form-label"%>
+                <i class="fa fa-envelope-square fa-2x profile-social-link" aria-hidden="true"></i>
+                <%= f.text_field :email, :class => "form-control social-links-input ", :placeholder => "Ej: fede@gmail.com"%>
+              </li>
+              <li class="list-inline-item" id="github-button">
+                <%= f.label :github_url, t('users.placeholders.github_url'), :class => "form-label"%>
+                <i class="fa fa-github-square fa-2x" aria-hidden="true"></i>
+                <%= f.text_field :github_url, :class => "form-control social-links-input ", :placeholder => "Ej: https://github.com/fede"%>
+              </li>
+              <li class="list-inline-item" id="linkedin-button">
+                <%= f.label :linkedin_url, t('users.placeholders.linkedin_url'), :class => "form-label"%>
+                <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+                <%= f.text_field :linkedin_url, :class => "form-control social-links-input ", :placeholder => "Ej: https://linkedin.com/in/federico" %>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="profile-about-me">
+          <%= f.label User.human_attribute_name("Descripción"), :class => "form-label"%>
+          <%= f.text_area :long_summary, :rows => 8, :class => "form-control", :id=> "about-me-text-area", :placeholder => t('users.placeholders.long_summary') %>
+        </section>
+        <br>
+      </div>
+
+      <div class="skills-card-edit">
+        <h3>
+          <%=t('users.skills.technical_skills')%>
+        </h3>
+        <div class="skills text-center">
+          <div class="user-skills">
+            <%= f.text_field :skill_list, :placeholder => (current_user.skill_list.empty? ? t('users.placeholders.skills') : ""),  :class => 'form-control multiple-input', :value => @user.skill_list&.to_s %>
+          </div>
+        </div>
+        <h3>
+          <%=t('users.skills.languages')%>
+        </h3>
+        <div class="skills text-center">
+          <div class="language-skills">
+            <%= f.text_field :language_list, :placeholder => (current_user.language_list.empty? ? t('users.placeholders.languages') : ""),  :class => 'form-control multiple-input', :value => @user.language_list&.to_s %>
+          </div>
+        </div>
+        <i>Puedes agregar habilidades técnicas e idiomas, separados por coma o presionando la tecla ENTER o TAB.</i>
+        <br>
+        <br>
+        <div class="form-group profile-edit-submit-div">
+          <%= f.submit "Guardar cambios", id:"profile-edit-submit-button",  class:"btn btn-lg btn-primary", data: { disable_with: t('messages.sending') } %>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>

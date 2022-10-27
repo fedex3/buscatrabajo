@@ -1,0 +1,8 @@
+<tr>
+    <td class="bodycopy"> 
+        <p><%=t :'users.mailer.unlockinstructions.part1' %> <%= @resource.email %>!</p>
+        <%=t :'users.mailer.unlockinstructions.part2_html' %>
+
+        <p><%= link_to t('users.actions.unlock'), unlock_url(@resource, unlock_token: @token,locale: I18n.locale) %></p>
+    </td>
+</tr>

@@ -1,0 +1,108 @@
+<div class="row">
+    <section class="section-width">
+        <div class="media-article-card-list">
+            <div class="media-article-card-title col-xs-12">
+                <%=t('company.special_event.media_article_title') %>
+            </div>
+            <div class="container-fluid">
+                <% @company_special_event.media_articles.each_slice(4) do |slice| %>
+                    <% if slice.count == 4%>
+                        <% slice.each do |media_article| %>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="media-article-card">
+                                    <a href="<%=media_article.link%>" target="_blank" class="link-media-article-card">
+                                        <div class="media-article-card-image">
+                                            <img src="<%=media_article.logo(:medium)%>" alt="<%=media_article.title%>" class="img-responsive" loading="lazy">
+                                        </div>
+                                        <div class="media-article-card-info">
+                                            <h3>
+                                                <%=media_article.title%>
+                                            </h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% elsif slice.count == 1 %>
+                        <% slice.each do |media_article| %>
+                            <div class= "center_cols col-xs-12">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="media-article-card">
+                                        <a href="<%=media_article.link%>" target="_blank" class="link-media-article-card">
+                                            <div class="media-article-card-image">
+                                                <img src="<%=media_article.logo(:medium)%>" alt="<%=media_article.title%>" class="img-responsive" loading="lazy">
+                                            </div>
+                                            <div class="media-article-card-info">
+                                                <h3>
+                                                    <%=media_article.title%>
+                                                </h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% elsif slice.count == 2%>
+                        <div class="col-md-3"> </div>
+                        <% slice.each do |media_article| %>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="media-article-card">
+                                    <a href="<%=media_article.link%>" target="_blank" class="link-media-article-card">
+                                        <div class="media-article-card-image">
+                                            <img src="<%=media_article.logo(:medium)%>" alt="<%=media_article.title%>" class="img-responsive" loading="lazy">
+                                        </div>
+                                        <div class="media-article-card-info">
+                                            <h3>
+                                                <%=media_article.title%>
+                                            </h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <% end %>
+                    <%elsif slice.count == 3%>
+                        <div class= "col-edit-md"></div>
+                        <% slice.each_slice(2) do |slice2| %>
+                            <%if slice2.count == 2%>
+                                <% slice2.each do |media_article| %>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <div class="media-article-card">
+                                                <a href="<%=media_article.link%>" target="_blank"  class="link-media-article-card">
+                                                    <div class="media-article-card-image">
+                                                        <img src="<%=media_article.logo(:medium)%>" alt="<%=media_article.title%>" class="img-responsive" loading="lazy">
+                                                    </div>
+                                                    <div class="media-article-card-info">
+                                                        <h3>
+                                                            <%=media_article.title%>
+                                                        </h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                <% end %>
+                            <% else %>
+                                <div class="col-edit-sm"> </div>
+                                <% slice2.each do |media_article| %>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <div class="media-article-card">
+                                                <a href="<%=media_article.link%>" target="_blank"  class="link-media-article-card">
+                                                    <div class="media-article-card-image">
+                                                        <img src="<%=media_article.logo(:medium)%>" alt="<%=media_article.title%>" class="img-responsive" loading="lazy">
+                                                    </div>
+                                                    <div class="media-article-card-info">
+                                                        <h3>
+                                                            <%=media_article.title%>
+                                                        </h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </section>
+</div>

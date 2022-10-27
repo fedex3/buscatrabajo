@@ -1,0 +1,7 @@
+if (document.body.offsetWidth > 1200) {
+   $('#company_facebook_feed').append('<%=j render "companies/facebook_feed/desktop" %>');
+ } else if (document.body.offsetWidth > 500) { 
+   $('#company_facebook_feed').append('<%=j render "companies/facebook_feed/ipad" %>');
+ } else { 
+   $('#company_facebook_feed').append('<%=j render "companies/facebook_feed/mobile" %>');
+ }

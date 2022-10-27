@@ -1,0 +1,123 @@
+$(function(){ // document ready
+  $(".employer_branding").each(function(e) {
+    var flag_animation_counter = false;
+    $(window).scroll(function(){ // scroll event
+      var windowTop = $(window).scrollTop(); // returns number
+      var limitSubHeader = 0
+      if ($('#navbar_subheader_limit').length){
+        limitSubHeader = $('#navbar_subheader_limit').offset().top - 40;
+      }
+      if (windowTop > limitSubHeader) {
+        if (!$('#navbar_subheader_employer_branding').hasClass('navbar-subheader-employer-branding-bottom')){
+          $('#navbar_subheader_employer_branding').addClass('navbar-subheader-employer-branding-bottom');
+        }
+      } else {
+        if ($('#navbar_subheader_employer_branding').hasClass('navbar-subheader-employer-branding-bottom')){
+          $('#navbar_subheader_employer_branding').removeClass('navbar-subheader-employer-branding-bottom');
+        }
+      }
+      if (typeof $('.cn-wrap') === 'undefined') {
+        if(windowTop > ($('.cn-wrap').offset().top - 800) && !flag_animation_counter) {
+        flag_animation_counter = true;
+        animatedCounter();
+        }
+      }
+    });
+    if(window.screen.width < 500 ){
+      $('.shorten-name-mobile')[0].innerHTML = "Coaching";
+    }
+    $("#employer-branding-header-contact").click(function() {
+      $("body, html").animate({
+        scrollTop: $("#employer_branding_contact").offset().top - 80
+      }, 600);
+    });
+
+    $("#employer_branding_start").click(function() {
+      $("body, html").animate({
+        scrollTop: $("#employer_branding_contact").offset().top - 80
+      }, 600);
+    });
+
+    $("#employer-branding-header-how-works").click(function() {
+      $("body, html").animate({
+        scrollTop: $("#employer_branding_how_works").offset().top - 80
+      }, 600);
+    });
+    
+    $("#btn_contact_send_mail").on("click",function(){
+      $('#btn_contact_send_mail').attr('disabled', '');
+      <% if Rails.env.production? %>
+        ga('send', 'event', 'Contact', 'Employer Branding', '');
+      <% end %>
+      var txtmessage = $("#txt_contact_message").val();
+      var txt_locale = $('#locale')[0].innerHTML;
+      $.ajax({
+        type: "POST",
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        url: "/" + txt_locale + "/contactos",
+        data: { contact: {
+          email: $('input[name=txt_contact_email]').val(),
+          name: $('input[name=txt_contact_name]').val(),
+          plan: $('select[name=txt_contact_plan]').val(),
+          phone: $('input[name=txt_contact_phone]').val(),
+          company: $('input[name=txt_contact_company]').val(),
+          contact_type: "EMPLOYER_BRANDING",
+          message: txtmessage } },
+        success: function(){
+          $('input[name=txt_contact_email]').val('');
+          $('input[name=txt_contact_name]').val('');
+          $('select[name=txt_contact_plan]').val('');
+          $('input[name=txt_contact_phone]').val('');
+          $('input[name=txt_contact_company]').val('');
+          $('#txt_contact_message').val('');
+          $('#contact-alert').hide();
+          $("label[for='contact-error']").html('');
+          $('#contact-thanks').show();
+          //gtag_report_conversion();
+        },
+        error: function(resp){
+          var errors = $.parseJSON(resp.responseText).errors;
+          $('#btn_contact_send_mail').removeAttr('disabled');
+          $('#contact-alert').show();
+          $("label[for='contact-error']").html(errors);
+        }
+      });
+    });
+    
+    function animatedCounter(){
+      $('#million')[0].innerHTML = '+<span class=\"number\" data-target=\"999\">0</span>K' // Changed first number to display in thousands (K)
+      var counters = document.querySelectorAll("span.number"); //Get numbers
+      var steps=0; //Starting steps as 0
+      var totalSteps = 500 //steps to completion
+  
+      //Displaying all numbers as 0 initially. I don´t set them to 0 in html just in case 
+      counters.forEach(function (counter) {
+        counter.innerText = +0;
+      });
+      counters.forEach(function (counter) {
+        var updateCount = function updateCount() {
+          var target = +counter.getAttribute('data-target'); //Getting the data-target which contains the desired final number
+          var count = +counter.innerText; //Current text of the counter
+          var progress = steps / totalSteps  //Fraction of progress
+          steps++; 
+          // Check if target is not reached
+          if (count < target) {
+
+            counter.innerText = Math.ceil(target * progress);  
+            // Call function every ms
+            setTimeout(updateCount, 1);
+          } else { //When target is reached change the value to target just in case of roundings and changing from K to a million in first bubble
+            counter.innerText = target;
+            $('#million')[0].innerHTML = '+<span class=\"number\" data-target=\"999\">1</span> millón'
+          }
+        };
+        updateCount(); //Rerun function until finished
+      });
+    }
+
+    $('.employer_branding_contact_button').on("click",function(e){
+      var plan = (e.currentTarget).getAttribute('data-plan');
+      $('#txt_contact_plan').val(plan);
+    });
+  });
+});

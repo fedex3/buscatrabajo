@@ -1,0 +1,99 @@
+<% content_for :title, t('users.header.registrations.edit.title') %>
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="form-body">
+        <h2><%=t :'users.registrations.edit.title' %></h2>
+           <% if @user and @user.errors.any? %>
+              <div class="alert alert-danger" role="alert">
+                <ul>
+                  <% @user.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <%else %>
+              <%unless current_user.terms_accepted?%>
+                <div class="alert alert-info" role="alert">
+                  <ul>
+                    <li><%= User.human_attribute_name("terms_accepted") + ': ' + t('users.validations.terms_accepted') %></li>
+                  </ul>
+                </div>
+              <% end %>
+              <%unless current_user.country != "" && current_user.name%>
+                <div class="alert alert-info" role="alert">
+                  <ul>
+                    <li><%= t('users.validations.all') %></li>
+                  </ul>
+                </div>
+              <% end %>
+            <% end %>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%
+            countries = Rails.cache.fetch("country_names/" + "es", expires_in: 12.hours) do
+              ISO3166::Country.all.map{|x| [x.translation("es") ? x.translation("es") : x.name,x.alpha2]}.sort_by!{ |x| x[0] }
+            end
+            selected_country = current_user.country
+           %>
+
+            <div class="form-group input-group-lg">
+              <%= f.label User.human_attribute_name("email"), :class => "form-label"%>
+              <label class="form-label"><b><%=@user.email%></b></label>
+            </div>
+
+            <div class="form-group input-group-lg">
+              <%= f.label User.human_attribute_name("name"), :class => "form-label"%>
+              <%= f.text_field :name, autofocus: true, :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("name") %>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div><%=t :'users.fields.messages.waitingconfirmation' %><%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <%unless current_user.omniauth%>
+              <div class="form-group input-group-lg">
+                <%= f.label User.human_attribute_name("password"), :class => "form-label"%>
+                <%= f.password_field :current_password, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("password") %>
+              </div>
+
+              <div class="form-group input-group-lg">
+                <%if current_user.password != ""%>
+                  <label class="form-label"><%= t('users.fields.messages.new') + User.human_attribute_name("password")%><i> (<%=t :'users.fields.messages.leaveempty' %>)</i></label><br>
+                <%end%>
+                <%= f.password_field :password, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.enter') + t('users.fields.messages.new') + User.human_attribute_name("password") %>
+              </div>
+
+              <div class="form-group input-group-lg">
+                <%= f.label (t('users.fields.messages.reenter') + t('users.fields.messages.new') + User.human_attribute_name("password")), :class => "form-label"%>
+                <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.reenter') + t('users.fields.messages.new') + User.human_attribute_name("password") %>
+              </div>
+            <%end%>
+
+            <div class="form-group input-group-lg">
+              <%= f.label (t('users.fields.messages.enter') + User.human_attribute_name("country")), :class => "form-label"%>
+              <%= f.select(:country, countries, {:include_blank => false, :selected => selected_country}, {:class => 'form-control'})%>
+            </div>
+
+            <%= f.fields_for :newsletter do |n| %>
+              <div class="form-group input-group-md">
+                <%= n.label (Newsletter.human_attribute_name("subscribe") + ' ' + Newsletter.human_attribute_name("newsletter")), :class => "form-label"%>
+                <%=check_box("user[newsletter_attributes]", "subscribe", { class: 'form-control', :checked => (!@user.newsletter.nil? && @user.newsletter.subscribe) }, 1)%>
+              </div>
+            <%end%>
+
+            <%if !current_user.terms_accepted?%>
+              <p>
+                <%= f.check_box :terms_accepted, :class => "" %><%=t('users.fields.messages.accept')%> <%= link_to t('users.fields.messages.terms'), terms_path, target: "_blank" %>
+              </p>
+            <%end%>
+
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+            <div class="form-group">
+              <%= f.submit  t('users.actions.update') , :class => "btn btn-lg btn-primary btn-block", data: { disable_with: t('messages.sending') } %>
+            </div>
+          <%end%>
+      </div>
+    </div>
+  </div>
+</div>

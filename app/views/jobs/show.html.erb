@@ -1,0 +1,363 @@
+<% if @company_special_event.present? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+  <% content_for :title, (t('job.show.header.title_fintechile', :name => @job.name, :company => @job.company.name)) %>
+<% else %>
+  <% content_for :title, (t('job.show.header.title', :name => @job.name, :company => @job.company.name)) %>
+<% end %>
+
+<% content_for :metadescription, (t('job.show.header.description', :name => @job.name, :company => @job.company.name, :state => (@job.job_states.first.present? ? @job.job_states.first.state_full_name : ''), :country => ISO3166::Country.find_country_by_alpha2(Job.first_country(@job)).translation("es"), :city => (@job.city.blank? ? '' : (@job.city + ', ')) )) %>
+<%share_text = @job.company.name + t('job.share.look') + @job.name %>
+
+<% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
+<% content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
+
+<%unless @job.active%>
+  <% content_for :script, '<meta name="robots" content="noindex" />'.html_safe %>
+<%end%>
+<%= render :partial => 'layouts/structured_data' %>
+
+<% if Rails.env.production? %>
+  <script type="application/ld+json"> {
+    "@context" : "http://schema.org/",
+    "@type" : "JobPosting",
+    "title" : "<%=@job.name%>",
+    "description" : "<%=@job.detail.gsub('"',"'").html_safe%>",
+    "identifier": {
+      "@type": "PropertyValue",
+      "name": "<%=@job.company.name%>",
+      "value": "<%=@job.id%>"
+    },
+    "datePosted" : "<%=@job.created_at.strftime('%FT%T')%>",
+    "validThrough" : "<%=@job.end_date.strftime('%FT%T')%>",
+    "employmentType" : <%=(@job.part_time ? '["FULL_TIME", "PART_TIME"]'.html_safe : '"FULL_TIME"'.html_safe)%>,
+    "hiringOrganization" : {
+      "@type" : "Organization",
+      "name" : "<%=@job.company.name%>",
+      "sameAs" : "<%=@job.company.url%>",
+      "logo" : "<%=@job.company.logo%>"
+    },
+    <% if !@job.remote%>
+      "jobLocation" : {
+        "@type" : "Place",
+        "address" : {
+          "@type" : "PostalAddress",
+          "addressCountry": "<%= Job.first_country(@job)%>"
+          <% if @job.job_states.first.present?%>
+            ,"addressRegion" : "<%=@job.job_states.first.state_full_name%>"
+          <%end%>
+          <% if @job.city.present?%>
+            ,"addressLocality" : "<%=@job.city%>"
+          <%end%>
+        }
+      }
+    <%else%>
+      "jobLocationType" : "TELECOMMUTE"
+    <%end%>
+    <% if @job.url.present?%>
+      ,"directApply" : "true"
+    <%end%>
+  }
+  </script>
+<%end%>
+
+
+<%
+opengraph = ""
+opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
+opengraph += '<meta property="og:title" content="' + @job.name + '" />'
+opengraph += '<meta property="og:description" content="' + share_text + '" />'
+opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
+opengraph += '<meta property="og:image" content="' + @job.photo.url + '" />'
+opengraph += '<meta property="og:image:width" content="1600" />'
+opengraph += '<meta property="og:image:height" content="1064" />'
+opengraph += '<meta property="og:type" content="' + "article" + '" />'
+opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
+opengraph += '<meta name="twitter:card" content="summary_large_image">'
+opengraph += '<meta name="twitter:site" content="@mibuclecom">'
+opengraph += '<meta name="twitter:title" content="' + share_text + '">'
+opengraph += '<meta name="twitter:description" content="' + strip_tags(@job.detail)[0..250] + '">'
+opengraph += '<meta name="twitter:image" content="' + @job.photo.url + '">'
+opengraph += '<meta name="twitter:domain" content="mibucle.com">'
+opengraph += '<meta name="twitter:url" content="' + request.original_url + '">'
+
+%>
+<% content_for :opengraph, opengraph.html_safe %>
+
+<% if Setting.show_subheader_company_job? %>
+  <% unless @company_special_event.present? && ["udesa", "PortalEmpleoFinteChile"].include?(@company_special_event.code) %>
+    <%= render :partial => 'layouts/subheader_jobs' %>
+  <% end %>
+<% end %>
+
+<% country_name = ISO3166::Country.find_country_by_alpha2(Job.first_country(@job)).translation("es").to_s %>
+<input type="hidden" id="hdn_company_id" name="hdn_company_id" value="<%=@job.company_id%>">
+<input type="hidden" id="hdn_job_id" name="hdn_job_id" value="<%=@job.id%>">
+
+<div class="container-fluid" style="<%= 'margin-top: 45px;' if params[:special_event].present?%>">
+
+  <%unless @job.active%>
+    <div class="row no-gutter">
+      <div class="col-lg-8 col-lg-offset-2 col-md-offset-9 col-md-3 col-sm-4 col-xs-12">
+        <div class="alert alert-danger job-finish" role="alert">
+          <%=t('job.show.finish')%>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <%= render :partial => 'other_jobs_top' %>
+    </div>
+  <%end%>
+
+  <div class="row no-gutter">
+    <div class="col-lg-2 col-md-1 col-sm-0">
+    </div>
+  	<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
+      <div class="job-header-image">
+        <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+      		<a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?)) %>">
+      	<% else %>
+      		<a href="<%= company_path(@job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+      	<% end %>
+          <img loading="lazy" src="<%=@job.company.logo(:thumbnail)%>" alt="<%=@job.name%>">
+        </a>
+
+        <div class="job-services-company-link hidden-lg hidden-md hidden-sm">
+            <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+          		<a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+          	<% else %>
+          		<a href="<%= company_path(@job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=@job.company.name%>
+          	<% end %>
+            <i class="material-icons job-company-icon">launch</i></a>
+          </a>
+        </div>
+      </div>
+
+      <div class="job-services hidden-xs ">
+        <h2>
+          <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+        		<a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+        	<% else %>
+        		<a href="<%= company_path(@job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%= @job.company.name%></a>
+        	<% end %>
+        </h2>
+
+        <div class="job-services-company-summary"><%=@job.company.long_summary %></div>
+
+        <% if @job.company.main_photo.present? %>
+          <div class="job-services-company-photo">
+            <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+          		<a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+          	<% else %>
+          		<a href="<%= company_path(@job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+          	<% end %>
+              <img src="<%=@job.company.main_photo(:small)%>" alt="<%=@job.name + ' - ' + @job.company.name%>" class="img-responsive" loading="lazy">
+            </a>
+          </div>
+        <% end %>
+
+        <div class="job-services-company-link">
+          <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+            <a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+          <% else %>
+            <a href="<%= company_path(@job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+          <% end %>
+            <%=t('job.other.meet_company', :name => @job.company.name)%>
+          </a>
+        </div>
+
+        <%if @job.level.present?%>
+          <%=@job.level.name + ' | '%>
+        <%end%>
+
+        <%=@job.industry.name %>
+        <%if @job.part_time%>
+          <%=' | ' + Job.human_attribute_name("part_time")%>
+        <%end%>
+        <br>
+        <%= show_job_countries(@job) %>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-8 col-xs-12">
+			<div class="job-header-name">
+	  		<h1><%= @job.name%></h1>
+			</div>
+
+      <div class="job-content">
+        <%=@job.detail.html_safe%>
+      </div>
+
+
+      <div class="job-services hidden-lg hidden-md hidden-sm">
+        <h2>
+          <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+            <a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+          <% else %>
+            <a href="<%=company_path(@job.company.name_id)%>"><%= @job.company.name%></a>
+          <% end %>
+        </h2>
+
+          <br>
+        <%unless @job.level.blank?%>
+          <%=@job.level.name + ' | '%>
+        <%end%>
+
+        <%=@job.industry.name %>
+        <%if @job.part_time%>
+          <%=' | ' + Job.human_attribute_name("part_time")%>
+        <%end%>
+        <br>
+        <%unless @job.city.blank?%>
+          <%=@job.city + ' | '%>
+        <%end%>
+        <%=(@job.state.present? ? @job.state + ' | ' : '') + country_name%>
+
+        <div class="job-services-company-summary"><%=@job.company.long_summary %></div>
+        <% if @job.company.main_photo.present? %>
+          <div class="job-services-company-photo">
+            <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
+              <a href="<%= company_companies_jobs_path(company_name_id: @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>">
+            <% else %>
+              <a href="<%=company_path(@job.company.name_id)%>">
+            <% end %>
+              <img src="<%=@job.company.main_photo(:small)%>" alt="<%=@job.name + ' - ' + @job.company.name%>" class="img-responsive" loading="lazy">
+            </a>
+          </div>
+        <% end %>
+      </div>
+
+      <%if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true')%>
+        <div class="job-links">
+          <ul>
+            <li><a href="<%= jobs_path(special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_jobs')%></a></li>
+            <li><a href="<%= jobs_path(:empresa => @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_company_jobs', :name => @job.company.name)%></a></li>
+            <li><a href="<%= jobs_path(:industria => @job.industry.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_industry_jobs', :name => @job.industry.name)%></a></li>
+            <%if @job.state.present?%>
+              <li><a href="<%= jobs_path(:estado => @job.state.gsub(' ','-').html_safe, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_location_jobs', :name => @job.state)%></a></li>
+            <%end%>
+            <li><a href="<%= jobs_path(:pais => Url.friendly(country_name), special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_country_jobs', :name => country_name)%></a></li>
+            <%unless @job.level.blank?%>
+              <li><a href="<%= jobs_path(:nivel => @job.level.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_level_jobs', :name => @job.level.name)%></a></li>
+            <%end%>
+            <%if @job.part_time%>
+              <li><a href="<%= jobs_path(:part_time => "true", special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_part_time_jobs')%></a></li>
+            <%end%>
+          </ul>
+        </div>
+      <%end%>
+		</div>
+		<div class="col-md-2 col-sm-0">
+    </div>
+  </div>
+
+  <div id="job_social_bar_top">
+  </div>
+
+  <%if @job.active%>
+    <div class="row no-gutter">
+      <div class="col-md-2 col-sm-0">
+      </div>
+      <div class="col-md-8 col-sm-12">
+  			<nav class="navbar navbar-social navbar-fixed-bottom" id="job-social-bar-nav">
+    			<div class="container-fluid">
+  					<div class="job-social-bar" id="job-social-bar">
+  						<ul>
+  							<li class="job-social-share">
+  								<%if current_user%>
+  									<a id="btn_job_favorite" name="btn_job_favorite" href="#" onclick="ga('send', 'event', 'LikeJob', 'Mibucle', '<%=@job.name.html_safe%> - <%=@job.company.name.html_safe%>');">
+  										<i id="btn_favorite_heart" class="fa fa-heart
+  										<%if current_user.job.include?(@job)%>
+  											fa-heart-favorite
+  										<%end%>
+  										">
+  										</i>
+  									</a>
+  								<%else%>
+  									<a href="" data-toggle="tooltip" data-placement="top" title="<%=t('users.validations.like')%>">
+  										<i id="btn_favorite_heart" class="fa fa-heart ">
+  										</i>
+  									</a>
+  								<%end%>
+  							</li>
+                <li class="job-social-apply">
+                  <%if @job.url.blank?%>
+                    <%if @has_apply%>
+                      <a class="btn btn-job btn-lg page-scroll btn-margin disabled" id="job_apply_now">
+                        <%=t('job_application.already_apply')%>
+                      </a>
+                    <%else%>
+                      <a onclick="ga('send', 'event', 'Apply Job', 'Full Apply', '<%=@job.company.name + ' - ' + @job.name%>');" class="btn btn-job btn-lg page-scroll btn-margin" id="job_apply_now">
+                        <%=t('job.show.apply')%>
+                      </a>
+                      <a class="btn btn-job btn-lg page-scroll btn-margin disabled" id="job_have_apply" style="display:none;">
+                        <%=t('job_application.already_apply')%>
+                      </a>
+                    <%end%>
+                  <%else%>
+
+                    <%if current_user.nil?%>
+                      <a target="_blank" class="btn btn-job btn-lg page-scroll btn-margin" data-toggle="modal" data-target='#modalJobApplicationSoft' id="btn_job_application_soft_modal">
+                        <%=t('job.show.apply')%>
+                      </a>
+                    <%else%>
+                      <a target="_blank" onclick="ga('send', 'event', 'Apply Job', 'Soft Apply', '<%=@job.company.name + ' - ' + @job.name%>');" class="btn btn-job btn-lg page-scroll btn-margin" id="btn_job_application_soft_submit"
+                        <%if current_user.nil?%>
+                          style="display:none;"
+                        <%end%>
+                      >
+                      <%=t('job.show.apply')%>
+                      </a>
+                    <%end%>
+                  <%end%>
+                </li>
+  						</ul>
+  					</div>
+  				</div>
+  			</nav>
+      </div>
+      <div class="col-md-2 col-sm-0">
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<%if @job.active%>
+  <div id="job_application_container" >
+    <%if @job.url.blank? && !@has_apply%>
+      <div class="job-application-container">
+        <div class="row">
+          <div class="col-md-4 col-sm-2">
+          </div>
+          <div class="col-md-4 col-sm-8">
+            <%= render 'job_applications/new'%>
+          </div>
+          <div class="col-md-4 col-sm-2">
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+<%end%>
+
+<% if @job.active %>
+  <% if @job.url.present? %>
+    <div style="text-align:center; font-family: 'Noto Sans', sans-serif;">
+      <% if current_user %> 
+      <%= t('job.show.logged_test_message') %>
+      <% else %>
+      <%= t('job.show.unlogged_test_message') %>
+      <% end %>
+      <br>
+      <br>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="container-fluid">
+  <%= render :partial => 'other_jobs' %>
+</div>
+
+<%= render :partial => 'layouts/askmail' %>
+
+<%if @job.active%>
+  <%= render :partial => 'job_applications/new_soft' %>
+  <%= render :partial => 'job_applications/new_soft_login_modal' %>
+<%end%>

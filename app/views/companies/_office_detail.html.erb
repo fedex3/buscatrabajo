@@ -1,0 +1,477 @@
+<%
+  office_photos_big = office.media_objects.has_big_photo.order('company_photos.order asc')
+  office_photos_small = office.photos.small.order('"order" asc')
+  office_videos_big = office.media_objects.has_big_video.order('company_videos.order asc')
+  office_videos_small = office.videos.small.order('"order" asc')
+  office_stories = office.stories.order('"order" asc')
+  office_speeches = office.speeches.order('"order" asc')
+  office_secondary_photo = nil
+
+  media_objs_carousel = office.media_objects.where("media_objects.carousel_position > 0").order(:carousel_position)
+  media_objs_1 = office.media_objects.where("position > 0").where("position <= 100").order(:position)
+  media_objs_2 = office.media_objects.where("position > 100").where("position <= 200").order(:position)
+  media_objs_3 = office.media_objects.where("position > 200").order(:position)
+
+  unless office_photos_big.empty?
+    if media_objs_carousel.has_photo.present?
+      office_secondary_photo = media_objs_carousel&.has_photo.last&.company_photo
+      if @company_jobs.length == 0 && @company.jobs_url.blank? && !@company.show_email_button && !@company.show_whatsapp_button
+        office_photos_big = office_photos_big.first(office_photos_big.length - 1)
+      end
+    elsif @company_jobs.length == 0 && @company.jobs_url.blank? && !@company.show_email_button && !@company.show_whatsapp_button
+      office_secondary_photo = office_photos_big.last.company_photo
+      office_photos_big = office_photos_big.first(office_photos_big.length - 1)
+    end
+  end
+%>
+<div class="tab-pane active" id="<%= office.name_id %>">
+  <div class="row company-width">
+    <br>
+    <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-12">
+      <div class="row no-gutter">
+        <div class="col-sm-8 col-xs-12">
+          <% if media_objs_carousel.present? %>
+            <div class="company-container">
+              <div class="company-main-image">
+                <div id="company-carousel_<%=office_id%>" class="carousel slide" >
+                <!-- Indicators -->
+                  <ol class="carousel-indicators">
+                    <%  (0..(media_objs_carousel.length - 1)).each  do |index| %>
+                      <li data-target="#company-carousel_<%=office_id%>"  onclick="ga('send', 'event', 'Photo Office', 'Select', '<%= office.name.html_safe%>');" data-slide-to="<%=index%>"
+                      class="<%= index == 0 ? 'active' : '' %>" >
+                      </li>
+                    <%end%>
+                  </ol>
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+                    <%  media_objs_carousel.each_with_index  do |mo,index| %>
+                      <div class="item  <%= index == 0 ? 'active' : '' %>">
+                        <%= render partial: 'media_object_carousel', locals:{mo: mo, index:index} %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <!-- Controls -->
+                  <a class="left carousel-control" href="#company-carousel_<%=office_id%>" role="button" data-slide="prev" onclick="ga('send', 'event', 'Photo Office', 'Prev', '<%= office.name.html_safe%>');">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only"><%=t('company.carousel.prev')%></span>
+                  </a>
+                  <a class="right carousel-control" href="#company-carousel_<%=office_id%>" role="button" data-slide="next" onclick="ga('send', 'event', 'Photo Office', 'Next', '<%=office.name.html_safe%>');">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only"><%=t('company.carousel.next')%></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <% if office_photos_big.length > 0 || office_videos_big.length > 0 %>
+              <div class="company-container">
+                <div class="company-main-image">
+                  <div id="company-carousel_<%=office_id%>" class="carousel slide" >
+                  <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <%  (0..(office_photos_big.length + office_videos_big.length - 1)).each  do |index| %>
+                        <li data-target="#company-carousel_<%=office_id%>"  onclick="ga('send', 'event', 'Photo Office', 'Select', '<%= office.name.html_safe%>');" data-slide-to="<%=index%>"
+                        class="<%= index == 0 ? 'active' : '' %>" >
+                        </li>
+                      <%end%>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                      <%video_position = 0
+                        photo_position = 0
+                        photo = nil
+                        video = nil
+                        photo = office_photos_big[0].company_photo if office_photos_big.length > 0
+                        video = office_videos_big[0].company_video if office_videos_big.length > 0
+                        %>
+                      <%  (0..(office_photos_big.length + office_videos_big.length - 1)).each  do |index| %>
+
+                        <div class="item  <%= index == 0 ? 'active' : '' %>">
+
+                          <% if (photo.present? && video.present? && photo.order <= video.order) || video.blank? %>
+                            <% if photo.photo_content_type.include?("gif")%>
+                              <%=image_tag photo.photo(:original),  :alt => office.name + ' - ' + photo.title, :class => "img-responsive carousel-gif", loading: "lazy"%>
+                            <% else %>
+                                <%=image_tag photo.photo(:medium),  :alt => office.name + ' - ' + photo.title, :class => "img-responsive", loading: "lazy"%>
+                            <% end %>
+                            <div class="carousel-caption company-carousel-caption">
+                              <h3><%=photo.detail%></h3>
+                            </div>
+                            <% photo_position += 1
+                              photo = office_photos_big[photo_position].company_photo if photo_position < office_photos_big.length
+                            %>
+                          <% else %>
+                            <div class="company-main-video-image">
+                              <a id="company_main_video_<%=office_id%>_<%=video_position.to_s%>" onclick="replaceThumbforYoutubeVideo('youtube', '#company_main_video_<%=office_id%>_<%=video_position.to_s%>','<%=video.url%>');ga('send', 'event', 'Video Company Main', 'Play', '<%=office.name.html_safe%>');">
+                                <i class="material-icons companies-main-video-icon">play_circle_filled</i>
+                                <img src="https://img.youtube.com/vi/<%=video.url%>/sddefault.jpg" class="img-responsive">
+                                <div class="company-main-video-image-caption hidden-sm hidden-xs">
+                                  <div class="company-main-video-image-caption-title"><%=video.title%></div>
+                                  <div class="company-main-video-image-caption-position"><%=video.position%></div>
+                                </div>
+                              </a>
+                            </div>
+                            <% video_position += 1
+                              video = office_videos_big[video_position].company_video if video_position < office_videos_big.length
+                            %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#company-carousel_<%=office_id%>" role="button" data-slide="prev" onclick="ga('send', 'event', 'Photo Office', 'Prev', '<%= office.name.html_safe%>');">
+                      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                      <span class="sr-only"><%=t('company.carousel.prev')%></span>
+                    </a>
+                    <a class="right carousel-control" href="#company-carousel_<%=office_id%>" role="button" data-slide="next" onclick="ga('send', 'event', 'Photo Office', 'Next', '<%=office.name.html_safe%>');">
+                      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                      <span class="sr-only"><%=t('company.carousel.next')%></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <% if office_photos_big.length == 0 && office_videos_big.length == 0 %>
+          <div class="col-sm-12 col-xs-12">
+        <% else %>
+          <div class="col-sm-4 col-xs-12">
+        <% end %>
+          <div class="company-container">
+            <% if @company.proactive_interviews %>
+              <div class="company-main-jobs-box">
+                <h3 class="company-main-jobs-box-title">Entrevistas Proactivas</h3>
+                <a href="<%= @company.link_for_proactive_interviews.gsub("/preview", '') + "?special_event=meetups-udesa&token=YhwPe73bg12g" %>" target="_blank" class="btn btn-primary btn-proactive-interviews btn-md page-scroll btn-margin">Postulate</a>
+              </div>
+            <% end %>
+            <% if @company_jobs.not_proactive_interview.length > 0 %>
+              <div class="company-main-jobs-box">
+                <h3 class="company-main-jobs-box-title">Búsquedas activas</h3>
+                <div class="list-group">
+                  <% @company_jobs.not_proactive_interview.first(5).each do |company_job| %>
+                    <a href="<%= company_job_path(name_id: company_job.name_id, company_name_id: company_job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" class="list-group-item" target="<%= a_target_for_iframe %>">
+                      <h4 class="list-group-item-heading"><%= company_job.name %></h4>
+                      <%if company_job.remote%>
+                        <p class="list-group-item-text"><i class='fa fa-map-marker' aria-hidden='true'></i> Remoto</p>
+                      <%else%>
+                        <p class="list-group-item-text"><i class='fa fa-map-marker' aria-hidden='true'></i> <%= company_job.state %></p>
+                      <%end%>
+                    </a>
+                  <% end %>
+                  <li class="list-group-item">
+                    <p class="list-group-item-text">
+                      <a id="companies-internal-jobs-button" href="<%= company_companies_jobs_path(company_name_id: @company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" class="btn btn-home btn-block" target="<%= a_target_for_iframe %>">Ver todas nuestras búsquedas</a>
+                    </p>
+                  </li>
+                </div>
+              </div>
+            <% elsif !@company.jobs_url.blank? %>
+              <div class="company-main-jobs-box">
+                <h3 class="company-main-jobs-box-title">Búsquedas activas</h3>
+                <div class="list-group">
+                  <li class="list-group-item">
+                    <p class="list-group-item-text">
+                      <a id="companies-external-jobs-button" href="<%= @company.jobs_url %>" class="btn btn-home btn-block companies_statistics_counter" target="_blank">Ver todas nuestras búsquedas</a>
+                    </p>
+                  </li>
+                </div>
+              </div>
+            <% else %>
+              <!-- <div class="company-main-jobs-box">
+                <h3 class="company-main-jobs-box-title">Búsquedas activas</h3>
+                <div class="list-group">
+                  <li class="list-group-item">
+                    <p class="list-group-item-text lead">No hay búsquedas activas en este momento, ¡vuelve en unos días!</p>
+                  </li>
+                </div>
+              </div> -->
+            <% end %>
+
+            <% if (!@company.phone.blank? && @company.show_whatsapp_button) || (!@company.jobs_email.blank? && @company.show_email_button) %>
+              <div class="company-contact">
+                <% if !@company.phone.blank? && @company.show_whatsapp_button %>
+                  <a id="companies-whatsapp-button" href="https://wa.me/<%= @company.phone %>" target="_blank" class="btn btn-primary btn-whatsapp btn-md page-scroll btn-margin">Contactar por WhatsApp</a>
+                <% end %>
+                <% if !@company.jobs_email.blank? && @company.show_email_button %>
+                  <a id="companies-email-button" href="mailto:<%= @company.jobs_email %>" target="_blank" class="btn btn-primary btn-email btn-md page-scroll btn-margin">Contactar por Email</a>
+                <% end %>
+              </div>
+            <% elsif (@company_jobs.length <= 0 || @company.jobs_url.blank?) %>
+              <% unless office_secondary_photo.nil? %>
+                <div class="company-secondary-image">
+                  <%=image_tag office_secondary_photo.photo(:medium),  :alt => @company.name + ' - ' + office_secondary_photo.title, :class => "img-responsive", loading: "lazy"%>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%
+      total_cols = 3
+      actual_elem = 0
+      actual_company_video = 0
+      actual_company_story = 0
+      actual_company_other_photo = 0
+      actual_company_speech = 0
+
+
+      company_elements = office_photos_small.length + office_speeches.length + office_videos_small.length + office_stories.length
+
+      pq = PQueue.new([]){ |a,b| a.value < b.value || (a.value == b.value  && a.order < b.order)}
+      #pq.pop  #=> 3
+
+      if office_videos_small.length > 0
+        company_container_video = OpenStruct.new
+        company_container_video.name    = "video"
+        company_container_video.value     = 0
+        company_container_video.order     = 0
+        pq.push(company_container_video)
+      end
+
+      if office_stories.length > 0
+        company_container_story = OpenStruct.new
+        company_container_story.name    = "story"
+        company_container_story.value     = 0
+        company_container_story.order     = 1
+        pq.push(company_container_story)
+      end
+
+      if office_speeches.length > 0
+        company_container_spechees = OpenStruct.new
+        company_container_spechees.name    = "speech"
+        company_container_spechees.value     = 0
+        company_container_spechees.order     = 3
+        pq.push(company_container_spechees)
+      end
+
+      if office_photos_small.length > 0
+        company_container_photo = OpenStruct.new
+        company_container_photo.name    = "photo"
+        company_container_photo.value     = 0
+        company_container_photo.order     = 2
+        pq.push(company_container_photo)
+      end
+
+      %>
+
+      <% if office.media_objects.is_in_position.present? %>
+        <div class="row no-gutter">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <% unless media_objs_1.blank? %>
+                <% media_objs_1.each do |mo|%>
+                    <%= render partial: 'media_object' ,locals: {:media_object => mo, office: office}%>
+                <% end %>
+            <% end %>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <% unless media_objs_2.blank? %>
+                <% media_objs_2.each do |mo|%>
+                    <%= render partial: 'media_object' ,locals: {:media_object => mo, office: office}%>
+                <% end %>
+            <% end %>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <% unless media_objs_3.blank? %>
+                <% media_objs_3.each do |mo|%>
+                    <%= render partial: 'media_object' ,locals: {:media_object => mo, office: office}%>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <div class="row no-gutter">
+          <%(1..total_cols).each do |actual_col| %>
+            <%if actual_col == total_cols%>
+              <div class="col-md-4 col-xs-12">
+                <div class="no-gutter">
+                  <div class="col-md-12 col-sm-6 col-xs-12">
+            <%else%>
+              <div class="col-md-4 col-sm-6 col-xs-12">
+            <%end%>
+
+              <%while actual_elem < (company_elements.to_f/total_cols) * actual_col  do%>
+                <%if actual_col == total_cols && actual_elem == ((company_elements.to_f/total_cols) * actual_col - ((company_elements.to_f/total_cols) / 2).to_i)
+
+                  %>
+                  </div>
+                  <div class="col-md-12 col-sm-6 col-xs-12">
+                <%end%>
+
+                <%company_container = pq.pop%>
+                <% if company_container %>
+                  <% case company_container.name
+                    when 'video'
+                      company_video = office_videos_small[company_container.value]
+                    %>
+
+                      <%if company_video.vimeo?%>
+                        <div class="company-story-video-image">
+                          <a id="company_video_<%=office_id%>_<%=actual_elem%>" onclick="replaceThumbforYoutubeVideo('vimeo', '#company_video_<%=office_id%>_<%=actual_elem%>','<%=company_video.url%>');ga('send', 'event', 'Video Company', 'Play', '<%=office.name.html_safe%>');">
+                            <i class="material-icons companies-video-icon">play_circle_filled</i>
+                            <img src="https://img.youtube.com/vi/<%=company_video.url%>1ITC2eO7Q/sddefault.jpg" class="img-responsive">
+                            <%=image_tag 'https://img.youtube.com/vi/' + company_video.url + '/sddefault.jpg', :alt => 'Video ' + company_video.title, :class => "img-responsive"%>
+                            <div class="company-story-video-image-caption">
+                              <div class="company-story-video-image-caption-title"><%=company_video.title%></div>
+                              <div class="company-story-video-image-caption-position"><%=company_video.position%></div>
+                            </div>
+                          </a>
+                        </div>
+                      <%elsif company_video.youtube?%>
+                        <div class="company-story-video-image">
+                          <a id="company_video_<%=office_id%>_<%=actual_elem%>" onclick="replaceThumbforYoutubeVideo('youtube', '#company_video_<%=office_id%>_<%=actual_elem%>','<%=company_video.url%>');ga('send', 'event', 'Video Company', 'Play', '<%=office.name.html_safe%>');">
+                            <i class="material-icons companies-video-icon">play_circle_filled</i>
+                            <img src="https://img.youtube.com/vi/<%=company_video.url%>/sddefault.jpg" class="img-responsive">
+                            <div class="company-story-video-image-caption">
+                              <div class="company-story-video-image-caption-title"><%=company_video.title%></div>
+                              <div class="company-story-video-image-caption-position"><%=company_video.position%></div>
+                            </div>
+                          </a>
+                        </div>
+                      <%end%>
+
+                    <%
+                      company_container.value = company_container.value + 1
+                      if company_container.value < office_videos_small.length
+                        pq.push(company_container)
+                      end
+
+                    when 'story'
+                      company_story = office_stories[company_container.value]
+                      %>
+                        <div class="company-story">
+                          <h3>
+                            <%=company_story.title.html_safe%>
+                          </h3>
+                          <%company_story_detail = company_story.detail%>
+                          <%if company_story_detail.starts_with?('<p>')%>
+                            <%=company_story_detail.html_safe%>
+                          <%else%>
+                            <%=('<p>' + company_story_detail + '</p>').html_safe%>
+                          <%end%>
+                        </div>
+                      <%
+                      company_container.value = company_container.value + 1
+                      if company_container.value < office_stories.length
+                        pq.push(company_container)
+                      end
+
+                    when 'photo'
+                      company_other_photo = office_photos_small[company_container.value]
+                      %>
+                        <div class="company-story-image">
+                          <%=image_tag company_other_photo.photo(:medium),  :alt => office.name + ' - ' + company_other_photo.title, :class => "img-responsive", loading: "lazy"%>
+                        </div>
+                      <%
+                      company_container.value = company_container.value + 1
+                      if company_container.value < office_photos_small.length
+                        pq.push(company_container)
+                      end
+
+                    when 'speech'
+                      company_speech = office_speeches[company_container.value]
+                      %>
+                        <div class="company-margin">
+                          <blockquote class="<%= company_speech.speech_type %> mibucle-box">
+                            <% company_speech_detail = company_speech.detail %>
+                            <% if company_speech_detail.starts_with?('<p>') %>
+                              <%= company_speech_detail.html_safe %>
+                            <% else %>
+                              <%= ('<p>' + company_speech_detail + '</p>').html_safe %>
+                            <% end %>
+
+                            <% unless company_speech.author.blank? %>
+                              <div class="company-speech-author"><%= company_speech.author %></div>
+                            <% end %>
+                            <% unless company_speech.position.blank? %>
+                              <div class="company-speech-author-position"><%= company_speech.position %></div>
+                            <% end %>
+                          </blockquote>
+                        </div>
+                      <%
+                      company_container.value = company_container.value + 1
+                      if company_container.value < office_speeches.length
+                        pq.push(company_container)
+                      end
+                  end%>
+
+                <% end %>
+
+
+                <%actual_elem = actual_elem + 1 %>
+
+              <%end%>
+              <%if actual_col == total_cols%>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="row no-gutter">
+        <% if @company.facebook.present? %>
+          <div class="col-sm-3 transition-effect">
+            <a href="https://facebook.com/<%= @company.facebook %>" target="_blank">
+              <div class="company-margin">
+                <blockquote class="social-box facebook-box">
+                  <p>/<%= @company.facebook %></p>
+                  <div class="company-speech-author-position"><span class="fa fa-facebook"></span></div>
+                </blockquote>
+              </div>
+            </a>
+          </div>
+        <% end %>
+
+        <% if @company.twitter.present? %>
+          <div class="col-sm-3 transition-effect">
+            <a href="https://twitter.com/<%= @company.twitter %>" target="_blank">
+              <div class="company-margin">
+                <blockquote class="social-box twitter-box">
+                  <p>@<%= @company.twitter %></p>
+                  <div class="company-speech-author-position"><span class="fa fa-twitter"></span></div>
+                </blockquote>
+              </div>
+            </a>
+          </div>
+        <% end %>
+
+        <% if @company.linkedin.present? && @company.linkedin_username.present? %>
+          <div class="col-sm-3 transition-effect">
+            <a href="https://www.linkedin.com/company/<%= @company.linkedin %>" target="_blank">
+              <div class="company-margin">
+                <blockquote class="social-box linkedin-box">
+                  <p><%= @company.linkedin_username %></p>
+                  <div class="company-speech-author-position"><span class="fa fa-linkedin"></span></div>
+                </blockquote>
+              </div>
+            </a>
+          </div>
+        <% end %>
+
+        <% if @company.instagram.present? %>
+          <div class="col-sm-3 transition-effect">
+            <a href="https://instagram.com/<%= @company.instagram %>" target="_blank">
+              <div class="company-margin">
+                <blockquote class="social-box instagram-box">
+                  <p>@<%= @company.instagram %></p>
+                  <div class="company-speech-author-position"><span class="fa fa-instagram"></span></div>
+                </blockquote>
+              </div>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
+    </div>
+  </div>
+</div>

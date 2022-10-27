@@ -1,0 +1,3 @@
+$('#office-content-detail').html("<%= j render partial: 'office_detail', locals: {office: @selected_office, office_id: @selected_office.id}%>");
+$('#multioffice_body_menu li').removeClass('active');
+$("#multioffice_body_<%= @selected_office.name_id%>").addClass('active');

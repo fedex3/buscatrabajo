@@ -1,0 +1,19 @@
+// Append new data
+<%if !@jobs.blank?%>
+  $("<%=j render(:partial => 'jobs/jobs_list', :object => @jobs) %>")
+    .appendTo($(".infinite-table .jobs_list"));
+<%end%>
+
+// Update pagination link
+<%if @jobs.present?%>
+  <% if @jobs.last_page? %>
+    $('.pagination').html("");
+  <% else %>
+    $('.pagination')
+      .html("<%=j link_to_next_page(@jobs, '...', :remote => true, params: request.query_parameters.except('page')) %>");
+  <% end %>
+<% end %>
+
+<% if Rails.env.production? %>
+	ga('send', 'event', 'Jobs', 'Scroll', 'Page_ + <%= @jobs.current_page.to_s %>');
+<% end %>

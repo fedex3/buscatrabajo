@@ -1,0 +1,82 @@
+<% content_for :title, t('company.index.header.title') %>
+<% content_for :metadescription, t('company.index.header.description') %>
+<% content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
+<%= render :partial => 'layouts/structured_data' %>
+
+<% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
+
+<%
+opengraph = ""
+opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
+opengraph += '<meta property="og:title" content="' + t('company.index.header.title') + '" />'
+opengraph += '<meta property="og:description" content="' + t('company.index.header.description') + '" />'
+opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
+opengraph += '<meta property="og:image" content="https://s3.amazonaws.com/mibucle/images/companies.jpg" />'
+opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
+opengraph += '<meta property="og:type" content="' + "website" + '" />'
+%>
+<% content_for :opengraph, opengraph.html_safe %>
+
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-2 col-sm-0">
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <div class="company-header">
+        <h1><%= t('company.main.title') %></h1>
+        <p>
+          <% if params[:q].blank?%>
+            <%= t('company.main.detail') %>
+          <% elsif @companies.count > 0 %>
+            <%= t('company.main.search', :count => @companies.total_count, :query => params[:q]) %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-0">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <%if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true')%>
+        <%= form_tag(companies_path, method: :get, class: "form-horizontal", enforce_utf8: false) do %>
+          <div class="input-group">
+            <%= text_field_tag(:q, params[:q], class: "form-control input-lg input-search-lg", placeholder: "Ej: Mibucle...") %>
+            <span class="input-group-btn">
+              <%= submit_tag("Buscar", name: nil, class: "btn btn-search btn-lg margin-bottom-sm") %>
+            </span>
+          </div>
+          <div class="form-inline jobs-search">
+            <button type="button" class="btn btn-show-filters btn-sm btn-block-xs margin-bottom-sm hidden-sm hidden-md hidden-lg collapsed toggle-text" data-toggle="collapse" data-target="#filters" aria-expanded="false">
+              <span>Mostrar</span><span class="hidden">Ocultar</span> filtros
+            </button>
+            <div id="filters" class="filters">
+              <div class="form-row col-md-12">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                  <%= select_tag :country, options_for_select(@countries.collect {|c| [ c['name'], c['alpha2'] ] }, params[:country]), include_blank: "País", class: "form-control margin-bottom-sm" %>
+                </div>
+                <div class="col-md-4">
+                  <%= select_tag :state, options_for_select(@states, params[:state]), include_blank: "Provincia", class: "form-control margin-bottom-sm" %>
+                </div>
+                <%= submit_tag("Filtrar", name: nil, class: "btn btn-filter btn-block-xs margin-bottom-sm col-md-2") %>
+                <div class="col-md-1"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% if @companies.blank? %>
+    <div class="row">
+      <section class="section-companies text-center">
+        <h3 class ="companies-not-found"><%=t('company.index.empty')%></h3>
+      </section>
+    </div>
+    <%= render :partial => 'errors/recommended_companies' %>
+  <% end %>
+	<%= render :partial => 'companies/companies_list_default' %>
+</div>
+
+<%= render :partial => 'layouts/askmail' %>

@@ -1,0 +1,9 @@
+<tr>
+    <td class="bodycopy">
+        <p><%=t :'users.mailer.confirmationinstructions.part1' %> <%= @email %>!</p>
+
+        <p><%=t :'users.mailer.confirmationinstructions.part2' %></p>
+
+        <p><%= link_to t('users.actions.confirm'), confirmation_url(@resource, confirmation_token: @token,locale: I18n.locale) %></p>
+    </td>
+</tr>

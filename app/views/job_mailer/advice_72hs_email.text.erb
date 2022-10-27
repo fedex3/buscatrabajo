@@ -1,0 +1,5 @@
+<%= t('job.mailer.title') %>
+<%= t('job.mailer.job_title', job: @job.name) %>
+<%= t('job.mailer.job_views', views: @job.views) %>
+<%= t('job.mailer.job_applications', count: @job.application_counter) %>
+<%= t('job.mailer.job_end_date', date: @job.end_date.in_time_zone('Buenos Aires').strftime("%d/%m/%Y")) %>

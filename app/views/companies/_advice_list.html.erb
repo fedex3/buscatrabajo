@@ -1,0 +1,29 @@
+<div class="row no-gutter"> 
+    <% cache [:locale => I18n.locale, :recommended_advices => @recommended_advices], :expires_in => 1.hour do %>
+        <div class="row">
+            <section class="section-width-companies">
+                <div class="company-advices-card-list">
+                    <% @recommended_advices.each do |recommended_advice| %>
+                        <% next unless recommended_advice.name_id.present?%>
+                        <% cache [:locale => I18n.locale, :recommended_advice => recommended_advice], :expires_in => 1.hour do %>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <a href="<%=advice_path(recommended_advice.name_id)%>" <%if ENV['AUTHORS_NOT_FOLLOW'].split(",").include?(recommended_advice.author_id.to_s) %> rel="nofollow" <%end%>>
+                                    <div class="company-advices-card-summary">
+                                        <div class="company-advices-card-summary-image">
+                                            <img src="<%=recommended_advice.photo(:small)%>" alt="<%=recommended_advice.name%>" class="img-responsive" loading="lazy">
+                                        </div>
+                                        <div class="company-advices-card-summary-info">
+                                            <h3>
+                                                <%=recommended_advice.name%>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <%end%>
+                    <%end%>
+                </div>  	
+            </section>
+        </div>
+    <%end%>	
+</div>

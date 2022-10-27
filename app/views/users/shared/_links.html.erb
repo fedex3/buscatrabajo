@@ -1,0 +1,22 @@
+<p>
+	<%- if controller_name != 'sessions' &&  params[:controller] != "users/passwords" %>
+     <%= link_to t('users.actions.login'), user_session_newform_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modalSignIn'}  %>
+	  <br>
+	<% end -%>
+
+	<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+	  <a href="<%=new_user_registration_path%>"><%=t ('users.actions.signup') %></a><br>
+	<% end -%>
+
+	<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+	  <%= link_to t('users.actions.forgetpassword'), new_password_path(resource_name)  %><br/>
+	<% end -%>
+
+	<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+	  <%= link_to t('users.actions.notreciveconfirmation'), new_confirmation_path(resource_name)%><br />
+	<% end -%>
+
+	<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+	  <%= link_to t('users.actions.notreciveunlock'), new_unlock_path(resource_name) %><br />
+	<% end -%>
+</p>
