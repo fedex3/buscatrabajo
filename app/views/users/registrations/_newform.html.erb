@@ -8,13 +8,9 @@
     </ul>
   </div>
 <% end %>
-<p>
-  <%= button_to user_linkedin_omniauth_authorize_path, class: "btn btn-block btn-social btn-linkedin" do %>
-    <span class="fa fa-linkedin"></span> <%=t :'users.registrations.new.withlinkedin' %>
-  <% end %>
-</p>
+
 <p><br><%=t :'users.registrations.new.withemail' %></p>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(User) do |f| %>
   <%= hidden_field_tag("user[analytics_client_id]", "", :id => "user_analytics_client_id")%>
   <%= hidden_field_tag("user[source]", session[:source].nil? ? "" : session[:source], :id => "user_source")%>
   <%= hidden_field_tag("user[medium]", session[:medium].nil? ? "" : session[:medium], :id => "user_medium")%>

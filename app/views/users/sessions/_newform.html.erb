@@ -5,12 +5,6 @@
   </div>
 <% end %>
 
-<p>
-  <%= button_to user_linkedin_omniauth_authorize_path, class: "btn btn-block btn-social btn-linkedin" do %>
-    <span class="fa fa-linkedin"></span> <%=t :'users.sessions.withlinkedin' %>
-  <% end %>
-</p>
-
 <p><br><%=t :'users.sessions.withemail' %></p>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 

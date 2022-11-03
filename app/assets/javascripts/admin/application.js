@@ -16,12 +16,7 @@
 //= require jquery-ui/widgets/sortable
 //= require popper
 //= require bootstrap
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
-//= require cocoon
 //= require wice_grid
-//= require chartkick
-//= require Chart.bundle
 //= require_directory .
 
 WiceGridProcessor.prototype.reset = function() {

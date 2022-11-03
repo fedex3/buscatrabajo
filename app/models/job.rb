@@ -1,7 +1,5 @@
 class Job < ApplicationRecord
-  acts_as_paranoid
   include ShowPhotoName
-  acts_as_taggable_on :skills
 
   belongs_to :company, optional: true
   belongs_to :level, optional: true

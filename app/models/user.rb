@@ -1,12 +1,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  acts_as_paranoid
-  acts_as_taggable_on :skills
-  acts_as_taggable_on :languages
+
 
   has_attached_file :photo, {
-    default_url: ActionController::Base.helpers.asset_path("persona1.webp"),
+    default_url: "",
     #url: '/system/projects/logos/:hash.:extension',
     hash_secret: 'longSecretString',
     styles: { thumbnail: '100x100#', medium: '500x500#'}

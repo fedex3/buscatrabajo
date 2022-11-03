@@ -5,10 +5,9 @@ header{
     height: 50px;
     justify-content: center;
     align-items: center;
+    background-color: rgb(238, 238, 224);
 
     #header-logo{
-        position: absolute;
-        left: 0;
 
     }
 
@@ -22,5 +21,18 @@ header{
         position: absolute;
         right: 0;
 
+    }
+    #header_menu{
+        display: flex;
+
+    }
+    .navbar-container{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .container-fluid{
+        display: flex;
+        width: 100%;
     }
 }

@@ -2,7 +2,6 @@ class Company < ApplicationRecord
   require 'rss'
   require 'httparty'
   include ShowPhotoName
-	acts_as_paranoid
   attr_accessor :terms_accepted
 
   has_many :company_stories, as: :storiable, :dependent => :destroy
