@@ -1,82 +1,84 @@
-<main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-4">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Panel de administración</h1>
-  </div>
+<div class=".admin" style="margin-top: 50px;">
+  <main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-4" style="margin-top: 50px;">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Panel de administración</h1>
+    </div>
 
-    <% if current_user.content_editor? || current_user.content_editor_plus? %>
-      <div class="row">
-        <div class="col-12">
-          <h4>Hola <%= current_user.name %>, seleccioná una opción del menú izquierdo para continuar.</h4>
-        </div>
-      </div>
-    <% else %>
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title h3">
-              <% if current_user.company_role? && current_user.company_id.present? %>
-                <%= @listable_jobs_by_company.count %>
-              <% elsif current_user.admin? || current_user.superadmin? || current_user.recruiter? %>
-                <%= @listable_jobs.count %>
-              <% end %>
-              </h5>
-              <h6 class="card-subtitle mb-2 text-muted">Avisos activos</h6>
-            </div>
+      <% if current_user.content_editor? || current_user.content_editor_plus? %>
+        <div class="row">
+          <div class="col-12">
+            <h4>Hola <%= current_user.name %>, seleccioná una opción del menú izquierdo para continuar.</h4>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title h3">
+      <% else %>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title h3">
                 <% if current_user.company_role? && current_user.company_id.present? %>
-                  <%= @job_applications_of_listable_jobs_by_company.count %>
+                  <%= @listable_jobs_by_company.count %>
                 <% elsif current_user.admin? || current_user.superadmin? || current_user.recruiter? %>
-                  <%= @job_applications_of_listable_jobs.count %>
+                  <%= @listable_jobs.count %>
                 <% end %>
-              </h5>
-              <h6 class="card-subtitle mb-2 text-muted">Postulaciones (avisos activos)</h6>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Avisos activos</h6>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title h3">
-                <% if current_user.company_role? && current_user.company_id.present? %>
-                  <%= @listable_jobs_views_by_company %>
-                <% elsif !current_user.company_role? %>
-                  <%= @listable_jobs_views %>
-                <% end %>
-              </h5>
-              <h6 class="card-subtitle mb-2 text-muted">Vistas de avisos activos</h6>
+          <div class="col-lg-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title h3">
+                  <% if current_user.company_role? && current_user.company_id.present? %>
+                    <%= @job_applications_of_listable_jobs_by_company.count %>
+                  <% elsif current_user.admin? || current_user.superadmin? || current_user.recruiter? %>
+                    <%= @job_applications_of_listable_jobs.count %>
+                  <% end %>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Postulaciones (avisos activos)</h6>
+              </div>
             </div>
           </div>
-        </div>
-        <% if current_user.company_role? && current_user.company_id.present? %>
-        <div class="col-lg-4">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title h3">
-                  <%= @available_credits_for_tests || '0' %>
-              </h5>
-              <h6 class="card-subtitle mb-2 text-muted">Créditos disponibles para tests de competencias</h6>
+          <div class="col-lg-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title h3">
+                  <% if current_user.company_role? && current_user.company_id.present? %>
+                    <%= @listable_jobs_views_by_company %>
+                  <% elsif !current_user.company_role? %>
+                    <%= @listable_jobs_views %>
+                  <% end %>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Vistas de avisos activos</h6>
+              </div>
             </div>
           </div>
+          <% if current_user.company_role? && current_user.company_id.present? %>
+          <div class="col-lg-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title h3">
+                    <%= @available_credits_for_tests || '0' %>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Créditos disponibles para tests de competencias</h6>
+              </div>
+            </div>
+          </div>
+          <% end %>
         </div>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% if current_user.company_role? && current_user.company_id.present? %>
-      <br>
-      <div class="row">
-        <div class="col">
-          <h5>Perfil de Empresa</h5>
-          <div class="row">
-            <%= render partial: "admin/employer_brand_index/office", collection: @offices, as: :office %>
+      <% if current_user.company_role? && current_user.company_id.present? %>
+        <br>
+        <div class="row">
+          <div class="col">
+            <h5>Perfil de Empresa</h5>
+            <div class="row">
+              <%= render partial: "admin/employer_brand_index/office", collection: @offices, as: :office %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-</main>
+      <% end %>
+  </main>
+</div>

@@ -1,0 +1,3 @@
+class JobViewPolicy < ApplicationPolicy
+  
+end

@@ -1,0 +1,3 @@
+class CompanySpeechPolicy < ApplicationPolicy
+  
+end

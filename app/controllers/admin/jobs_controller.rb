@@ -1,8 +1,8 @@
 module Admin
   class Admin::JobsController < Admin::AdminController
-    before_action -> { authorize auth_resource }, only: %i[index new create]
-    before_action -> { authorize resource(job) }, only: %i[edit update destroy block]
-    before_action :authenticate_user!
+    #before_action -> { authorize auth_resource }, only: %i[index new create]
+    #before_action -> { authorize resource(job) }, only: %i[edit update destroy block]
+    #before_action :authenticate_user!
 
     def index
       @grid = initialize_grid(scope.includes(:company), order: 'id', order_direction: 'desc', enable_export_to_csv: true, csv_file_name: 'Avisos')
@@ -28,16 +28,6 @@ module Admin
       publish if publish_button_pressed?
 
       if @job.save
-        params[:job_countries].each do |country|
-          JobCountry.new(job_id: @job.id, country_alpha2: country).save
-        end
-
-        unless params[:job_states].blank?
-          params[:job_states].each do |state|
-            JobState.new(job_id: @job.id, state_full_name: state).save
-          end
-        end
-
         AlertMailer.new_job(job.id).deliver_now if current_user.company_role?
         redirect_to admin_jobs_path
       else

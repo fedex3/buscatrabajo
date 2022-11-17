@@ -1,0 +1,3 @@
+class CompanySpecialEventLogoSectionPolicy < ApplicationPolicy
+    
+end

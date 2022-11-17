@@ -53,6 +53,7 @@ gem 'wice_grid', git: 'https://bitbucket.org/sesocio/wice_grid_maxter.git', tag:
 gem 'nokogiri', '~> 1.12', '>= 1.12.4'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17', '>= 4.17.47'
+gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.1.1'
 gem 'aasm', '~> 5.0', '>= 5.0.8'
 gem 'sidekiq', '~> 6.2', '>= 6.2.1'
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d5711d28aaa9b4c42c66'
@@ -60,6 +61,7 @@ gem 'active_record_union', '~> 1.3', '>= 1.3.0'
 gem 'psych', '< 4'
 gem 'countries', '~> 3.0', '>= 3.0.1'
 gem 'material_icons', '~> 2.2', '>= 2.2.1'
+gem "paranoia", '~> 2.4', '>= 2.4.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

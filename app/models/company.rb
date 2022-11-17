@@ -1,6 +1,6 @@
 class Company < ApplicationRecord
   require 'rss'
-  require 'httparty'
+  #require 'httparty'
   include ShowPhotoName
   attr_accessor :terms_accepted
 
@@ -65,46 +65,23 @@ class Company < ApplicationRecord
   validates_attachment_file_name :logo, matches: [/png\Z/i, /svg\Z/i, /jpe?g\Z/i, /webp\Z/i]
   validates_attachment_size :logo, :in => 0.megabytes..1.megabytes
 
-  has_attached_file :icon, {
-    default_url: ActionController::Base.helpers.asset_path("missing.webp"),
-      #url: "/system/projects/logos/:hash.:extension",
-      hash_secret: "longSecretString",
-      :styles => {:thumbnail => "150x",  :small => "120x100"},
-      :convert_options => { :thumbnail => "-gravity center -extent 150x150"} #Makes the image a perfect square adding white space to the sides
-  }
 
-  validates_attachment_content_type :icon, content_type: /\Aimage/
-  validates_attachment_file_name :icon, matches: [/png\Z/i, /jpe?g\Z/i, /webp\Z/i]
-  validates_attachment_size :icon, :in => 0.megabytes..1.megabytes
   after_save :tinify_photos , if: Proc.new { |company| (company.saved_change_to_main_photo_updated_at? ||
     company.saved_change_to_cover_photo_updated_at? || 
-    company.saved_change_to_logo_updated_at? || 
-    company.saved_change_to_icon_updated_at?) && 
+    company.saved_change_to_logo_updated_at? ) && 
     Rails.env.production?}
 
 	validates :name, length: { minimum: 1, maximum: 100}
 	validates :name_id, uniqueness: {case_sensitive: false}
- 	validates :industries, :length => { :minimum => 1 }  ##ASK: why don't use presence true only ?
+ 	#validates :industries, :length => { :minimum => 1 }  ##ASK: why don't use presence true only ?
  	validates :views, numericality: { greater_than_or_equal_to: 0}
-  validates :summary, length: { minimum: 1, maximum: 140}
-  validates :long_summary, length: { minimum: 1, maximum: 300}, allow_blank: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
-  validates :jobs_email, format: { with: VALID_EMAIL_REGEX }
 
-  validates :terms_accepted_email, presence: true, format: { with: VALID_EMAIL_REGEX }, if: :terms_accepted
-  validates :terms_accepted_phone, length: { minimum: 7, maximum: 300}, if: :terms_accepted
-  validates :terms_accepted_name, length: { minimum: 5, maximum: 300}, if: :terms_accepted
-  validates :terms_accepted_position, length: { minimum: 2, maximum: 300}, if: :terms_accepted
-
-  validates :link_for_proactive_interviews, presence: true, if: :proactive_interviews
 	before_validation :create_name_id
 	before_save :create_recommended_companies
-  after_save :update_urls
+  #after_save :update_urls
 
-  enum job_provider_type: %i[mibucle other avature greenhouse workday hiringroom publicis]
-  enum pack: %i[pack_gold pack_silver pack_bronze pack_free]
   enum jobs_process_status: %i[jobs_dont_apply jobs_pending jobs_finished jobs_processing]
 
   scope :by_q, -> (q) { joins(:industries, :companies_industries, :company_speeches, :company_stories, :jobs).where("lower(companies.name) LIKE ? OR lower(companies.state) LIKE ? OR lower(industries.name) LIKE ? OR lower(company_speeches.detail) LIKE ? OR lower(company_stories.detail)  LIKE ? OR lower(jobs.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%").distinct}
@@ -115,31 +92,16 @@ class Company < ApplicationRecord
   scope :listable, -> { active.from_date}
   scope :from_date, -> { where("date_trunc('day', companies.from_date) <= ?", Date.today) }
 	scope :active, -> { where(active: true) }
-  scope :gold, -> { where(pack: 0) }
-  scope :silver, -> { where(pack: 1) }
-  scope :bronze, -> { where(pack: 2) }
-  scope :free, -> { where(pack: 3) }
-  scope :bronze_and_free, -> { where(pack: [2,3]) }
-  scope :not_show_only_in_special_events, -> { where(show_only_in_special_events: false) }
-  scope :featured_on_home, -> { where(home: true) }
-  scope :featured_on_chile_home, -> { where(featured_on_chile_home: true) }
-  scope :featured_on_spain_home, -> { where(featured_on_spain_home: true) }
-  scope :featured_on_mexico_home, -> { where(featured_on_mexico_home: true) }
-  scope :featured_on_colombia_home, -> { where(featured_on_colombia_home: true) }
+
 	scope :default_order, -> { order(name: :asc) }
 	scope :order_by_date, -> { order(created_at: :desc) }
-  scope :order_by_home, -> { order(home: :desc, created_at: :desc) }
   scope :order_by_relevance, -> { order(views: :desc) }
   scope :order_by_default, -> { order(views: :desc) }
 	scope :order_by_name, -> { order(name: :asc) }
   scope :order_by_name_desc, -> { order(name: :desc) }
-  scope :order_by_pack, -> { order(pack: :asc) }
-  scope :order_by_is_special_event_gold_first, -> { order(is_special_event_gold: :desc) }
   scope :order_by_user_count, -> { joins(:users).group(:id).order('COUNT(users.id) DESC')}
   scope :has_users, -> { joins(:users).uniq }
-  scope :faved_last_month , -> { joins(:users).uniq.select{|comp| comp.company_favorites.select{|fav| fav.created_at > (Date.today - 1.month)}.count > 0} }
 
-  scope :order_by_order_in_event, -> { order(order_in_event: :asc) }
   scope :by_manual_order, -> { order('manual_order asc NULLS LAST') }
 
   scope :with_photo, -> { where.not(main_photo_url: ["missing.webp", nil] ) }
@@ -187,9 +149,6 @@ class Company < ApplicationRecord
     if main_photo(:small).to_s != main_photo_url
       self.update_column(:main_photo_url,main_photo(:small).to_s)
     end
-    if icon(:small).to_s != icon_url
-      self.update_column(:icon_url,icon(:small).to_s)
-    end
     if logo.to_s != logo_url
       self.update_column(:logo_url,logo(:original).to_s)
     end
@@ -228,7 +187,7 @@ class Company < ApplicationRecord
 	end
 
 	def create_name_id
-		self.name_id = Url.friendly(name)
+		self.name_id = name
 	end
   
   def multioffice?
@@ -402,11 +361,4 @@ class Company < ApplicationRecord
   end
 
   private
-    def tinify_photos #Compresses all images uploaded with paperclip. Must add "after_save :tinify_photos , if: Proc.new { |instance| instance.saved_change_to_´attachment_name´_updated_at?}"
-      paths = [self.main_photo.path(:original), self.main_photo.path(:small), self.main_photo.path(:medium), self.main_photo.path(:large),
-        self.logo.path(:original), self.logo.path(:thumbnail), self.logo.path(:small),
-        self.cover_photo.path(:original), self.cover_photo.path(:thumbnail), self.cover_photo.path(:large),
-        self.icon.path(:original), self.icon.path(:thumbnail), self.icon.path(:small)]
-      TinifyToS3.perform_async(paths)
-    end
 end

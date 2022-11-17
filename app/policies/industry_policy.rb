@@ -1,0 +1,3 @@
+class IndustryPolicy < ApplicationPolicy
+  
+end

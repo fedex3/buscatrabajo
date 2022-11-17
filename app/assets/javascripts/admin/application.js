@@ -14,6 +14,7 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
+//= require bootstrap-datepicker/core
 //= require popper
 //= require bootstrap
 //= require wice_grid

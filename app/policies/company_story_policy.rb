@@ -1,0 +1,3 @@
+class CompanyStoryPolicy < ApplicationPolicy
+  
+end

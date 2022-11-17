@@ -32,19 +32,17 @@ class Job < ApplicationRecord
   validates :name, length: { minimum: 1, maximum: 100}
   validates :detail, length: { minimum: 1, maximum: 20000}
   validates :name_id, presence: true, :uniqueness => {case_sensitive: false, :scope => :company_id}
-  validates :url, length: { minimum: 0, maximum: 500}
-  validates :country, length: { presence: true, allow_blank: false}
+  #validates :country, length: { presence: true, allow_blank: false}
   validates :views, numericality: { greater_than_or_equal_to: 0}
   validates :application_counter, numericality: { greater_than_or_equal_to: 0}
   validates :from_date, length: { presence: true, allow_blank: false}
   validates :end_date, length: { presence: true, allow_blank: false}
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, format: { with: VALID_EMAIL_REGEX }, if: :validate_email?
 
   before_validation :create_name_id
   before_validation :remove_email
-  after_save :update_urls
+  #after_save :update_urls
   #after_create :update_order
 
   enum provider: %i[mibucle other avature greenhouse workday hiringroom publicis]
@@ -172,7 +170,7 @@ class Job < ApplicationRecord
 	end
 
 	def create_name_id
-		self.name_id = Url.friendly(name) if publicis_id.blank?
+		self.name_id = name
 	end
 
   def increment_counter

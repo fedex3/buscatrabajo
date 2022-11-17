@@ -1,0 +1,3 @@
+class CompanyFavoritePolicy < ApplicationPolicy
+  
+end

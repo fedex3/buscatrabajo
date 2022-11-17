@@ -33,41 +33,14 @@
         <%= f.text_field :name, autofocus: true, class: "form-control" %>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label :industry_id, Job.human_attribute_name("industry_id"), class:"form-label"%>
-        <%= f.collection_select :industry_id, Industry.order(:name),:id,:name, {include_blank: false}, {:class => "form-control"}  %>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label Job.human_attribute_name("level_id"), :class => "form-label"%>
-        <%= f.collection_select :level_id, Level.all,:id,:name, {include_blank: true}, {:class => "form-control"}  %>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group custom-control custom-checkbox mt-md-4">
-        <%= f.check_box :part_time, class: "custom-control-input" %>
-        <%= f.label :part_time, Job.human_attribute_name("part_time"), class: "custom-control-label" %>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-row">
-    <div class="col-md-4">
+    <!--<div class="col-md-3">
       <div class="form-group">
-        <%= f.label Job.human_attribute_name("email"), :class => "form-label"%>
-        <%= f.email_field :email, autofocus: true, :class => "form-control" %>
+        <%# f.label Job.human_attribute_name("level_id"), :class => "form-label"%>
+        <%# f.collection_select :seniority, Level.all,:id,:name, {include_blank: true}, {:class => "form-control"}  %>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Job.human_attribute_name("url"), :class => "form-label"%>
-        <%= f.text_field :url, autofocus: true, :class => "form-control" %>
-      </div>
-    </div>
-    <div class="col-md-4">
-    </div>
+    </div> -->
+
   </div>
 
   <div class="form-row">
@@ -83,8 +56,6 @@
         <%= f.date_field :end_date, :class => "form-control" %>
       </div>
     </div>
-    <div class="col-md-4">
-    </div>
   </div>
 
   <div class="form-row">
@@ -92,26 +63,14 @@
       <div class="form-group">
         <%= f.label Job.human_attribute_name("country"), :class => "form-label"%>
         <span class= "multiselect-tip" data-toggle='tooltip' title= '<%= t('admin.select_multiple')%>'>?</span>
-        <%= select_tag "job_countries", options_from_collection_for_select(reduced_countries_list.select{|a| countries_list.map{|b| b.second}.include?(a.second)}, :second, :first, @job.job_countries.map{ |j| j.country_alpha2 }), {class:"form-control", :multiple => true, :size => 6, required: true, :include_blank => false} %>
+        <%= select_tag "company_countries", options_for_select(reduced_countries_list), {class:"form-control", :multiple => true, :size => 6} %>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label :state, "Provincia / Estado", class: "form-label"%>
-        <span class= "multiselect-tip" data-toggle='tooltip' title= '<%= t('admin.select_multiple')%>'>?</span>
-        <%= select_tag "job_states", options_for_select(states_list_multiple(selected_country_jobs(@job)), @job.job_states.map{ |j| j.state_full_name }), {class:"form-control", :multiple => true, :size => 6, :include_blank => false} %>
-      </div>
-    </div>
+
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label Job.human_attribute_name("city"), :class => "form-label"%>
         <%= f.text_field :city, :class => "form-control" %>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label Job.human_attribute_name("card_text"), class:"form-label"%>
-        <%= f.text_field :card_text, class:"form-control" %>
       </div>
     </div>
   </div>
@@ -132,14 +91,7 @@
         <% end %>
       </div>
     </div>
-    <% if !current_user.company_role? %>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :review_application, class: "custom-control-input" %>
-          <%= f.label :review_application, Job.human_attribute_name("review_application"), class: "custom-control-label" %>
-        </div>
-      </div>
-    <% end %>
+
     <div class="col-md-2">
       <div class="form-group custom-control custom-checkbox mt-md-4">
         <%= f.check_box :remote, class: "custom-control-input" %>
@@ -148,15 +100,7 @@
     </div>
   </div>
 
-  <div class="form-row">
-    <div class="col-md-12">
-      <div class="form-group job_skills">
-        <%= f.label "skills", :class => "form-label" %>
-        <%= f.text_field :skill_list, placeholder: "Skills",  :class => 'form-control multiple-input', :value => @job.skill_list&.to_s %>
-        <i>Puedes agregar tags/skills, separados por coma o presionando la tecla enter.</i>
-      </div>
-    </div>
-  </div>
+
 
   <div class="form-row">
     <div class="col-md-12">

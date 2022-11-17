@@ -1,0 +1,3 @@
+class CompanyVideoPolicy < ApplicationPolicy
+  
+end

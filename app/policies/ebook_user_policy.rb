@@ -1,0 +1,3 @@
+class EbookUserPolicy < ApplicationPolicy
+  
+end

@@ -18,69 +18,9 @@
         </div>
       </div>
     <% end %>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("email"), class:"form-label" %>
-        <%= f.email_field :email, autofocus: true, class:"form-control" %>
-      </div>
-    </div>
-    <% if current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("url"), class:"form-label" %>
-          - http://
-          <%= f.text_field :url, autofocus: true, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
-    <% unless current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("pack"), class:"form-label" %>
-          <%= f.select :pack, Company.packs.keys, {}, { class: 'form-control' } %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  <div class="form-row">
-    <% unless current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("url"), class:"form-label" %>
-          - http://
-          <%= f.text_field :url, autofocus: true, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("Título de página"), class:"form-label" %>
-        <%= f.text_field :page_title, class:"form-control" , placeholder:("Default: Conoce " + @company.name + " - Mibucle.com" unless action == "create")%>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("meta_descript"), class:"form-label" %>
-        <%= f.text_field :meta_descript, class:"form-control" , placeholder:("Default: Conoce " + @company.name + " antes de aplicar" unless action == "create")%>
-      </div>
-    </div>
   </div>
 
   <div class="form-row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("summary"), class:"form-label" %>
-        <%= f.text_area :summary, rows: 5, class:"form-control" %>
-      </div>
-    </div>
-    <% unless current_user.company_role?%>
-      <div class="col-md-6">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("long_summary"), class:"form-label" %>
-          <%= f.text_area :long_summary, rows: 5, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
     <% if current_user.company_role? %>
       <div class="col-md-3">
         <div class="form-group">
@@ -106,22 +46,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label :icon, Company.human_attribute_name("icon"), class:"form-label" %>
-        <div class="custom-file">
-          <%= f.file_field :icon, class:"custom-file-input" %>
-          <%= f.label :icon, @company.show_file_name_for(field: :icon, numCharacters: 40), class: "custom-file-label", "data-browse" => "Elegir" %>
-        </div>
-        <% unless @company.icon.blank? %>
-          <%= image_tag @company.icon(:small), class:"mt-2", loading: "lazy" %>
-          <% unless @company.id.blank? %>
-            <%= link_to '<span class="fa fa-trash text-danger"></span>'.html_safe, edit_admin_company_path(@company, icon: true), class:'btn btn-light btn-xs btn-delete-photo' %>
-          <% end %>
-          <br><br>
-        <% end %>
-      </div>
-    </div>
+    
     <div class="col-md-3">
       <div class="form-group">
 
@@ -158,41 +83,7 @@
   </div>
 
   <div class="form-row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("jobs_email"), class:"form-label" %>
-        <%= f.email_field :jobs_email, class:"form-control" %>
-      </div>
-    </div>
 
-    <div class="col-md-2">
-      <div class="form-group">
-        <%= f.label :phone, class:"form-label" %>
-        <%= f.text_field :phone, class:"form-control" %>
-      </div>
-    </div>
-    <% unless current_user.company_role? %>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("jobs_url"), class:"form-label" %>
-          <%= f.text_field :jobs_url, class:"form-control" %>
-        </div>
-      </div>
-
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("jobs_text"), class:"form-label" %>
-          <%= f.text_field :jobs_text, class:"form-control" %>
-        </div>
-      </div>
-
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("jobs_button"), class:"form-label" %>
-          <%= f.text_field :jobs_button, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
     <% if current_user.company_role? %>
       <div class="col-md-3">
         <div class="form-group">
@@ -211,83 +102,9 @@
           <%= f.date_field :from_date, class:"form-control" %>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("job_provider_type"), class:"form-label" %>
-          <%= f.select :job_provider_type, Company.job_provider_types.keys, {}, { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("job_provider_url"), class:"form-label" %>
-          <%= f.text_field :job_provider_url, autofocus: true, class:"form-control" %>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("job_register_url"), class:"form-label" %>
-          <%= f.text_field :job_register_url, autofocus: true, class:"form-control" %>
-        </div>
-      </div>
     <% end %>
   </div>
 
-  <div class="form-row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("twitter"), class:"form-label"%>
-        <%= f.text_field :twitter, class:"form-control" %>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("facebook"), class:"form-label"%>
-        <%= f.text_field :facebook, class:"form-control" %>
-      </div>
-    </div>
-    <% unless current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("instagram"), class:"form-label"%>
-          <%= f.text_field :instagram, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="form-row">
-    <% if current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("instagram"), class:"form-label"%>
-          <%= f.text_field :instagram, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
-    <% unless current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("linkedin"), class:"form-label"%>
-          <%= f.text_field :linkedin, class:"form-control" %>
-          <small class="form-text text-muted">https://developer.linkedin.com/plugins/company-profile</small>
-        </div>
-      </div>
-    <% end %>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("linkedin_username"), class:"form-label"%>
-        <%= f.text_field :linkedin_username, class:"form-control" %>
-      </div>
-    </div>
-    <% unless current_user.company_role? %>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("manual_order"), class:"form-label"%>
-          <%= f.number_field :manual_order, class:"form-control" %>
-        </div>
-      </div>
-    <% end %>
-  </div>
 
   <div class="form-row">
     <% unless current_user.company_role? %>
@@ -295,24 +112,6 @@
         <div class="form-group">
           <%= f.label Company.human_attribute_name("industries"), class:"form-label" %>
           <%= select_tag "industries", options_from_collection_for_select(Industry.order_by_name, :id, :name, @company.industries.map{ |j| j.id }), {class:"form-control", :multiple => true, :size => 6} %>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("company_special_events"), class:"form-label" %>
-          <%= select_tag "company_special_events", options_from_collection_for_select(CompanySpecialEvent.order_by_name, :id, :name, @company.company_special_events.map{ |j| j.id }), {class:"form-control", :multiple => true, :size => 6} %>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("order_in_event"), class:"form-label" %>
-          <%= f.number_field :order_in_event, class:"form-control" %>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label Company.human_attribute_name("greenshouse_id"), class:"form-label" %>
-          <%= f.text_field :greenhouse_id, class:"form-control" %>
         </div>
       </div>
     <% end %>
@@ -323,67 +122,14 @@
       <div class="form-group">
         <%= f.label Company.human_attribute_name("country"), class:"form-label"%>
         <span class= "multiselect-tip" data-toggle='tooltip' title= '<%= t('admin.select_multiple')%>'>?</span>
-        <%= select_tag "company_countries", options_from_collection_for_select(reduced_countries_list.select{|a| countries_list.map{|b| b.second}.include?(a.second)}, :second, :first, @company.company_countries.map{ |j| j.country_alpha2 }), {class:"form-control", :multiple => true, :size => 6} %>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("state"), class:"form-label"%>
-        <span class= "multiselect-tip" data-toggle='tooltip' title= '<%= t('admin.select_multiple')%>'>?</span>
-        <%= select_tag "company_states", options_for_select(states_list_multiple(selected_country_companies(@company)), @company.company_states.map{ |j| j.state_full_name }), {class:"form-control", :multiple => true, :size => 6} %>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <%= f.label Company.human_attribute_name("card_text"), class:"form-label"%>
-        <%= f.text_field :card_text, class:"form-control" %>
+        <%= select_tag "company_countries", options_for_select(reduced_countries_list), {class:"form-control", :multiple => true, :size => 6} %>
       </div>
     </div>
   </div>
 
   <% unless current_user.company_role? %>
 
-    <h4>Destaque en la Home</h4>
     <div class="form-row">
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :home, class:"custom-control-input" %>
-          <%= f.label :home, Company.human_attribute_name("home"), class:"custom-control-label"%>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :featured_on_chile_home, class:"custom-control-input" %>
-          <%= f.label :featured_on_chile_home, Company.human_attribute_name("featured_on_chile_home"), class:"custom-control-label"%>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :featured_on_colombia_home, class:"custom-control-input" %>
-          <%= f.label :featured_on_colombia_home, Company.human_attribute_name("featured_on_colombia_home"), class:"custom-control-label"%>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :featured_on_spain_home, class:"custom-control-input" %>
-          <%= f.label :featured_on_spain_home, Company.human_attribute_name("featured_on_spain_home"), class:"custom-control-label"%>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :featured_on_mexico_home, class:"custom-control-input" %>
-          <%= f.label :featured_on_mexico_home, Company.human_attribute_name("featured_on_mexico_home"), class:"custom-control-label"%>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :logo_name, class:"custom-control-input" %>
-          <%= f.label :logo_name, Company.human_attribute_name("logo_name"), class:"custom-control-label" %>
-        </div>
-      </div>
 
       <div class="col-md-2">
         <div class="form-group custom-control custom-checkbox mt-md-4">
@@ -391,79 +137,12 @@
           <%= f.label :active, Company.human_attribute_name("active"), class:"custom-control-label"%>
         </div>
       </div>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :list_label, class:"custom-control-input" %>
-          <%= f.label :list_label, Company.human_attribute_name("list_label"), class:"custom-control-label"%>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :is_special_event_gold, class:"custom-control-input" %>
-          <%= f.label :is_special_event_gold, Company.human_attribute_name("is_special_event_gold"), class:"custom-control-label"%>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col-md-3">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :show_only_in_special_events, class:"custom-control-input" %>
-          <%= f.label :show_only_in_special_events, Company.human_attribute_name("show_only_in_special_events"), class:"custom-control-label"%>
-        </div>
-      </div>
-
-      <div class="col-md-3">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :show_whatsapp_button, class:"custom-control-input" %>
-          <%= f.label :show_whatsapp_button, Company.human_attribute_name("show_whatsapp_button"), class:"custom-control-label"%>
-        </div>
-      </div>
-
-      <div class="col-md-3">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :show_email_button, class:"custom-control-input" %>
-          <%= f.label :show_email_button, Company.human_attribute_name("show_email_button"), class:"custom-control-label"%>
-        </div>
-      </div>
     </div>
 
     <br/>
 
-    <% if current_user.admin? || current_user.superadmin? %>
-      <h4>Agregar créditos para descargar tests</h4>
-      <div class="form-group custom-control">
-        <%= f.text_field :available_credits_for_tests, class:"form-control" %>
-      </div>
-      <div class="form-group custom-control custom-checkbox mt-md-4">
-        <%= f.check_box :show_tests, class:"custom-control-input" %>
-        <%= f.label :show_tests, Company.human_attribute_name("show_tests"), class:"custom-control-label"%>
-      </div>
-    <% end %>
+    
 
-
-    <div class="form-group custom-control custom-checkbox mt-md-4">
-      <%= f.check_box :enable_tests, class:"custom-control-input" %>
-      <%= f.label :enable_tests, Company.human_attribute_name("enable_tests"), class:"custom-control-label"%>
-    </div>
-
-    <h4>Activar Entrevistas Proactivas</h2>
-    <div class="form-row">
-      <div class="col-md-3">
-        <div class="form-group custom-control custom-checkbox mt-md-4">
-          <%= f.check_box :proactive_interviews, class:"custom-control-input" %>
-          <%= f.label :proactive_interviews, Company.human_attribute_name("proactive_interviews"), class:"custom-control-label"%>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group custom-control">
-          <%= f.label :link_for_proactive_interviews, Company.human_attribute_name("link_for_proactive_interviews"), class:"form-label"%>
-          <%= f.text_field :link_for_proactive_interviews, class:"form-control", placeholder: 'http://example.com' %>
-        </div>
-      </div>
-    </div>
-    <br>
 
   <% end %>
 

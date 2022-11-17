@@ -1,0 +1,3 @@
+class BankTransferCollectionPolicy < ApplicationPolicy
+  
+end

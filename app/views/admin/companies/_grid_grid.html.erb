@@ -11,7 +11,7 @@
   g.column name: Company.human_attribute_name(:views), attribute: 'views', filter: false
 
   g.column name: Company.human_attribute_name(:active), attribute: 'active', filter: :boolean, detach_with_id: :active_filter do |company|
-    humanize_boolean(company.active)
+    company.active
   end
 
   g.column name: Company.human_attribute_name(:from_date), attribute: 'from_date', filter: false do |company|
@@ -22,27 +22,14 @@
     company.created_at.in_time_zone('Buenos Aires').strftime("%d/%m/%Y")
   end
 
-  g.column name: 'Orden Manual', attribute: 'manual_order', filter: false do |company|
-    company.manual_order || '-'
-  end
-
-  g.column name: 'Créditos', attribute: 'available_credits_for_tests', filter: false do |company|
-    company.available_credits_for_tests || '0'
-  end
-
   g.column in_csv: false, class: "actions_column" do |company|
     buffer = ""
     buffer += '<div class="btn-group btn-group-xs">'
-    buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, companies_preview_path(company.name_id, locale: :ar), class:'btn btn-light btn-xs', target: :_blank
+    buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, company_path(company.name_id), class:'btn btn-light btn-xs', target: :_blank
       buffer += button_tag '<span class="sr-only">Toggle Dropdown</span>'.html_safe, type: 'button', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', class:'btn btn-xs btn-light dropdown-toggle dropdown-toggle-split'
       buffer += '<div class="dropdown-menu">'
-        buffer += link_to '<span class="fa fa-eye"></span> Ver en CL'.html_safe, companies_preview_path(company.name_id, locale: :cl), class:'btn btn-light btn-xs', target: :_blank , class:'dropdown-item'
-        buffer += link_to '<span class="fa fa-building"></span> Oficinas'.html_safe, admin_company_offices_path(company), class:'dropdown-item'
         buffer += link_to '<span class="fa fa-edit"></span> Editar'.html_safe, edit_admin_company_path(company), class:'dropdown-item'
         buffer += '<div class="dropdown-divider"></div>'
-        if company.jobs_syncronizable?
-          buffer += link_to 'Jobs Syncro', jobs_syncro_admin_company_path(company), class:'dropdown-item'
-        end
         if !(current_user.content_editor? || current_user.content_editor_plus?)
           buffer += link_to '<span class="fa fa-trash text-danger"></span> <span class="text-danger">Eliminar</span>'.html_safe, admin_company_path(company), method: :delete, data: { confirm: t('admin.confirm') }, class:'dropdown-item'
         end

@@ -14,9 +14,6 @@
     end
   end
 
-  g.column name: t('job.show.location'), assoc: :job_countries, attribute: 'country_alpha2', custom_filter: reduced_countries_list.select{|a| countries_list.map{|b| b.second}.include?(a.second)}, allow_multiple_selection: false, detach_with_id: :job_country_filter do |job|
-    show_job_countries(Job.find_by_id(job.id))
-  end
 
   g.column name: Job.human_attribute_name(:from_date), attribute: 'from_date', detach_with_id: :from_filter do |job|
     job.from_date.in_time_zone('Buenos Aires').strftime("%d/%m/%Y")
@@ -27,7 +24,7 @@
   end
 
   g.column name: Job.human_attribute_name(:active), attribute: 'active', filter: :boolean, detach_with_id: :job_active_filter do |job|
-    humanize_boolean(job.active)
+    job.active
   end
 
   g.column name: 'Postulaciones', filter: false do |job|
@@ -39,7 +36,7 @@
   g.column in_csv: false, class: "actions_column" do |job|
     buffer = ""
     buffer += '<div class="btn-group btn-group-xs">'
-      buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, company_job_preview_path(job_name_id: job.name_id, company_name_id: job.company.name_id, locale: :ar), class:'btn btn-light btn-xs', target: :_blank
+      buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, company_job_path(name_id: job.name_id, company_id: job.company.name_id), class:'btn btn-light btn-xs', target: :_blank
       buffer += button_tag '<span class="sr-only">Toggle Dropdown</span>'.html_safe, type: 'button', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', class:'btn btn-xs btn-light dropdown-toggle dropdown-toggle-split'
       buffer += '<div class="dropdown-menu">'
         buffer += link_to '<span class="fa fa-edit"></span> Editar'.html_safe, edit_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item'
@@ -48,10 +45,9 @@
         else
           buffer += link_to '<span class="fa fa-toggle-off"></span> Activar'.html_safe, block_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 2), class:'dropdown-item'
         end
-        if job.published_at.blank?
-          buffer += '<div class="dropdown-divider"></div>'
-          buffer += link_to '<span class="fa fa-trash text-danger"></span> <span class="text-danger">Eliminar</span>'.html_safe, admin_job_path(job), method: :delete, data: { confirm: t('admin.confirm') }, class:'dropdown-item'
-        end
+
+        buffer += link_to '<span class="fa fa-trash text-danger"></span> <span class="text-danger">Eliminar</span>'.html_safe, admin_job_path(job), method: :delete, data: { confirm: t('admin.confirm') }, class:'dropdown-item'
+
         buffer += link_to '<span class="fa fa-eye"></span> Ver postulaciones'.html_safe, {controller: "job_applications", action: "detailed", id: job.id}, class:'dropdown-item'
       buffer += '</div>'
     buffer += '</div>'

@@ -1,0 +1,3 @@
+class CompanySpecialEventPolicy < ApplicationPolicy
+  
+end

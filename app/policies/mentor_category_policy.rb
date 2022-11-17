@@ -1,0 +1,3 @@
+class MentorCategoryPolicy < ApplicationPolicy
+  
+end

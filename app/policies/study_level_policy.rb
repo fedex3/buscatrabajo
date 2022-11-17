@@ -1,0 +1,3 @@
+class StudyLevelPolicy < ApplicationPolicy
+  
+end

@@ -1,0 +1,3 @@
+class SpeakerPolicy < ApplicationPolicy
+
+end

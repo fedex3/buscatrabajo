@@ -1,0 +1,3 @@
+class AuthorViewPolicy < ApplicationPolicy
+  
+end

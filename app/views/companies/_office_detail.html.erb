@@ -215,53 +215,7 @@
         </div>
       </div>
 
-      <%
-      total_cols = 3
-      actual_elem = 0
-      actual_company_video = 0
-      actual_company_story = 0
-      actual_company_other_photo = 0
-      actual_company_speech = 0
 
-
-      company_elements = office_photos_small.length + office_speeches.length + office_videos_small.length + office_stories.length
-
-      pq = PQueue.new([]){ |a,b| a.value < b.value || (a.value == b.value  && a.order < b.order)}
-      #pq.pop  #=> 3
-
-      if office_videos_small.length > 0
-        company_container_video = OpenStruct.new
-        company_container_video.name    = "video"
-        company_container_video.value     = 0
-        company_container_video.order     = 0
-        pq.push(company_container_video)
-      end
-
-      if office_stories.length > 0
-        company_container_story = OpenStruct.new
-        company_container_story.name    = "story"
-        company_container_story.value     = 0
-        company_container_story.order     = 1
-        pq.push(company_container_story)
-      end
-
-      if office_speeches.length > 0
-        company_container_spechees = OpenStruct.new
-        company_container_spechees.name    = "speech"
-        company_container_spechees.value     = 0
-        company_container_spechees.order     = 3
-        pq.push(company_container_spechees)
-      end
-
-      if office_photos_small.length > 0
-        company_container_photo = OpenStruct.new
-        company_container_photo.name    = "photo"
-        company_container_photo.value     = 0
-        company_container_photo.order     = 2
-        pq.push(company_container_photo)
-      end
-
-      %>
 
       <% if office.media_objects.is_in_position.present? %>
         <div class="row no-gutter">

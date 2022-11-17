@@ -1,0 +1,1057 @@
+---
+mx:
+  accepted: Aceptado
+  activerecord:
+    attributes:
+      acquisition_channel:
+        acquisition_channel: Canal de adquisición
+        event_code: URL del evento
+        name: Nombre
+      advice:
+        active: Activo
+        advice: Nota
+        advice_company: Empresa Nota
+        advice_photo: Foto Nota
+        advice_video: Video Nota
+        author_id: Autor
+        categories: Tópicos
+        company_id: Empresa
+        countries: País
+        created_at: Fecha Creación
+        detail: Detalle
+        detail_auto: Detalle
+        from_date: Fecha Desde
+        long_summary: Resumen Largo
+        name: Nombre
+        name_id: Nombre
+        page_title: Título de la pestaña
+        photo: Foto
+        photo_file_name: Foto
+        photo_file_size: Foto
+        published: Publicado
+        score: Puntaje
+        summary: Resumen
+        video: Video
+        views: Vistas
+        votes: Votos
+      advice_advice:
+        advice: Nota
+        advice_advice: Nota
+        button_text: Texto Boton
+        detail: Detalle
+        order: Orden
+        title: Titulo
+      advice_company:
+        advice: Nota
+        advice_company: Empresa Nota
+        button_active: Botón activo
+        button_link: Link Botón
+        button_text: Texto Botón
+        company: Empresa
+        detail: Detalle
+        order: Orden
+      advice_favorite:
+        advice: Buena Práctica
+        advice_favorite: Buena Práctica Favorito
+        created_at: Fecha Creación
+        user: Usuario
+      advice_file:
+        advice: Nota
+        advice_file: Archivo Nota
+        code: Código
+        file: archivo
+        link: Link
+        text: Texto
+      advice_photo:
+        advice: Nota
+        advice_photo: Foto Nota
+        background_color_1: Color Fondo Front
+        background_color_2: Color Fondo Back
+        code: Código
+        flip_active: Flip Activo
+        font_color_1: Color Texto Front
+        font_color_2: Color Texto Back
+        photo_1: Foto Front
+        photo_2: Foto Back
+        text_1: Texto Front
+        text_2: Texto Back
+      advice_video:
+        advice: Nota
+        advice_video: Video Nota
+        code: Código
+        text: Texto
+        url: Id Youtube
+      advice_view:
+        advice: Buena Práctica
+        advice_view: Buena Práctica Vista
+        created_at: Fecha Creación
+        user: Usuario
+      answer:
+        answer: Respuesta
+        created_at: Fecha de Creación
+        user: Usuario
+        user_id: Usuario
+      answer_question:
+        answer: Respuesta
+        answer_id: Respuesta
+        answer_question: Respuesta Pregunta
+        created_at: Fecha de Creación
+        question: Pregunta
+        question_id: Pregunta
+        question_option_: Opciones Pregunta
+        question_option_id: Opciones Pregunta
+        text: Texto
+      author:
+        author: Autor
+        country: País
+        created_at: Fecha Creación
+        email: Email
+        mibucle_staff: Personal Mibucle
+        name: Nombre
+        name_id: Nombre
+        phone: Teléfono
+        photo: Foto
+        photo_file_name: Foto
+        photo_file_size: Foto
+        summary: Resumen
+        twitter: Twitter
+        views: Vistas
+      author_statistic:
+        author_statistic: Estadisticas Autores
+      author_view:
+        author: Autor
+        author_view: Autor Vista
+        created_at: Fecha Creación
+        user: Usuario
+      bank_transfer_collection:
+        amount: Monto
+        bank_name: Nombre Banco
+        bank_transfer_collection: Transferencia bancaria
+        created_at: Fecha Creación
+        exchange: Cambio
+        external_reference: Referencia Externa
+        status: Estado
+        user: Usuario
+      category:
+        advices: Notas y Consejos
+        category: Tópico
+        category_id: Tópico Padre
+        created_at: Fecha Creación
+        menu: Menu
+        name: Nombre
+        name_id: Nombre
+        order: Orden
+        submenu: Submenu
+        summary: Resumen
+        views: Vistas
+      category_view:
+        category: Topico
+        category_view: Topico Vista
+        created_at: Fecha Creación
+        user: Usuario
+      coach:
+        coach: Coach
+        coaching_packs: Packs Coaching
+        country: País
+        created_at: Fecha Creación
+        email: Email
+        name: Nombre
+        name_id: Nombre
+        phone: Teléfono
+        photo: Foto
+        photo_file_name: Foto
+        photo_file_size: Foto
+        score: Puntaje
+        sessions: Sesiones
+        summary: Resumen
+        twitter: Twitter
+        votes: Votos
+      coaching_booking:
+        amount: Monto
+        bank_transfer_collection: Transferencia bancaria
+        canceled: Cancelado
+        coach: Coach
+        coaching_booking: Venta Coaching
+        coaching_pack: Pack Coaching
+        collection: Forma de pago
+        collection_commission: Comisión Canal Cobro
+        comment: Comentario
+        commission: Comisión
+        completed: Completado
+        coupon: Cupón de Descuento
+        created_at: Fecha Creación
+        currency: Moneda
+        in_progress: En progreso
+        mercado_pago_attempt: Tarjeta de Crédito
+        mercado_pago_collection: Tarjeta de Crédito
+        online: Online
+        partial: Pago Parcial
+        payed: Pago
+        payment_status: Estado de Pago
+        pending: Pendiente
+        status: Estado
+        to_be_payed: Pendiente
+        user: Usuario
+        value_to_usd: Conversión a USD
+      coaching_pack:
+        amount: Monto
+        amount_face: Monto Presencial
+        amount_usd: Monto
+        coaches: Coaches
+        coaching_pack: Pack Coaching
+        coaching_pack_tag: Tag Coaching
+        country: País
+        created_at: Fecha Creación
+        currency: Moneda
+        currency_usd: Moneda
+        detail: Detalle
+        icon: Icono
+        name: Nombre
+        name_id: Nombre
+        published: Publicado
+        summary: Resumen
+      coaching_pack_tag:
+        coaching_pack_tag: Pack Coaching Tags
+        long_summary: Resumen Largo
+        name: Nombre
+        name_id: Nombre
+        order: Orden
+        photo: Foto
+        summary: Resumen
+      collection:
+        amount: Monto
+        banktransfercollection: Transferencia bancaria
+        channel_commission: Comisión Canal
+        collectable_type: Tipo
+        collection: Cobro
+        created_at: Fecha Creción
+        creditcardcollection: Tarjeta de Crédito
+        exchange: Cambio
+        mercadopagocollection: Tarjeta de Crédito
+        paypalcollection: Tarjeta de Crédito o Paypal
+        status: Estado
+        user: Usuario
+      company:
+        active: Activo
+        available_credits_for_tests: Créditos disponibles para tests
+        card_text: Texto de países para tarjetas
+        city: Ciudad
+        company: Empresa
+        company_special_events: Eventos Especiales
+        country: País
+        cover_photo: Foto de portada
+        cover_photo_file_name: Foto de portada
+        cover_photo_file_size: Foto de portada
+        created_at: Fecha Creación
+        email: Email
+        enable_tests: Habilitar tests
+        show_tests: Mostrar tests
+        featured_on_chile_home: Destacada en Chile
+        featured_on_colombia_home: Destacada en Colombia
+        featured_on_mexico_home: Destacada en México
+        featured_on_spain_home: Destacada en España
+        from_date: Fecha Desde
+        home: Destacada en Argentina
+        icon: Ícono
+        industries: Industrias
+        is_special_event_gold: Es Gold en evento especial
+        job_provider_type: Tipo de Proveedor de Trabajos
+        job_provider_url: Url Proveedor de Trabajos
+        job_register_url: Url Registracion de Trabajos
+        jobs_email: Email Trabajos
+        jobs_url: Url de trabajos
+        link_for_proactive_interviews: Link de la entrevista
+        linkedin_username: Nombre en Linkedin
+        list_label: Label en listado
+        logo: Logo
+        logo_file_name: Logo
+        logo_file_size: Logo
+        logo_name: Nombre en el logo
+        long_summary: Resumen largo
+        main_photo: Foto
+        main_photo_file_name: Foto
+        main_photo_file_size: Foto
+        manual_order: Orden Manual
+        map: Mapa
+        map_file_name: Mapa
+        map_file_size: Mapa
+        map_url: Mapa Url
+        meta_descript: Meta descripción
+        name: Nombre
+        name_id: Nombre
+        order_in_event: Orden en evento
+        pack: Pack Contratado
+        phone: Teléfono (WhatsApp)
+        proactive_interviews: Mostrar Entrevistas Proactivas
+        published: Publicado
+        show_email_button: Mostrar botón de Email
+        show_only_in_special_events: Mostrar solo en eventos especiales
+        show_whatsapp_button: Mostrar botón de WhatsApp
+        state: Estado
+        summary: Resumen
+        terms_accepted_at: Fecha Aceptación Terminos
+        terms_accepted_email: Email
+        terms_accepted_name: Nombre
+        terms_accepted_phone: Teléfono
+        terms_accepted_position: Posición
+        url: Url
+        views: Vistas
+      company_favorite:
+        company: Empresa
+        company_favorite: Empresa Favorito
+        created_at: Fecha Creación
+        jobs: Trabajos
+        user: Usuario
+      company_photo:
+        big: Grande (Carrousel)
+        company: Empresa
+        company_photo: Foto
+        company_photos: Fotos
+        detail: Detalle
+        order: Orden en carrousel
+        photo: Foto
+        photo_file_name: Foto
+        photo_file_size: Foto
+        show_jobs: Mostrar en trabajos
+        small: Chica
+        title: Titulo
+      company_special_event:
+        active: Activo
+        agenda_active: Activar agenda
+        agenda_color: Color de la agenda
+        agenda_text: Texto de la agenda
+        agenda_title: Título de la agenda
+        alphabetize: Ordenar alfabéticamente
+        code: URL
+        company_special_event: Evento
+        detail: Detalle
+        end_date: Fecha Fin
+        font_color_for_cover: "Color para letra en el cover"
+        header_logo: Logo para header
+        home_banner_active: Activar banner
+        home_banner_text: Texto del banner
+        home_banner_title: Título del banner
+        home_banner_video: Video del banner
+        image_for_link_preview: Imagen de previsualización del link al compartir en redes sociales
+        logo: Logo del evento
+        name: Nombre
+        photo: Foto de portada
+        registration_email: Email de registro
+        registration_email_message: Mensaje del email de registro
+        registration_email_subject: Asunto del email de registro
+        registration_form_active: Mostrar formulario de registro
+        section_one_active: Activar sección 1
+        section_one_text: Texto de la sección 1
+        section_one_title: Título de la sección 1
+        section_three_active: Activar sección 3
+        section_three_text: Texto de la sección 3
+        section_three_title: Título de la sección 3
+        section_two_active: Activar sección 2
+        section_two_text: Texto de la sección 2
+        section_two_title: Título de la sección 2
+        section_zero_active: Activar sección 0
+        section_zero_text: Texto de la sección 0
+        section_zero_title: Título de la sección 0
+        show_countdown: Mostrar cuenta regresiva
+        show_dates: "Dice de cuando a cuando es el evento"
+        show_entry_page: Mostrar página de ingreso
+        show_full_cover_photo: "Foto de portada que ocupe toda la pantalla"
+        show_logo: Mostrar logo
+        show_main_popup: Mostrar popup principal
+        show_newsletter_form: Mostrar formulario de suscripción al Newsletter
+        show_social_media_share_links: Mostrar links para compartir en redes sociales
+        show_test: Mostrar footer con link para realizar test
+        start_date: Fecha Inicio
+        status: Estado
+        subtitle: Subtítulo
+        title: Título
+        token: Token (para eventos privados)
+        twitter_hashtag_name: Nombre del hashtag en twitter
+      company_speech:
+        author: Autor
+        company: Empresa
+        company_speech: Testimonio
+        company_speeches: Testimonios
+        detail: Detalle
+        order: orden
+        position: Puesto
+        speech_type: Tipo
+      company_story:
+        company: Empresa
+        company_stories: Historias
+        company_story: Historia
+        detail: Detalle
+        order: orden
+        title: Titulo
+      company_video:
+        big: Grande (Carrousel)
+        company: Empresa
+        company_video: Video
+        company_videos: Videos
+        order: Orden en carrousel
+        position: Puesto
+        title: Titulo
+        url: Url
+        video_type: Tipo
+      company_view:
+        company: Empresa
+        company_view: Empresa Vista
+        created_at: Fecha Creación
+        user: Usuario
+      contact:
+        company: Empresa
+        contact: Contacto
+        created_at: Fecha Creación
+        email: Email
+        message: Mensaje
+        name: Nombre
+        phone: Teléfono
+      coupon:
+        active: Activo
+        actual_used: Usos actuales
+        amount: Monto
+        code: Código
+        coupon: Cupón de Descuento
+        coupon_type: Tipo
+        description: Descripción
+        end_date: Fecha Fin
+        has_use_limit: Tiene limite de uso
+        max_used: Usos máximos
+        percentage: Porcentaje
+        start_date: Fecha Inicio
+        value: Valor
+      credit_card_collection:
+        amount: Monto
+        created_at: Fecha Creación
+        credit_card_collection: Tarjeta de Crédito
+        exchange: Cambio
+        external_reference: Referencia Externa
+        status: Estado
+        user: Usuario
+      currency_exchange:
+        country: País
+        created_at: Fecha Creación
+        currency_exchange: Moneda Cambio
+        from: Origen
+        invert_value: Valor Invertido
+        to: Destino
+        underlying_value: Valor a USD
+        value: Valor
+      ebook:
+        detail: Detalle
+        ebook_photo: Foto Portada
+        file: Archivo
+        name: Nombre
+        name_id: Nombre
+        photo: Foto
+        published: Publicado
+        summary: Resumen
+      ebook_user:
+        company: Empresa
+        country: País
+        ebook: Ebook
+        ebook_id: Ebook
+        ebook_user: Usuario Ebook
+        email: Email
+        first_name: Nombre
+        last_name: Apellido
+        name: Nombre
+        phone: Teléfono
+        position: Posición
+        token: Token
+      email_marketing:
+        advice_id: Nota Principal
+        advices: Notas Secundarias
+        banner_active: Banner activo
+        banner_button_text: Texto Boton Banner
+        banner_main_text: Texto Principal Banner
+        banner_secondary_text: Texto Secundario Banner
+        banner_url: Url Banner
+        button_active: Botón activo
+        button_text: Texto Boton
+        button_url: Url Boton
+        category_photo: Categoría
+        country_public: Publico Pais
+        destination_public: Publico
+        detail: Detalle
+        detail_with_name: Nombre Destinatario en Detalle
+        email_marketing: Email Marketing
+        email_marketing_photos: Fotos Mail
+        name: Nombre
+        sender: Enviador
+        status: Estado
+        subject: Subject
+        subject_with_name: Nombre Destinatario en Subject
+        template_mode: Template
+      email_marketing_photo:
+        code: Código
+        email_marketing_photo: Foto Email
+        photo: Foto
+      event_user:
+        first_name: Nombre
+        last_name: Apellido
+      industry:
+        companies: Empresas
+        created_at: Fecha Creación
+        industry: Industria
+        jobs: Trabajos
+        name: Nombre
+        name_id: Nombre
+      job:
+        active: Activo
+        application_counter: Cantidad Aplicaciones
+        card_text: Texto de países para tarjetas
+        city: Ciudad
+        company: Empresa
+        company_id: Empresa
+        country: País
+        created_at: Fecha Creación
+        detail: Detalle
+        email: Email
+        end_date: Hasta
+        from_date: Desde
+        industry: Industria
+        industry_id: Industria
+        job: Trabajo
+        level: Nivel
+        level_id: Nivel
+        listable: Activo
+        name: Puesto
+        name_id: Nombre
+        name_long: Puesto / Título del aviso
+        part_time: Part time
+        photo: Foto
+        photo_file_name: Foto
+        photo_file_size: Foto
+        published: Publicado
+        remote: Remoto
+        review_application: Revisar aplicación
+        state: Estado
+        url: Url Búsqueda Externa
+        views: Vistas
+      job_application:
+        aasm_state: Estado
+        comment: Comentario Adicional
+        company: Empresa
+        created_at: Fecha
+        email: Email
+        job: Trabajo
+        job_application: Aplicaciones Trabajo
+        name: Nombre
+        user: Usuario
+        user_cv: CV
+      job_area:
+        created_at: Fecha Creación
+        job_area: Area Trabajo
+        name: Nombre
+        name_id: Nombre
+      job_favorite:
+        created_at: Fecha Creación
+        job: Trabajo
+        job_favorite: Trabajo Favorito
+        user: Usuario
+      job_view:
+        created_at: Fecha Creación
+        job: Trabajo
+        job_view: Trabajo Vista
+        user: Usuario
+      level:
+        created_at: Fecha Creación
+        jobs: Trabajos
+        level: Nivel
+        name: Nombre
+        name_id: Nombre
+        order: Orden
+      media_article:
+        logo: Logo de la Empresa
+        media_article: Artículo de Prensa
+        media_articles: Artículos de Prensa
+        title: Titular
+      media_object:
+        media_objects: Multimedia
+      mentor:
+        active: Activo
+        calendar_url: Calendario Url
+        created_at: Fecha Creación
+        linkedin: Linkedin
+        mentor: Mentor
+        mentor_categor: Categorias
+        mentor_category: Categorias
+        mentors_categor: Categorias
+        name: Nombre
+        name_id: Nombre
+        photo: Foto
+        published: Publicado
+        summary: Resumen
+        twitter: Twitter
+      mentor_booking:
+        created_at: Fecha Creación
+        mentor: Mentor
+        mentor_booking: Reserva Mentor
+        status: Estado
+        user: Usuario
+      mentor_category:
+        active: Activo
+        created_at: Fecha Creación
+        mentor_category: Categoría Mentor
+        name: Nombre
+        name_id: Nombre
+        published: Publicado
+        summary: Resumen
+      mercado_pago_attempt:
+        amount: Monto
+        capture: Cobrado
+        created_at: Fecha creación
+        installment_amount: Monto Cuota
+        installments: Cuotas
+        mercado_pago_attempt: Tarjeta de Crédito
+        status: Estado
+        status_detail: Detalle Estado
+        user: Usuario
+      mercado_pago_collection:
+        amount: Monto
+        capture: Cobrado
+        cardholdername: Nombre completo del titular
+        cardnumber: Número tarjeta
+        channel_commission_tax: Comisión Canal + Tax
+        created_at: Fecha Creación
+        documentnumber: Número documento del titular
+        documenttype: Tipo documento del titular
+        exchange: Cambio
+        expirationmonth: Mes expiración
+        expirationyear: Año expiración
+        mercado_pago_collection: Tarjeta de Crédito
+        securitycode: Código
+        status: Estado
+        user: Usuario
+      newsletter:
+        country: País
+        created_at: Fecha Creación
+        email: Email
+        newsletter: Newsletter
+        subscribe: Suscripto
+      office:
+        city: Ciudad
+        country: País
+        name: Nombre
+        office: Oficina
+        offices: Oficinas
+        order: Orden
+        state: Provincia
+        summary: Resumen
+      paypal_attempt:
+        amount: Monto
+        captured: Cobrado
+        created_at: Fecha Creación
+        number: Número tarjeta
+        paypal_attempt: Tarjeta de Cŕedito
+        status: Estado
+        user: Usuario
+      paypal_attempt_result:
+        paypal_attempt_result: Paypal Intentos Resultados
+      paypal_collection:
+        amount: Monto
+        capture: Cobrado
+        channel_commission_tax: Comisión Canal + Tax
+        created_at: Fecha Creación
+        exchange: Cambio
+        paypal_collection: Tarjeta de Cŕedito o Paypal
+        paypal_type: Tipo
+        status: Estado
+        user: Usuario
+      person:
+        bio: Biografía
+        full_name: Nombre Completo
+        people: Personas
+        person: Persona
+        position: Posición
+      question:
+        code: Código
+        created_at: Fecha de Creación
+        multiple_input: Seleccion multiple
+        name: Nombre
+        optional: Opcional
+        order: Orden
+        published: Publicada
+        question: Pregunta
+        question_option: Opciones Pregunta
+        question_option_id: Opciones Pregunta
+        question_options: Opciones Pregunta
+        question_type: Tipo de Pregunta
+        summary: Resumen
+        text_input: Texto
+        unique_input: Seleccion única
+      question_option:
+        code: Código
+        created_at: Fecha de Creación
+        extra_text: Texto Opcional
+        name: Nombre
+        order: Orden
+        published: Publicada
+        question: Pregunta
+        question_id: Pregunta
+        question_option: Opciones Pregunta
+        summary: Resumen
+      select: Seleccionar
+      setting:
+        homepage_banner_text: Texto del banner en la home
+        main_popup_button_text: Texto del botón del popup principal
+        main_popup_button_url: URL del botón del popup principal
+        main_popup_image_link: Link donde será dirigido el usuario al hacer click en la imagen
+        main_popup_image_url: URL de la imagen para el popup principal
+        settings: Preferencias
+        show_homepage_banner: Mostrar banner en la home
+        show_main_popup: Mostrar popup principal
+        show_main_popup_button: Mostrar botón en el popup principal
+        show_main_popup_image: Mostrar imagen en el popup principal
+        show_subheader_company: Mostrar subheader en Empresa
+        show_subheader_company_job: Mostrar subheader en Aviso de trabajo
+        show_subheader_jobs: Mostrar subheader en Trabajos
+        subheader_jobs_text: Texto del subheader de Trabajos, Página de Empresa y Aviso de trabajo
+        subheader_notes_button_text: Texto del botón del subheader de Notas
+        subheader_notes_text: Texto del subheader de Notas
+        subheader_notes_url: URL del botón del subheader de Notas
+        update_settings: Actualizar preferencias
+        updated_successfully: Las preferencias se actualizaron correctamente.
+      speaker:
+        full_name: Nombre completo
+        link: Enlace
+        photo: Foto
+        start_datetime: Hora de inicio (AR)
+        title: Título
+      study_level:
+        created_at: Fecha Creación
+        name: Nombre
+        name_id: Nombre
+        order: Orden
+        study_level: Nivel de Estudio
+      user:
+        age: Edad
+        born_year: Año de nacimiento
+        city: Ciudad
+        comment: Comentario
+        company: Empresa
+        country: País
+        create_password: Crea tu contraseña para Mibucle
+        created_at: Fecha Creación
+        current_password: Contraseña actual
+        cv_status: Estado
+        email: Email
+        from_event: Evento
+        is_company: Soy empresa
+        job_areas: Areas de trabajo
+        language: Idioma
+        locale: Idioma Default
+        name: Nombre completo
+        password: Contraseña
+        password_confirmation: Confirmación Contraseña
+        rejected: Rechazado Screening
+        reset_password_token: Token de reinicio de contraseña
+        role: Rol
+        state: Provincia
+        study_level: Nivel de Estudio
+        terms_accepted: Términos y condiciones
+        user: Usuario
+      user_cv:
+        active: Activo
+        cv: CV
+        user: Usuario
+        user_cv: CV
+        user_id: Usuario
+      webinar:
+        certificate_image: Certificado de asistencia
+        date: Fecha
+        detail: Detalle
+        event_webinar: 'Pertenece al evento: (Opcional) '
+        name: Nombre
+        name_id: Nombre
+        photo: Foto
+        private_room: Sala Privada
+        published: Publicado
+        recording: Url Grabación
+        slides: Diapositivas
+        speaker_detail: Detalle Disertante
+        speaker_name: Nombre Disertante
+        speaker_photo: Foto Disertante
+        summary: Resumen
+        tokens: Tokens
+        url: Link
+        webinar_type: Tipo Webinar
+      webinar_token:
+        token: Token
+        user: Usuario Webinar
+        user_id: Usuario Webinar
+        webinar: Webinar
+        webinar_id: Webinar
+      webinar_user:
+        city: Ciudad
+        comment: Comentario
+        company: Empresa
+        country: País
+        email: Email
+        first_name: Nombre
+        last_name: Apellido
+        name: Nombre
+        phone: Teléfono
+        position: Posición
+        state: Provincia
+        token: Token
+        webinar: Webinar
+        webinar_id: Webinar
+        webinar_user: Usuario Webinar
+    errors:
+      messages:
+        general: Something happens. Try again or contact us
+        record_invalid: 'Validation failed: %{errors}'
+        restrict_dependent_destroy:
+          has_many: Cannot delete record because dependent %{record} exist
+          has_one: Cannot delete record because a dependent %{record} exists
+      models:
+        advice:
+          attributes:
+            photo:
+              in_between: El tamaño máximo permitido es de 1 MB
+            photo_file_size:
+              in_between: El tamaño máximo permitido es de 1 MB
+          publishable: No se puede publicar un aviso sin foto.
+        author:
+          attributes:
+            photo:
+              in_between: El tamaño máximo permitido es de 1 MB
+            photo_file_size:
+              in_between: El tamaño máximo permitido es de 1 MB
+        coach:
+          attributes:
+            photo:
+              in_between: El tamaño máximo permitido es de 1 MB
+            photo_file_size:
+              in_between: El tamaño máximo permitido es de 1 MB
+  cv_accepted: Aceptado
+  cv_rejected: Rechazado
+  date:
+    abbr_day_names:
+      - dom
+      - lun
+      - mar
+      - mié
+      - jue
+      - vie
+      - sáb
+    abbr_month_names:
+      - null
+      - Ene
+      - Feb
+      - Mar
+      - Abr
+      - May
+      - Jun
+      - Jul
+      - Ago
+      - Sep
+      - Oct
+      - Nov
+      - Dic
+    day_names:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    formats:
+      day_and_month: '%d de %B'
+      default: '%d/%m/%Y'
+      long: '%d de %B de %Y'
+      short: '%d de %b'
+    month_names:
+      - null
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+    order:
+      - ':day'
+      - ':month'
+      - ':year'
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: alrededor de 1 hora
+        other: alrededor de %{count} horas
+      about_x_months:
+        one: alrededor de 1 mes
+        other: alrededor de %{count} meses
+      about_x_years:
+        one: alrededor de 1 año
+        other: alrededor de %{count} años
+      almost_x_years:
+        one: casi 1 año
+        other: casi %{count} años
+      half_a_minute: medio minuto
+      less_than_x_minutes:
+        one: menos de 1 minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: más de 1 año
+        other: más de %{count} años
+      x_days:
+        one: 1 día
+        other: '%{count} días'
+      x_minutes:
+        one: 1 minuto
+        other: '%{count} minutos'
+      x_months:
+        one: 1 mes
+        other: '%{count} meses'
+      x_seconds:
+        one: 1 segundo
+        other: '%{count} segundos'
+    prompts:
+      day: Día
+      hour: Hora
+      minute: Minutos
+      month: Mes
+      second: Segundos
+      year: Año
+  draft: Borrador
+  errors:
+    format: '%{attribute}: %{message}'
+    messages:
+      accepted: debe ser aceptado
+      blank: no puede estar en blanco
+      confirmation: no coincide
+      empty: no puede estar vacío
+      equal_to: debe ser igual a %{count}
+      even: debe ser par
+      exclusion: está reservado
+      general: Ha ocurrido un error. Intentelo nuevamente o comuniquese con nosotros
+      greater_than: debe ser mayor que %{count}
+      greater_than_or_equal_to: debe ser mayor que o igual a %{count}
+      inclusion: no está incluido en la lista
+      invalid: no es válido
+      less_than: debe ser menor que %{count}
+      less_than_or_equal_to: debe ser menor que o igual a %{count}
+      model_invalid: 'La validación falló: %{errors}'
+      not_a_number: no es un número
+      not_an_integer: debe ser un entero
+      odd: debe ser impar
+      other_than: debe ser distinto de %{count}
+      present: debe estar en blanco
+      required: debe existir
+      taken: ya está en uso
+      too_long:
+        one: es demasiado largo (1 carácter máximo)
+        other: es demasiado largo (%{count} caracteres máximo)
+      too_short:
+        one: es demasiado corto (1 carácter mínimo)
+        other: es demasiado corto (%{count} caracteres mínimo)
+      wrong_length:
+        one: no tiene la longitud correcta (1 carácter exactos)
+        other: no tiene la longitud correcta (%{count} caracteres exactos)
+    template:
+      body: 'Se encontraron problemas con los siguientes campos:'
+      header:
+        one: No se pudo guardar este/a %{model} porque se encontró 1 error
+        other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
+  'false': 'No'
+  finished: Finalizado
+  helpers:
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualizar %{model}
+  in_progress: En progreso
+  messages:
+    sending: Enviando...
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: '%n %u'
+        precision: 2
+        separator: ','
+        significant: true
+        strip_insignificant_zeros: true
+        unit: €
+    format:
+      delimiter: .
+      precision: 2
+      separator: ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          billion: mil millones
+          million:
+            one: millón
+            other: millones
+          quadrillion: mil billones
+          thousand: mil
+          trillion:
+            one: billón
+            other: billones
+          unit: ''
+      format:
+        delimiter: .
+        precision: 0
+        separator: ','
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: .
+        format: '%n %'
+        separator: ','
+    precision:
+      format:
+        delimiter: .
+        precision: 2
+        separator: ','
+        significant: false
+        strip_insignificant_zeros: false
+  on_standby: En standby
+  open_enrollment: Abierta la inscripción
+  pending: Pendiente
+  positive_rejected: Rechazado positivamente
+  rejected: Rechazado
+  support:
+    array:
+      last_word_connector: ' y '
+      two_words_connector: ' y '
+      words_connector: ', '
+  time:
+    am: am
+    formats:
+      day_and_short_month: '%d de %b'
+      default: '%A, %d de %B de %Y %H:%M:%S %z'
+      long: '%d de %B de %Y %H:%M'
+      month_and_year: '%b %Y'
+      short: '%d de %b %H:%M'
+    pm: pm
+  'true': Sí

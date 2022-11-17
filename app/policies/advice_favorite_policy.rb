@@ -1,0 +1,2 @@
+class AdviceFavoritePolicy < ApplicationPolicy
+end

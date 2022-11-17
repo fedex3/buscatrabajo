@@ -1,0 +1,3 @@
+class PersonPolicy < ApplicationPolicy
+  
+end

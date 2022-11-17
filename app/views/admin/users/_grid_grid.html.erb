@@ -8,7 +8,7 @@
   end
   g.column name: User.human_attribute_name(:from_event), attribute: 'from_event'
   g.column name: User.human_attribute_name(:is_company), attribute: 'is_company' do |user|
-    humanize_boolean(user.is_company)
+    user.is_company
   end
 
   g.column name: User.human_attribute_name(:created_at), attribute: 'created_at', filter_type: :bootstrap_datepicker, detach_with_id: :date_filter do |user|

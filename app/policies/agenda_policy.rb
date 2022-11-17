@@ -1,0 +1,3 @@
+class AgendaPolicy < ApplicationPolicy
+
+end

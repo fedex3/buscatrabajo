@@ -1,0 +1,3 @@
+class CompanyPhotoPolicy < ApplicationPolicy
+  
+end

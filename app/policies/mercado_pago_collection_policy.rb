@@ -1,0 +1,3 @@
+class MercadoPagoCollectionPolicy < ApplicationPolicy
+  
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221117083404) do
+ActiveRecord::Schema.define(version: 20221117210147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20221117083404) do
     t.datetime "end_date", default: "2022-11-17 00:00:00"
     t.bigint "company_id"
     t.integer "application_counter", default: 0
+    t.string "country"
     t.index ["company_id"], name: "index_jobs_on_company_id"
     t.index ["end_date"], name: "index_jobs_on_end_date"
     t.index ["from_date"], name: "index_jobs_on_from_date"

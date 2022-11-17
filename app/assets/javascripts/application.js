@@ -15,4 +15,3 @@
 //= require jquery_ujs
 //= require header
 //= require bootstrap-3-sprockets
-//= require cookies_popup

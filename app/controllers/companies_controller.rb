@@ -1,5 +1,4 @@
 require 'ostruct'
-require 'pqueue'
 
 class CompaniesController < ApplicationController
 

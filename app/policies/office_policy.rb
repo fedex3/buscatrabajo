@@ -1,0 +1,3 @@
+class OfficePolicy < ApplicationPolicy
+  
+end

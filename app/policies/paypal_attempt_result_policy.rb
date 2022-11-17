@@ -1,0 +1,3 @@
+class PaypalAttemptResultPolicy < ApplicationPolicy
+  
+end

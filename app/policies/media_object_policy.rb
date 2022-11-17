@@ -1,0 +1,3 @@
+class MediaObjectPolicy < ApplicationPolicy
+  
+end

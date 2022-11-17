@@ -1,0 +1,2 @@
+class EmailMarketingPolicy < ApplicationPolicy
+end

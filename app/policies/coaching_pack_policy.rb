@@ -1,0 +1,3 @@
+class CoachingPackPolicy < ApplicationPolicy
+  
+end

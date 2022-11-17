@@ -1,0 +1,3 @@
+class WebinarUserPolicy < ApplicationPolicy
+  
+end

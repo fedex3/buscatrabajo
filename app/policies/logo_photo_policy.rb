@@ -1,0 +1,3 @@
+class LogoPhotoPolicy < ApplicationPolicy
+  
+end

@@ -1,0 +1,2 @@
+class AdviceViewPolicy < ApplicationPolicy
+end

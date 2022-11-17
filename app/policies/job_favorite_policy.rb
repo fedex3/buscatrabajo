@@ -1,0 +1,3 @@
+class JobFavoritePolicy < ApplicationPolicy
+  
+end

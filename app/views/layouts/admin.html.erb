@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mibucle empresas</title>
+    <title>Buscatrabajo Admin</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex, nofollow" />
     <meta name="googlebot" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <%= stylesheet_link_tag 'admin/application-admin' %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-10/css/all.css" integrity="sha512-Dj9pt3sZROOuTTs9S89ykGZeu1XQgWKg3DVpu5tZALApsrWdd3tnVjTclUuVONaHM4O8GgCnjSbHlTKXrd2OWg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <%= stylesheet_link_tag 'admin/application-admin' %>
     <%= javascript_include_tag 'admin/application.js' %>
     <%= javascript_include_tag Ckeditor.cdn_url%>
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body class="admin">
     <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 navbar-expand-lg justify-content-between">
       <div class="col-md-6 col-lg-4 nav-left-admin">
-        <%= link_to '<b>mibucle</b> <small>empresas</small>'.html_safe, admin_path, class:"navbar-brand col-md-6" %>
+        <%= link_to '<b>Buscatrabajo</b> <small>Admin</small>'.html_safe, admin_path, class:"navbar-brand col-md-6" %>
         <%= link_to t("admin.back"), :back, class:" align-self-center nav-item nav-link" %>
       </div>
       <div class="navbar-nav mx-2">

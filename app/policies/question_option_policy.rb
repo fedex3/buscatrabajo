@@ -1,0 +1,3 @@
+class QuestionOptionPolicy < ApplicationPolicy
+  
+end

@@ -1,0 +1,3 @@
+class CoachingBookingPolicy < ApplicationPolicy
+  
+end

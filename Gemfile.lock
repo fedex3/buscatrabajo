@@ -97,6 +97,8 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
+    bootstrap-datepicker-rails (1.9.0.1)
+      railties (>= 3.0)
     bootstrap-tagsinput-rails (0.4.2.1)
       railties (>= 3.1)
     bootstrap3-datetimepicker-rails (4.17.47)
@@ -200,6 +202,8 @@ GEM
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    paranoia (2.6.1)
+      activerecord (>= 5.1, < 7.1)
     pg (1.4.3)
     pkg-config (1.4.9)
     popper_js (1.16.0)
@@ -325,6 +329,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bootstrap (~> 4.4, >= 4.4.1)
   bootstrap-3-sass (~> 3.3, >= 3.3.7)!
+  bootstrap-datepicker-rails (~> 1.6, >= 1.6.1.1)
   bootstrap-tagsinput-rails
   bootstrap3-datetimepicker-rails (~> 4.17, >= 4.17.47)
   byebug
@@ -348,6 +353,7 @@ DEPENDENCIES
   mobility (~> 0.8, >= 0.8.7)
   nokogiri (~> 1.12, >= 1.12.4)
   paperclip!
+  paranoia (~> 2.4, >= 2.4.2)
   pg (~> 1.1, >= 1.1.4)
   pkg-config
   psych (< 4)

@@ -1,0 +1,3 @@
+class CouponPolicy < ApplicationPolicy
+  
+end
