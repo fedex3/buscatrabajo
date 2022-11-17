@@ -1,0 +1,36 @@
+ar:
+ company_courses:
+  benefits:
+   line_1_html: '<span id="firstWord">Inspiramos</span> a los <b>equipos y organizaciones</b> a enfrentar los cambios con motivación, optimismo, compromiso y creatividad.'
+   line_2_html: '<span id="firstWord">Trabajamos</span> con las <b>personas</b> para que puedan poner en marcha todo el potencial y alcanzar los objetivos que se propongan.'
+   line_3_html: '<span id="firstWord">Desarrollamos</span> el potencial de los <b>líderes</b>, el alto desempeño de sus equipos y el bienestar de las personas.'
+   line_4_html: '<span id="firstWord">Integramos</span> las necesidades de negocio con lo humano a través de potenciar el talento y el desarrollo de habilidades para el logro de objetivos.'
+  clients: "Empresas que nos eligen"
+  contact:
+   title: "Comienza a trabajar junto a Mibucle"
+  header:
+   alt: "Coaching y Cursos para Empresas"
+   description: "Coaching y Cursos para Empresas. Inspiramos personas, desarrollamos empresas."
+   title: "Mibucle.com - Coaching y Cursos para Empresas."
+  how:
+   title: "Cómo funciona"
+  main:
+   action: "Contáctanos"
+   summary: "Inspiramos personas, desarrollamos empresas."
+   title: "Coaching y Cursos para Empresas"
+  questions:
+   detail_html: 'Sabemos que tu <b>empresa es única</b>, por eso <b>trabajamos a medida</b> para logrés la mejor versión. Hacemos del proceso de aprendizaje un camino hacia la excelencia.'
+   title: "Construye tu mejor versión"
+  services:
+   box1:
+    detail: "Liderazgo, comunicación efectiva, inteligencia emocional, negociación y todo tipo de capacitaciones, cursos y talleres, diseñados a medida."
+    title: "Workshops"
+   box2:
+    detail: "Trabajamos con los equipos y los líderes para maximizar el potencial y los resultados obtenidos."
+    title: "Coaching Grupal y Ejecutivo"
+   box3:
+    detail: "Ayudamos a gestionar el cambio en tu empresa para incorporar y consolidar nuevos hábitos."
+    title: "Cambio Cultural"
+   box4:
+    detail: "Un Coach de nuestro equipo trabajará in-company para ayudarte a mejorar las competencias individuales y la efectividad organizacional"
+    title: "Business Coach"

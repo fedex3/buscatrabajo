@@ -1,0 +1,26 @@
+ar:
+ alert:
+  coaching_booking_destroy:
+   detail_html: "El usuario %{email} ha cancelado o expirado la compra de su pack %{pack}"
+   subject: "ALERTA - Compra cancelada"
+  currency_difference:
+   detail_html: "Las cotización de la moneda %{code} tiene una diferencia del %{difference} respecto a la anterior."
+   subject: "ALERTA - Cotización con Diferencia"
+  currency_not_found:
+   detail_html: "Las cotizaciones de las monedas %{codes} no fueron actualizadas el día de la fecha."
+   subject: "ALERTA - Cotizaciones No actualizadas"
+  deadline_job:
+   detail_html: "La siguiente busqueda está próximas a vencer <br><br> %{text}"
+   subject: "La Busqueda %{text} está por Vencer"
+  deadline_jobs:
+   detail_html: "Las siguientes busquedas están próximas a vencer <br><br> %{text}"
+   subject: "ALERTA - Busquedas de trabajo por Vencer"
+  general:
+   detail_html: "Ocurrió un error en el proceso de actualización de cotizaciones."
+   subject: "ALERTA - Descarga de Cotizaciones fallida"
+  new_job:
+   detail_html: "Cargaron la busqueda <br><br> %{text}"
+   subject: "Nueva Busqueda de %{company}"
+  paypal_attempt_not_approved:
+   detail_html: "Alguien intento aprobar un pago de paypal existente pero no pudo ser realizado. El id es %{id} . Por favor, revisarlo y notificar al usuario."
+   subject: "ALERTA - Aprobación de paypal no concuerda"

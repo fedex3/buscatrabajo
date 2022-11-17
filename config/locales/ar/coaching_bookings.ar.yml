@@ -1,0 +1,21 @@
+ar:
+ coaching_booking:
+  header:
+   description: "Confirma tu contratación de %{name} - Mibucle.com - %{summary}"
+   title: "Confirma tu contratación de %{name} - Mibucle.com"
+  main:
+   action: "Contratar"
+   coupon:
+    has: "Tengo un cupón de descuento"
+    validate: "Validar"
+   method:
+    face: "Presencial"
+    info: "La Metodología presencial es solo válida para Capital Federal, GBA Norte y Provincia de Mendoza (Argentina). Lugar a acordar con el Coach asignado."
+    online: "Online"
+    title: "Metodología"
+   next: "Luego de efectuar el pago, seras contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido."
+   payment:
+    info: "Al confirmar la contratación recibiras un email con la información necesaria para realizarla."
+   title: "Confirma tu contratación"
+   user:
+    already_register: "¿Ya estás registrado?"

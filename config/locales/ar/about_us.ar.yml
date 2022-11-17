@@ -1,0 +1,43 @@
+ar:
+ about_us:
+  header:
+   description: "mibucle.com es una plataforma 100% online que te ayudará a desarrollarte profesionalmente. Ingresa ahora. "
+   title: "Acerca de Nosotros - Mibucle.com"
+  mission:
+   detail_html: 'En mibucle sabemos que cada persona es diferente. Por eso buscamos brindar las mejores alternativas para que cada uno construya su carrera profesional soñada. Trabajamos junto a las mejores empresas del mercado para contar su historia de una manera innovadora, y así conectarse y atraer a los mejores talentos.'
+   title: "Inspiramos el desarrollo profesional. "
+  partners:
+   title: "Trabajamos junto a"
+  press:
+   title: "En los medios"
+  team:
+   ceo:
+    detail_html: 'Es la CEO y fundadora de <b>mibucle.com</b>. Es Licenciada en Relaciones del Trabajo y Magister en Coaching y Cambio Organizacional. Creó esta plataforma con el objetivo de ayudar a las personas en el desarrollo de su carrera profesional y a las empresas en el desarrollo de su Marca Empleadora.<br>'
+    name: "Brenda Gendin"
+    position: "CEO & Fundadora"
+   cmo:
+    detail_html: "Es Técnica Superior en Periodismo (TEA) y Lic. en Comunicación Digital e Interactiva (UCA). Hace 10 años se dedica a ayudar a compañias y marcas a expresarse de forma clara, simple y contundente a lo largo y ancho de la red. Se especializa en Marketing de Contenidos, Social Media Marketing, Email Marketing y Design Thinking."
+    name: "Dafne Berman"
+    position: "CMO"
+   country_chile:
+    detail_html: "Psicóloga y Coach Organizacional con enfoque Sistémico Estratégico. Posee amplia experiencia en consultoría RRHH en compañías de Chile y Argentina. Se especializa en desarrollo organizacional, selección y evaluación de personal. Acompaña a personas y empresas a desarrollar su máximo potencial."
+    name: "Estefanía Wartensleben Hirsch"
+    position: "Country Manager - Chile"
+   cto:
+    detail_html: "Además de ser el Director de Tecnología de Mibucle, fundó Ser Universitario, la comunidad de estudiantes universitarios más grande de Argentina. Es parte del equipo docente de 'Emprendedor 21' en la UBA, donde estudió Sistemas y un poquito de Diseño Gráfico."
+    name: "Nicolás Scherzer"
+    position: "CTO"
+   hit:
+    detail_html: "Marianela se especializa en el hunting y selección de perfiles de tecnología. Cuenta con amplia experiencia en el rubro y en la atracción de talentos IT."
+    name: "Marianela Zaccaro"
+    position: "IT Talent Acquisition Coordinator"
+   hr:
+    detail_html: "Es licenciada en Relaciones del Trabajo y cuenta con más de 10 años de experiencia en Recursos Humanos, principalmente en selección de personal, dictado de capacitaciones, y liderazgo de equipos."
+    name: "Natalie Yaffe"
+    position: "HR Recruiting Coordinator"
+   sale:
+    detail_html: 'Maximiliano es el Gerente Comercial de Mibucle, y cuenta con una amplia experiencia en Marketing, Empleos y Employer Branding.'
+    name: "Maximiliano Amado"
+    position: "Commercial Manager"
+   title: "El equipo"
+  title: "Sobre nosotros"

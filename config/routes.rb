@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :homes
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'home#index'
@@ -91,8 +92,7 @@ Rails.application.routes.draw do
 
   end
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks"}, only: :omniauth_callbacks
-  devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: "users/confirmations", unlocks: "users/unlocks" }, skip: :omniauth_callbacks
+  devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: "users/confirmations", unlocks: "users/unlocks" }
   get	'/perfil', to:	'users#show', as: 'user_profile'
   get	'/perfil/edit', to:	'users#edit', as:'edit_user'
   put '/perfil', to:	'users#update'

@@ -1,0 +1,5 @@
+ar:
+ coupon:
+  error:
+   code: "El cupón de descuento es inválido o se encuentra vencido."
+   date: "debe ser menor a la fecha fin"

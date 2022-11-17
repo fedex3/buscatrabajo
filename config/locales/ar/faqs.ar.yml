@@ -1,0 +1,88 @@
+ar:
+ faq:
+  header:
+   description: "Preguntas Frecuentes de Mibucle.com"
+   title: "FAQ - Mibucle.com"
+  questions:
+   1:
+    description_html: 'Sirve para encontrar nuevas formas de interpretar nuestra realidad, de accionar en ella y de lograr objetivos, de mejorar nuestro bienestar y nuestros vínculos. A través de la toma de conciencia, podemos elegir qué decisiones tomamos y con qué elegimos comprometernos.'
+    title: '¿Para qué sirve el coaching?'
+   10:
+    description_html: 'No. El pack se confirma una vez realizado el pago. '
+    title: '¿No pagué, tengo mi pack confirmado?'
+   11:
+    description_html: 'Dentro de las 48h confirmado el pago, el Coach se pondrá en contacto con vos para agendar el horario.Se estima que el primer encuentro se lleve a cabo en no más de siete días de confirmado el pago.'
+    title: '¿Cuánto tiempo lleva empezar a trabajar con el coach?'
+   12:
+    description_html: 'Las conversaciones se agendarán entre las 7h y las 22h de Argentina. '
+    title: '¿En qué horarios se puede realizar las conversaciones?'
+   13:
+    description_html: 'Para reprogramar la sesión una vez agendada, deberás avisar con al menos 48 hs de anticipación.  En caso que notifiques con menos de 48h, la reprogramación queda sujeto a disponibilidad del Coach'
+    title: '¿Agendé y no puedo ir, que hago? '
+   14:
+    description_html: 'Si el cliente no se presenta la sesión, sin al menos 48h de antelación, pierde el derecho a reclamar su pack. Mibucle no se responsabiliza por la falta de presentación del cliente en ningun caso.'
+    title: '¿Qué pasa si no me presento a la sesion?'
+   15:
+    description_html: 'Si el cliente llega hasta 15min tarde, se realizará la sesión finalizando en el horario original pactado.  Pasados los 15 min, se considerará como ausencia del cliente y la pérdida de la sesión.'
+    title: '¿Qué pasa si llego tarde?'
+   16:
+    description_html: 'Si el Coach no se presenta a la sesión, el cliente podrá optar por reprogramar la sesión o reclamar la devolución del dinero. '
+    title: '¿Qué pasa si el coach no se presenta?'
+   17:
+    description_html: 'En caso que el pack ya esté empezado si el Coach no se presenta, se reprogramará la sesión.'
+    title: '¿Qué pasa si el coach no se presenta a la segunda conversación?'
+   18:
+    description_html: 'Si el Coach llega hasta 15 min tarde, se quedará a compensar los minutos de retraso para cumplir con el tiempo pactado de la conversación. Pasados los 15min de retraso, el cliente podrá optar por la reprogramación de la conversación o  devolución del dinero'
+    title: '¿Qué pasa si coach llega tarde?'
+   19:
+    description_html: 'Llevá a la práctica lo que te propuesiste; dependiendo el pack contarás con un seguimiento personalizado y por último, recordá completar la encuesta de feedback, es fundamental para seguir mejorando.'
+    title: '¿Terminé mi sesión, cómo sigo?'
+   2:
+    description_html: 'El Coaching es un proceso mediante el cual se descubren nuevas y diferentes opciones,a través de las preguntas. Se promueve la generación de conciencia, enfocándose hacia el futuro y buscando acciones que permitan generar soluciones; el Coach guía al Coachee para que él mismo encuentre sus propias respuestas.Si bien cada sesión es diferente, podés esperar atención personalizada del Coach y tené en cuenta que a más te involucres y comprometas, mejor será el resultado que obtendrás. Las personas que tienen mejores resultados son las más receptivas, abiertas al feedback y quienes efectivamente se ponen en acción una vez finalizadas las conversaciones.'
+    title: 'Es mi primera vez haciendo coaching, ¿Qué tengo que esperar?'
+   20:
+    description_html: 'No devolvemos el dinero, sin embargo nos gustaría entender qué fue lo que no te gustó, por eso te pedimos que completes la encuesta de feedback para que podamos mejorar '
+    title: '¿Terminé con el pack que contrate y no me gustaron los resultados obtenidos. Me devuelven el dinero?'
+   21:
+    description_html: 'La sesión sin cargo es para que puedas responder tus dudas sobre si trabajar con Mibucle es para vos, y cual es el mejor pack segun tus necesidades.'
+    title: '¿Puedo esperar un trabajo profundo sobre un tema en la sesión sin cargo de 15 minutos?'
+   22:
+    description_html: 'El máximo de sesiones sin cargo es 1 por usuario.'
+    title: '¿Cuantas sesiones sin cargo puedo utilizar?'
+   23:
+    description_html: 'Te sugerimos visitar la sección de “Notas y Consejos que está en constante crecimiento y puede ayudarte a responder tus preguntas. Sino, contratá la sesión individual o escribirnos a <a href="mailto:info@mibucle.com">info@mibucle.com</a> para que podamos ayudarte, o agendá sin cargo una de las sesiones de 15 minutos que ofrecemos para poder orientarte en el mejor pack a contratar para tu caso.'
+    title: 'Tengo preguntas muy especificas, creo que una sesión es mucho para mi. ¿Qué puedo hacer?'
+   24:
+    description_html: 'El objetivo de las mismas es poder orientarte en cuál y responder tus dudas sobre la dinámica de trabajo de Mibucle, y poder definir cuál es el mejor pack a contratar.'
+    title: '¿Para qué sirven las sesiones de 15 minutos sin cargo?'
+   25:
+    description_html: 'Debes seleccionar en el link correspondiente en la seccion de coaching, y seleccionar un horario de los disponibles. Se puede agendar hasta una sección sin cargo por usuario.'
+    title: '¿Cómo agendo una sesión de 15 minutos sin cargo?'
+   26:
+    description_html: 'Para utilizar un cupón de descuento debes seleccionar en el formulario de checkout de compra "Tengo un cupón de descuento" y luego ingresar el código del mismo y validarlo. En caso que el mismo sea válido, el precio se reflejara con el descuento incluido. En caso que sea inválido se arrojara un error. Por el momento los mismos son sólo validos para Argentina y pagos en Tarjetas de Credito Argetinas o Transferencias Bancárias desde Argentina.'
+    title: 'Tengo un cupón de descuento, ¿Cómo lo utilizo?'
+   27:
+    description_html: 'Algunos cupones tienen un uso limitado, sea por fecha de vencimiento o cantidad de usos totales. Validar el cupón implica que en ese momento el cupón aún es válido, pero si demoras en hacer la compra puede agotarse. Te recomendamos usarlo lo más rápido que puedas para evitar inconvenientes.'
+    title: 'Valide un cupón, pero al intentar comprar me dice que es inválido. ¿Por qué pasa esto?'
+   28:
+    description_html: 'Tienes 6 meses para completar tus sesiones desde la fecha de contratación del pack'
+    title: '¿Cuánto tiempo tengo para completar las sesiones desde que contrato el pack?'
+   4:
+    description_html: 'No es psicología ni terapia, no se basa en el pasado. No juzga. No es capacitación. No crea dependencia, es el cliente el responsable de sus propias acciones.'
+    title: '¿Qué no es coaching? '
+   5:
+    description_html: 'Que se realizan de manera virtual y en vivo, utilizando la tecnología para hacer más dinámico y efectivo el proceso. No son presenciales.'
+    title: '¿Qué significa que las sesiones sean online?'
+   6:
+    description_html: 'Las conversaciones se realizarán utilizando Google Hang Out. El uso de la cámara queda sujeto a la conectividad y a la voluntad de ambas partes.'
+    title: '¿Por qué medio se llevan a cabo las conversaciones de Coaching?'
+   7:
+    description_html: 'Una vez comenzada la sesión, en caso que la comunicación se interrumpa por conectividad, se podrá continuar telefónicamente. '
+    title: '¿Qué pasa si la conexión es mala?'
+   8:
+    description_html: 'Los packs son diferentes para  cada necesidad en cada momento de tu carrera. Si te quedan dudas, escrbinos a <a href="mailto:info@mibucle.com">info@mibucle.com</a>'
+    title: 'No se que pack contratar, ¿Qué hago?'
+   9:
+    description_html: 'Una vez confirmada la transferencia bancaria, recibirás un mail con los pasos a seguir para comenzar tu proceso. Recordá enviarnos un mail con el número de transferencia para que podamos confirmar tu proceso'
+    title: '¿Acabo de comprar, cómo sigue el proceso?'
+  title: "FAQ - Preguntas Frecuentes"

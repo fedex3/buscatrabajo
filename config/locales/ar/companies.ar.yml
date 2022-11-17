@@ -1,0 +1,65 @@
+ar:
+ company:
+  carousel:
+   next: "Siguiente"
+   prev: "Anterior"
+  index:
+   header:
+    description: "Quieres conocer a las mejores empresas? Te mostramos sus oficinas, valores y visión para que elijas en dónde dar tu próximo paso. Conócelas ahora."
+    title: "Conoce a las empresas - Mibucle.com"
+   empty: "No se encontraron empresas que concuerden con la búsqueda realizada"
+  label:
+   new_company: "Nuevo"
+   new_office: "Nueva Oficina"
+   tech_week: "Tech Week"
+   sibernetica: "SibernéTIca"
+  main:
+   detail: "Conoce a las empresas antes de aplicar en ellas. Recorre sus oficinas y descubre su cultura."
+   search:
+    zero: 'No encontramos ninguna empresa que coincida con "%{query}"'
+    one: 'Encontramos %{count} empresa que coincide con "%{query}"'
+    many: 'Encontramos %{count} empresas que coinciden con "%{query}"'
+    few: 'Encontramos %{count} empresas que coinciden con "%{query}"'
+    two: 'Encontramos %{count} empresas que coinciden con "%{query}"'
+    other: 'Encontramos %{count} empresas que coinciden con "%{query}"'
+   title: "Empresas"
+  other:
+   title: "Otras empresas que pueden interesarte"
+  other_job:
+   title: "Trabajos en %{name} que pueden interesarte"
+  share:
+   mail: "Te comparto para que conozcas esta empresa: %{url}"
+   opengraph:
+    summary: "Conoce la cultura de %{name}, cómo es trabajar en sus oficinas de %{location}"
+    summary_jobs: ", y las búsquedas que tienen abiertas"
+    title: "Mibucle te lleva dentro de %{name}"
+   twitter: "Conoce las oficinas y cultura de trabajo de "
+  show:
+   header:
+    description: "Conoce %{name} antes de aplicar."
+    title: "Conoce %{name} - Mibucle.com"
+    title_fintechile: "Conoce %{name} - FinteChile | Mibucle"
+   job:
+    detail: "¿Querés sumarte a %{name}?"
+    title: "Encuentra trabajo"
+   location: "Ubicación"
+  sortby:
+   fields:
+    created_at: "Más reciente"
+    relevance: "Relevancia"
+    views: "Relevancia"
+   title: "Ordenar por:"
+  special_event:
+   all_jobs: 'Ver trabajos'
+   finish: 'Este evento ha terminado.'
+   not_active: 'El evento comenzará el jueves 20 de agosto a las 9:00 hs.'
+   not_start: 'El evento comenzará el jueves 20 de agosto a las 9:00 hs.'
+   TODO: 'CAMBIAR LOS TEXTOS DE not_start Y not_active Y BORRAR ESTE TODO.'
+   media_article_title: 'En los medios'
+  terms:
+   accept: "Acepto los "
+   action: "Publicar"
+   free: "* El perfil publicado fue creado a partir de información pública de la empresa. "
+   not_free: "* El perfil publicado fue creado a partir de información enviada por la empresa. "
+   success: "Gracias! El perfil de tu empresa será publicado en breve."
+   terms: "Términos y Condiciones."

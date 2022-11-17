@@ -1,0 +1,45 @@
+ar:
+ job_application:
+  accept: "Al aplicar aceptás los "
+  already_apply: "Ya aplicaste"
+  company_email:
+   comment: "Comentario Adicional"
+   cv: "Ver CV"
+   email: "Email"
+   name: "Nombre"
+   subject: "Aplicación para %{job} vía Mibucle - %{user}"
+  fields:
+   error:
+    already_apply: "Ya aplicaste a esta busqueda"
+    general: "Uy! algo salió mal"
+    valid_cv: "Ups! Te falta adjuntar tu CV"
+  header:
+   description: "Recordar mis aplicaciones anteriores - Mibucle.com"
+   title: "Trabajos Aplicados - Mibucle.com"
+  main:
+   detail: "Recordar mis aplicaciones anteriores."
+   empty: "Por el momento no aplicaste a ningún trabajo."
+   title: "Trabajos Aplicados"
+   viewall: "Ver todas las búsquedas"
+   viewmore: "Ver más búsquedas"
+  new_cv: "Subir nuevo CV"
+  optional: "Opcional"
+  soft_application:
+   submit: "Continuar"
+   summary: "Completa tu email para aplicar."
+   title: "Registrate para aplicar"
+  submit: "Aplicar ahora"
+  summary: "Crea tu cuenta en Mibucle completando los datos y adjunta tu CV para aplicar"
+  terms: "Términos y Condiciones."
+  thanks: "Felicitaciones! %{company} ya tiene tu CV."
+  thanks_for_active_tests: "Felicitaciones! %{company} ya tiene tu CV. En caso que aún no lo hayas hecho, recibirás un mail con una invitación a realizar un test que permitirá conocerte mejor y aumentar tus chances de ser elegido/a."
+  title: "¡Casi listo!"
+  use_cv: "Utilizar CV guardado"
+  user_email:
+   comment: "Comentario Adicional"
+   cv: "Ver CV"
+   email: "Email"
+   name: "Nombre"
+   subject: "Felicitaciones! Tu aplicación para %{job} ha sido enviada"
+   comment_for_tests_enabled: "En caso que aún no lo hayas hecho, recibirás un mail con una invitación a realizar un test que aumentará tus chances de conseguir tu nuevo empleo."
+  view_cv: "(Ver)"

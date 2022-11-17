@@ -1,0 +1,58 @@
+ar:
+ job:
+  carousel:
+   next: "Siguiente"
+   prev: "Anterior"
+  index:
+   empty: "No se encontraron posiciones abiertas para la búsqueda realizada"
+   empty_in_company: "No se encontraron posiciones abiertas en la empresa para la búsqueda realizada.
+    Puedes buscar otros avisos para la búsqueda haciendo click %{href}"
+   empty_href: "aquí"
+   header:
+    description: "Te ayudamos a encontrar el trabajo de tus sueños en las mejores empresas del mercado. Conoce sus búsquedas abiertas."
+    title: "Encuentra trabajo - Mibucle.com"
+    title_fintechile: "Encuentra trabajo - FinteChile | Mibucle"
+   view_all: "Ver todas las búsquedas de trabajo"
+  mailer:
+   subject: '72 horas para la finalización del aviso %{job}'
+   title: "Quedan menos de 72 horas para que finalice un aviso de trabajo"
+   body_html: '<p>Título del aviso: %{job}</p><p>Cantidad de vistas: %{views}</p><p>Cantidad de aplicaciones: %{count}</p><p>Fecha de final: %{date}</p>'
+   job_title: 'Título del aviso: %{job}'
+   job_views: 'Cantidad de vistas: %{views}'
+   job_applications: 'Cantidad de aplicaciones: %{count}'
+   job_end_date: 'Fecha de final: %{date}'
+  main:
+   detail: "Encuentra trabajo en las mejores empresas del mercado. Conoce sus búsquedas abiertas."
+   search: 'Encontramos %{count} búsqueda/s de trabajo que coinciden con "%{query}"'
+   title: "Trabajos"
+  other:
+   all_company_jobs: "Trabajos en %{name}"
+   all_country_jobs: "Trabajos en %{name}"
+   all_industry_jobs: "Trabajos en %{name}"
+   all_jobs: "Trabajos"
+   all_level_jobs: "Trabajos de %{name}"
+   all_location_jobs: "Trabajos en %{name}"
+   all_part_time_jobs: "Trabajos Part-Time"
+   meet_company: "Conocer %{name}"
+   title: "Otros trabajos que pueden interesarte"
+   top: "Este aviso ha finalizado, te mostramos avisos que pueden interesarte"
+   view_all: "Ver Todos los "
+  share:
+   look: " busca "
+   mail: "Te comparto para que conozcas esta búsqueda de trabajo: %{url}"
+  show:
+   apply: "Quiero aplicar"
+   finish: "La búsqueda ha finalizado"
+   logged_test_message: "Al aplicar te será enviado un mail con una invitación a realizar un test que aumentará tus chances de conseguir tu nuevo empleo."
+   unlogged_test_message: "Al iniciar sesión y aplicar te será enviado un mail con una invitación a realizar un test que aumentará tus chances de conseguir tu nuevo empleo."
+   header:
+    description: "Mira la descripción de la búsqueda de trabajo de %{name} en %{company}, ubicada en {city} {state}, {country}."
+    title: "%{name} - %{company} - Mibucle.com"
+    title_fintechile: "%{name} - %{company} - FinteChile | Mibucle"
+   location: "Ubicación"
+  sortby:
+   fields:
+    created_at: "Más reciente"
+    relevance: "Relevancia"
+    views: "Relevancia"
+   title: "Ordenar por:"

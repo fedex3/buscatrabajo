@@ -1,0 +1,9 @@
+ar:
+  category:
+    all:
+      name: "Notas y Consejos"
+      search: "%{count} Notas y Consejos de '%{query}'"
+      summary: "Encuentra las mejores notas, tips y consejos para desarrollarte con éxito en tu trabajo. Aprende con los profesionales más destacados. Leelos ahora."
+    header:
+      description: "%{summary}"
+      title: "%{name} - Mibucle.com"

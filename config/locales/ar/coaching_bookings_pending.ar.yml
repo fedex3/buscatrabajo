@@ -1,0 +1,22 @@
+ar:
+ coaching_booking_pending:
+  email:
+   alternative: "Para confirmar la compra de tu pack <b>%{name}</b>, deberás realizar una <b>transferencia</b> por <b>%{currency} %{amount}</b> en la cuenta indicada a continuación dentro de las <b>48hs hábiles</b>. Luego, envianos un mail a <b>info@mibucle.com</b> indicando el código <b>BCMB%{id}</b> y adjuntando el comprobante de la transferencia. Luego de efectuar el pago, serás contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido. Banco: %{bank_name} . Número de Cuenta: %{account_number} . CBU: %{cbu} . Titular: %{holder} . CUIT: %{cuit} ."
+   detail_html: "Para confirmar la compra de tu pack <b>%{name}</b>, deberás realizar una <b>transferencia</b> por <b>%{currency} %{amount}</b> en la cuenta indicada a continuación dentro de las <b>48hs hábiles</b>. Luego, envianos un mail a <b>info@mibucle.com</b> indicando el código <b>BCMB%{id}</b> y adjuntando el comprobante de la transferencia.<br><br> Luego de efectuar el pago, serás contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido."
+   subject: "Compra pendiente de pago"
+  header:
+   description: "Confirmá la compra de %{name} - Mibucle.com - %{summary}"
+   title: "Compra pendiente de pago - Mibucle.com"
+  main:
+   bank_transfer:
+    account_number: 'Número de cuenta'
+    bank_name: 'Banco'
+    cbu: 'CBU'
+    cuit: 'CUIT'
+    holder: 'Titular'
+    info_html: "Para confirmar la compra de tu pack <b>%{name}</b>, deberás realizar una <b>transferencia</b> por <b>%{currency} %{amount}</b> en la cuenta indicada a continuación dentro de las <b>48hs hábiles</b>. Luego, envianos un mail a <b>info@mibucle.com</b> indicando el código <b>BCMB%{id}</b> y adjuntando el comprobante de la transferencia."
+    next: "Luego de efectuar el pago, serás contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido."
+   credit_card:
+    info_html: "En unos momentos recibiras un email con la información necesaria para abonar tu pack <b>%{name}</b> por <b>%{currency} %{amount}</b> a través de PayPal dentro de las 48hs. El código de compra es <b>BCMB%{id}</b>. Ante cualquier inconveniente, envianos un mail a <b>info@mibucle.com</b>"
+    next: "Luego de efectuar el pago, serás contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido."
+   title: "Compra pendiente de pago"

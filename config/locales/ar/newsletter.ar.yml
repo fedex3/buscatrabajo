@@ -1,0 +1,39 @@
+ar:
+ newsletter:
+  header:
+   delete:
+    title: "Desuscribite de nuestros Newsletter | Mibucle.com"
+  main:
+   delete:
+    summary: "Tu desuscripción ha sido completada."
+    title: "Desuscripción de las novedades"
+   new:
+    accept: "Al suscribirte aceptás los "
+    accept_register: "Al registrarte aceptás los "
+    action: "Suscribite"
+    alreadyregister: "Ya estoy suscripto."
+    summary_html_default: 'Acompañamos a más de 1 millón de profesionales que buscan crear <font color="#F0AD4E"><b>carreras significativas</b></font>, con contenido profesional de expertos y Coaching 100% personalizado y online. Encontrá al <font color="#F0AD4E"><b>trabajo de tus sueños</b></font> y conocé la cultura de las mejores empresas!'
+    summary_html: 'Suscribite para recibir oportunidades laborales en las mejores empresas de la región y contenidos para desarrollarte profesionalmente.'
+    register_html: 'Registrate para recibir oportunidades laborales en las mejores empresas de la región y contenidos para desarrollarte profesionalmente.'
+    terms: "Términos y Condiciones."
+    title_default: "Suscribite a Mibucle"
+    title: "Suscribite a Mibucle"
+    title_register: "Registrate en Mibucle"
+  popups:
+   email: "Email"
+   error: "Por favor, revisa los datos ingresados."
+   moreinfo_html: "Estás más cerca del trabajo de tus sueños"
+   name: "Nombre"
+   send: "Suscribirse"
+   thanks: "​Gracias por suscribirte. Muy pronto comenzarás a recibir el mejor contenido!"
+   wewillanswer_html: "<strong>Déjanos tu email</strong> para que no te pierdas ninguna oportunidad."
+   country: "País"
+ newsletters:
+  confirmation:
+   main-title: "Muchas gracias por confirmar tu registro al newsletter"
+   main-text: "¡Recibirás oportunidades laborales, contenidos para desarrollarte profesionalmente y todas las novedades de Mibucle en tu email!"
+   main-button: "Encuentra trabajo"
+   secondary-button: "Conoce a las empresas"
+   header:
+    title: "Gracias por confirmar tu registro"
+    description: "Muchas gracias por registrarte al newsletter de Mibucle. ¡El trabajo de tus sueños está cada vez más cerca!"

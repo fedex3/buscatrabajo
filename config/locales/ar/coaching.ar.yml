@@ -1,0 +1,69 @@
+ar:
+ coaching:
+  benefits:
+   box1:
+    detail: "Cada Coach de Mibucle cuenta con una excelete reputación, y están especializados en el desarrollo profesional."
+    title: "Excelentes profesionales"
+   box2:
+    detail: "Cada trabajo es a medida, único. Trabaja con un Coach que entienda tu situación de manera personal."
+    title: "Trabajo personalizado"
+   box3:
+    detail: "Cuando lo necesites, en el horario que te quede cómodo. Con la posibilidad de hacerlo a distancia."
+    title: "Horarios flexibles"
+   box4:
+    detail: "Con la posiblidad de hacerlo a distancia. 100% online, sin moverte de tu casa. "
+    title: "Desde tu Casa"
+   box5:
+    detail: "Cada minuto que dediques a trabajar con un Coach, traera resultados positivos en tu carrera profesional."
+    title: "Resultados"
+  book:
+   box1:
+    detail: "Contamos con diferentes servicios para que elijas el que mejor se adapta a tus necesidades."
+    title: "Elige el servicio"
+   box2:
+    detail: "Abona el servicio y recibirás un email para coordinar la fecha con un coach especializado."
+    title: "Coordina la fecha"
+   box3:
+    detail: "Disfruta del camino, asume los compromisos y logra lo que quieres."
+    title: "¡A trabajar!"
+   title: "En 3 simples pasos"
+  coaches:
+   action: "Conocer Coaches"
+   title: "Conoce a nuestros Coaches y elige con quién trabajar"
+  header:
+   description: "En 3 simples pasos puedes acceder a un servicio de coaching para que te ayudemos a cumplir tus objetivos profesionales y mejorar tu vida. Hazlo ahora."
+   title: "Trabaja junto a un Coach y cambia tu vida - Mibucle.com"
+  main:
+   choosecoach: "Elige tu Coach"
+   choosepack: "Elige el Servicio"
+   detail: "Un Coach te acompaña en el desarrollo de tu potencial. Cumple tus objetivos. Mejora tu vida."
+   title: "Coaching"
+   videotour: "¿Cuándo necesito Coaching?"
+  need_help:
+   action: 'Agendá gratis'
+   detail: 'Agenda sin cargo una sesión de 15 minutos y responde todas tus inquietudes.'
+   title: '¿Tenés alguna consulta?'
+  question:
+   detail_html: '¿Buscas un próximo paso en tu <div class="coaching-question-detail-big">carrera</div>? ¿Quieres <div class="coaching-question-detail-big">cambiar</div> y no sabes cómo empezar? ¿Atraviesas un momento de <div class="coaching-question-detail-big">crisis vocacional</div>? ¿Quieres  potenciar tu <div class="coaching-question-detail-big">emprendimiento</div> y no sabes por dónde arrancar?¿Necesitas mejorar tu forma de <div class="coaching-question-detail-big">comunicarte</div>? ¿Quieres ser efectivo y obtener <div class="coaching-question-detail-big">resultados</div> sin dañar los vínculos?  ¿Necesitas <div class="coaching-question-detail-big">liderar</div> un equipo y coordinar acciones?'
+   title: "¿Cuándo contratar nuestros servicios?"
+  services:
+   box1:
+    detail: "¿Qué cosas te apasionan? ¿Qué te motiva?"
+    title: "Descubre"
+   box2:
+    detail: "Apoyate en tus talentos, desarrolla tu potencial. Crea el futuro que querés"
+    title: "Diseña"
+   box3:
+    detail: "Manos a la obra. Ponete en acción y cumplí tus objetivos"
+    title: "Transfórmate"
+  small:
+   detail: '"Todo parece imposible hasta que se hace" N. Mandela'
+  stories:
+   story1: '"Muy cumplidor el equipo de Mi Bucle, se conectaron en tiempo y forma, muy calida la conversacion, los consejos me fueron muy utiles y ya estoy implementando las ideas adquiridas! Gracias!!"'
+   story2: '"Estoy muy contenta con el proceso! Supero mis expectativas. Consegui las herramientas que necesitaba a nivel laboral. Las observaciones de Brenda son muy precisas.  Seguramente seguiré contratandolos para seguir avanzando en mi carrera. Gracias MiBucle! "'
+   story3: '"Me quedo muy conforme con la mecánica de trabajo y con los resultados. El objetivo es terminar descubriendo uno mismo cosas que internamente ya sabía, pero que al dejarlas plasmadas o en evidencia, se empiezan a cumplir."'
+   story4: '"Me sirvía para mejorar mi CV, hacerlo completo y compacto. También para pulir algunos detalles en la simulación de entrevista.  Y gané seguridad en algunos aspectos en los que tenía dudas.'
+   story5: '"Contraté el asesoramiento para prepararme para una entrevista puntual, pero el resultado entiendo que va un poco mas allá dado que recibí muy buen asesoramiento de como desenvolverme mejor en muchas situaciones. "'
+   title: "Conoce las experiencias de otras personas"
+  video:
+   whatis: "https://www.youtube.com/embed/aFjG8Plwr6E?modestbranding=1&rel=0&controls=1&showinfo=1?ecver=1"

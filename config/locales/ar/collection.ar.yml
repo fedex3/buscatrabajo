@@ -1,0 +1,96 @@
+ar:
+ collection:
+  account_debit:
+   name: "Débito en cuenta"
+  bank_transfer:
+   name: "Transferencia bancaria"
+  credit_card:
+   name: "Tarjeta de crédito"
+  mercado_pago:
+   alternative_name: "Tarjeta de crédito"
+   banks:
+    any_card: "Con cualquier tarjeta de los siguientes bancos:"
+    any_other: "Con las siguientes tarjetas de cualquier otro banco no mencionado anteriormente:"
+    others: "Otros bancos."
+   error:
+    data: "Por favor, revise los datos de la tarjeta de credito."
+   fields:
+    cardholdername:
+     name: "Nombre completo del titular"
+    cardnumber:
+     name: "Número tarjeta"
+    documentnumber:
+     name: "Número documento del titular"
+    documenttype:
+     name: "Tipo documento del titular"
+    expirationmonth:
+     name: "Mes expiración"
+    expirationyear:
+     name: "Año expiración"
+    securitycode:
+     name: "Código seguridad"
+   messages:
+    payment_creation:
+     approved:
+      accredited: "Tu pago se acredito con exito!"
+     code:
+      code_106: "No podes hacer pagos con la tarjeta igresada en este país."
+      code_109: "Tu tarjeta no procesa pagos en la cantidad de cuotas ingresada. Seleccioná otra tarjeta o forma de pago."
+      code_126: "No pudimos procesar el pago."
+      code_129: "Tu tarjeta no procesa pagos por el monto ingresado. Seleccioná otra tarketa o forma de pago."
+      code_145: "No pudimos procesar el pago."
+      code_150: "No puedes realizar pagos."
+      code_151: "No puedes realizar pagos."
+      code_160: "No pudimos procesar el pago."
+      code_204: "Tu tarjeta no se encuentra disponible en este momento. Seleccioná otra tarketa o forma de pago."
+      code_400: "Ocurrió une error al procesar el pago. Por favor, vuelve a intentarlo."
+      code_801: "Realizaste un pago similar hace unos momentos. Reintenta en unos minutos."
+      default: "No pudimos procesar el pago."
+     in_process:
+      pending_contingency: "Estamos procesando el pago. Te enviaremos un email con el resultado del mismo."
+      pending_review_manual: "Estamos procesando el pago. Te enviaremos un email con el resultado del mismo."
+     rejected:
+      cc_rejected_bad_filled_card_number: "Revisá el número de tarjeta."
+      cc_rejected_bad_filled_date: "Revisá el vencimiento de la tarjeta."
+      cc_rejected_bad_filled_other: "Revisá la información ingresada."
+      cc_rejected_bad_filled_security_code: "Revisá el código de seguridad."
+      cc_rejected_blacklist: "No pudimos procesar el pago. Intenta con otra tarjeta."
+      cc_rejected_call_for_authorize: "Tenés que autorizar con tu tarjeta el pago a MercadoPago por el monto ingresado."
+      cc_rejected_card_disabled: "Llama a tu tarjeta para activar la misma. El teléfono se encuentra al dorso de la misma."
+      cc_rejected_card_error: "No pudimos procesar el pago."
+      cc_rejected_duplicated_payment: "Ya has realizado un pago por ese monto. Si necesitas pagar nuevamente, reintenta con otra tarjeta o forma de pago."
+      cc_rejected_high_risk: "Tu pago fue rechazado. Seleccioná otra forma de pago. Te recomendamos una transferencia."
+      cc_rejected_insufficient_amount: "Tu tarjeta no tiene fondos suficientes."
+      cc_rejected_invalid_installments: "Tu tarjeta no procesa las cuotas ingresadas."
+      cc_rejected_max_attempts: "Llegaste al limite de intentos. Seleccioná otra tarjeta o forma de pago."
+      cc_rejected_other_reason: "Tu tarjeta no proceso el pago."
+    token_creation:
+     code:
+      code_205: "Ingresá tu número de tarjeta."
+      code_208: "Ingresá el mes de vencimiento."
+      code_209: "Ingresá el año de vencimiento"
+      code_212: "Ingresá el tipo de documento."
+      code_213: "Ingresá el subtipo de documento."
+      code_214: "Ingresá el número de documento."
+      code_220: "Ingresá el banco emisor."
+      code_221: "Ingresá tu nombre completo."
+      code_224: "Ingresá el código de seguridad."
+      code_316: "Ingresá un nombre válido"
+      code_322: "Revisá tu tipo de documento."
+      code_323: "Revisá tu tipo de documento."
+      code_324: "Revisá tu número de documento."
+      code_325: "Revisá la fecha de vencimiento."
+      code_326: "Revisá la fecha de vencimiento."
+      code_E301: "Hay un error en el número. Por favor, reingresalo."
+      code_E302: "Revisá el código de seguridad."
+      default: "Revisá la información ingresada."
+   name: "Tarjeta de crédito"
+  name: "Forma de Pago"
+  paypal:
+   error:
+    default: "Ha ocurrido un error, por favor, vuelva a intentarlo."
+    validation_error: "Por favor, revise los datos ingresados de la tarjeta."
+   name: "Tarjeta de crédito o Paypal"
+   not_approve:
+    detail_html: "No pudimos confirmar su pago. Ante cualquier inquietud, comuníquese con nosotros. "
+    title: "Su pago no pudo ser confirmado"

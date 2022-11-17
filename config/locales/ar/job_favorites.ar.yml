@@ -1,0 +1,11 @@
+ar:
+ job_favorite:
+  header:
+   description: "Recuerda los trabajos que más te gustaron - Mibucle.com"
+   title: "Trabajos Favoritos - Mibucle.com"
+  main:
+   detail: "Recuerda los trabajos que más te gustaron."
+   empty: "Por el momento no marcaste ningun trabajo como favorito."
+   title: "Trabajos Favoritos"
+   viewall: "Ver todas"
+   viewmore: "Ver más"

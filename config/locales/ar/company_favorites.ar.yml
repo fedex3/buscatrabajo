@@ -1,0 +1,11 @@
+ar:
+ company_favorite:
+  header:
+   description: "Recuerda las empresas que más te gustaron."
+   title: "Empresas Favoritas - Mibucle.com"
+  main:
+   detail: "Recuerda las empresas que más te gustaron."
+   empty: "Por el momento no marcaste ninguna empresa como favorita."
+   title: "Empresas Favoritas"
+   viewall: "Ver todas"
+   viewmore: "Ver más"

@@ -1,0 +1,26 @@
+ar:
+ advice:
+  company:
+   office: "Nuestra Oficina"
+  header:
+   description: "%{summary}"
+   title: "%{name} - Mibucle.com"
+  more_and: ", y "
+  more_author: "Ver más notas y consejos de %{author}."
+  more_company: "Descubre cómo es trabajar en %{company}"
+  more_jobs: "conoce las búsquedas de trabajo abiertas"
+  other:
+   title: "Otras notas y consejos que pueden interesarte"
+  share:
+   mail: "Te comparto para que leas este articulo: %{url}"
+  sortby:
+   fields:
+    created_at: "Mas reciente"
+    relevance: "Relevancia"
+    views: "Relevancia"
+   title: "Ordenar por:"
+  sponsored_by: "Auspiciado por "
+  trending:
+   next: "Siguiente"
+   plural: "Tendencia"
+   singular: "Tendencias"

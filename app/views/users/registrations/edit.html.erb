@@ -51,7 +51,7 @@
               <div><%=t :'users.fields.messages.waitingconfirmation' %><%= resource.unconfirmed_email %></div>
             <% end %>
 
-            <%unless current_user.omniauth%>
+            <%unless true%>
               <div class="form-group input-group-lg">
                 <%= f.label User.human_attribute_name("password"), :class => "form-label"%>
                 <%= f.password_field :current_password, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("password") %>
@@ -72,7 +72,7 @@
 
             <div class="form-group input-group-lg">
               <%= f.label (t('users.fields.messages.enter') + User.human_attribute_name("country")), :class => "form-label"%>
-              <%= f.select(:country, countries, {:include_blank => false, :selected => selected_country}, {:class => 'form-control'})%>
+              <%= f.select(:country, countries, {:include_blank => false, :selected => "Argentina"}, {:class => 'form-control'})%>
             </div>
 
             <%= f.fields_for :newsletter do |n| %>

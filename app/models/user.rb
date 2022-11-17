@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable 
 
 
   has_attached_file :photo, {
@@ -14,9 +18,8 @@ class User < ApplicationRecord
   validates_attachment_file_name :photo, matches: [/gif\Z/, /png\Z/, /jpe?g\Z/, /JPE?G\Z/, /webp\Z/, /WEBP\Z/]
   after_save :tinify_photos , if: Proc.new { |user| user.saved_change_to_photo_updated_at? && Rails.env.production?}
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook, :linkedin]
+  #devise :database_authenticatable, :registerable,
+  #       :recoverable, :rememberable, :trackable, :validatable
 
   has_many :event_users
   has_many :company_special_events, through: :event_users
@@ -62,8 +65,6 @@ class User < ApplicationRecord
   enum cv_status: %i[pending cv_rejected cv_accepted positive_rejected on_standby]
   enum role: %i[basic recruiter community_manager admin superadmin company_role content_editor content_editor_plus]
 
-  before_save :update_terms_created_at
-  before_validation :update_omniauth, if: :omniauth
 
   after_initialize :set_defaults, if: :new_record?
   after_create :track_analytics
@@ -94,12 +95,6 @@ class User < ApplicationRecord
     end
   end
 
-  def update_omniauth
-    if self.current_password != self.password && !reset_password_token.nil?
-      self.omniauth = false
-    end
-  end
-
   def terms_is_valid
     unless self.terms_accepted?
        self.errors.add(:terms_accepted, I18n.t('users.validations.terms_accepted'))
@@ -120,38 +115,9 @@ class User < ApplicationRecord
     Newsletter.upsert_newsletter(self)
   end
 
-  def self.from_omniauth(auth)
-    if where(email: auth.info.email).exists?
-        return_user = where(email: auth.info.email).first
-        return_user.provider = auth.provider
-        return_user.uid = auth.uid
-        return_user.save!(:validate => false)
-    else
-      return_user = create do |user|
-        user.terms_accepted = true
-        user.provider = auth.provider
-        user.uid = auth.uid
-        user.email = auth.info.email
-        user.name = auth.info.name
-        if auth.provider == 'linkedin' && !auth.info.location.nil?
-          user.country = auth.info.location.last(2)
-        end
-        user.password = Devise.friendly_token[0,20]
-        user.omniauth = true
-        user.save!
-      end
-    end
-    return return_user
-  end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-        #Rails.logger.debug("Loggeando cosas: model: if :" + user.email)
-      end
-    end
-  end
+
+
 
   def user_in_spain?(session)
     @is_in_spain = false

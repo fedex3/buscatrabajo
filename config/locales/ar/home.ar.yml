@@ -1,0 +1,31 @@
+ar:
+ home:
+  company:
+   more: "Conocer"
+   this: "Conocé"
+  header:
+   description: "Desarrollate profesionalmente, aprende con consejos y tips, conoce a las mejores empresas para trabajar y accede a sesiones de coaching. Comienza hoy."
+   title: "Mibucle.com - Empodera tu carrera y encuentra el trabajo de tus sueños"
+  main:
+   advices:
+    title: "Notas y Consejos"
+    view_more: "Ver más notas"
+   coaching:
+    title: "Coaching"
+    view_more:  "Ver todos los servicios"
+   companies:
+    title: "Conoce a las Empresas"
+    view_more: "Ver más empresas"
+   detail: "Encuentra notas y consejos para tu carrera profesional, realiza coaching, conoce a las empresas, encuentra trabajo y logra lo que te propongas."
+   health_action: "Conocé las empresas"
+   health_detail: "27/05 al 01/06"
+   health_title: "Semana de la salud"
+   jobs:
+    title: "Encuentra Trabajo"
+    view_detail: "Ver detalle"
+    view_more: "Ver más trabajos"
+   title: "Empodera tu carrera y encuentra el trabajo de tus sueños"
+   videotour: "Conocé más sobre Mibucle"
+   viewmore: "Conoce la propuesta"
+  video:
+   tour: "https://www.youtube.com/embed/AlmCEr8V0Us?modestbranding=1&rel=0&controls=1&showinfo=1?ecver=1"

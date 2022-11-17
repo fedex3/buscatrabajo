@@ -1,0 +1,13 @@
+ar:
+ search:
+  advices: '%{count} notas y consejos para tu búsqueda "%{query}"'
+  companies: '%{count} empresas para tu búsqueda "%{query}"'
+  empty: 'No se encontraron resultados para tu búsqueda "%{query}"'
+  header:
+   description: "Notas, Consejos, Empresas y Trabajos de %{query}"
+   title: "Mibucle.com - Notas, Consejos, Coaching, Conoce a las Empresas y Encuentra Trabajo"
+  jobs: '%{count} búsquedas laborales para tu búsqueda "%{query}"'
+  view_all_advices: "Ver todas las notas y consejos"
+  view_all_companies: "Ver todas las empresas"
+  view_all_jobs: "Ver todas las búsquedas laborales"
+  view_more: "Ver más"

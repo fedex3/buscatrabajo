@@ -1,0 +1,11 @@
+ar:
+ advice_favorite:
+  header:
+   description: "Recuerda las notas y consejos que más te gustaron."
+   title: "Notas y Consejos Favoritas - Mibucle.com"
+  main:
+   detail: "Recuerda las notas y consejos que más te gustaron."
+   empty: "Por el momento no marcaste ningún artítculo como favorito."
+   title: "Notas y Consejos Favoritas"
+   viewall: "Ver todos"
+   viewmore: "Ver más"

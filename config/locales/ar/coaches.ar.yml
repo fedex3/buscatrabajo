@@ -1,0 +1,10 @@
+ar:
+ coach:
+  header:
+   description: "%{name} - Mibucle.com - %{summary}"
+   title: "%{name} - Conoce nuestros coaches."
+  main:
+   detail: "Elegimos a los mejores profesionales para que tengas la mejor experiencia posible"
+   title: "Nuestros Coaches"
+  packs:
+   title: "Los servicios que puedes trabajar con %{name}"

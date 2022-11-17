@@ -1,0 +1,10 @@
+ar:
+ mentor_booking:
+  header:
+   description: "Confirma tu mentoría con %{name} - Mibucle.com"
+   title: "Confirma tu mentoría con %{name} - Mibucle.com"
+  main:
+   action: "Continuar"
+   title: "Confirma tu mentoría"
+   user:
+    already_register: "¿Ya estás registrado?"

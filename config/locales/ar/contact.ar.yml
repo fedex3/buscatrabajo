@@ -1,0 +1,19 @@
+ar:
+ contact:
+  auto_reply_email:
+   alternative: 'Hemos recibido tu mensaje.Lo responderemos a la brevedad.'
+   detail_html: 'Hemos recibido tu mensaje.<br>Lo responderemos a la brevedad.'
+   subject: 'Respuesta automatica: Contacto recibido'
+  email:
+   alternative: 'Nombre: %{name}. Mensaje: %{message}'
+   detail_html: 'Nombre: %{name}<br>Email: %{email}<br>Tipo: %{contact_type}<br>Teléfono: %{phone}<br>Compania: %{company}<br>Mensaje: %{message}'
+   subject: 'Formulario de Contacto'
+  header:
+   description: "Quieres conocer más sobre mibucle.com? Te interesa sumar artículos de tu autoría? Tienes algo que decirnos? Puedes dejarnos tu mensaje aquí."
+   title: "Contactanos - Mibucle.com"
+  main:
+   detail_html: "Queremos escucharte. ¿Tenés dudas si podemos ayudarte? ¿Buscás contenido que no está publicado? ¿Te gusta Mibucle? ¿Queres ser parte de nuestro escritores? ¿Sos coach y queres participar? ¿Tenes alguna duda de la plataforma? No dejes de contactarnos, te responderemos a la brevedad."
+   success: "Hemos recibido tu mensaje. Lo responderemos a la brevedad."
+   title: "Contactanos"
+  send: "Enviar"
+  thanks: "​Gracias por tu consulta, te responderemos a la brevedad."

@@ -31,8 +31,7 @@
         </div>
         <div class="form-group input-group-lg">
           <label class="form-label"><%=User.human_attribute_name("country")%></label>
-          <%selected_country = geokit_country_code%>
-          <%= select_tag :select_user_country, options_for_select(reduced_countries_list, selected_country), class: "form-control margin-bottom-sm" %>
+          <%= select_tag :select_user_country, options_for_select(reduced_countries_list), class: "form-control margin-bottom-sm" %>
         </div>
         <p>
           <%=t('job_application.accept')%> <%= link_to t('job_application.terms'), terms_path, target: "_blank", :class => "link-soft" %>

@@ -76,13 +76,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def sign_up_params
     # devise_parameter_sanitizer.for(:sign_up) << :attribute
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :country, :terms_accepted, :terms_accepted_at, :omniauth, :analytics_client_id, :source, :term, :campaign, :medium, :from_event, :is_company)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :country, :terms_accepted, :terms_accepted_at, :analytics_client_id, :source, :term, :campaign, :medium, :from_event, :is_company)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def account_update_params
     # devise_parameter_sanitizer.for(:account_update) << :attribute
-    params.require(:user).permit(:email, :current_password, :password, :password_confirmation, :name, :country, :terms_accepted, :terms_accepted_at, :omniauth, :short_summary, :long_summary, :show_photo, :photo, :github_url, :linkedin_url, :language_list, :skill_list, :experience, newsletter_attributes: %i[id subscribe] )
+    params.require(:user).permit(:email, :current_password, :password, :password_confirmation, :name, :country, :terms_accepted, :terms_accepted_at, :short_summary, :long_summary, :show_photo, :photo, :github_url, :linkedin_url, :language_list, :skill_list, :experience, newsletter_attributes: %i[id subscribe] )
   end
 
   def update_resource(resource, params)

@@ -1,0 +1,29 @@
+ar:
+ mentor:
+  book:
+   box1:
+    detail: "Contamos con diferentes mentores para que elijas con quien conversar."
+    title: "Elige tu mentor"
+   box2:
+    detail: "Registrate, y elegí una fecha disponible."
+    title: "Coordina la fecha"
+   box3:
+    detail: "Disfruta de las conversaciones, y triunfa en tu carrera."
+    title: "¡Todo Listo!"
+   title: "En 3 simples pasos"
+  companies: "Nuestros mentores trabajaron en las siguientes empresas"
+  header:
+   description: "En 3 simples pasos puedes acceder a un servicio de coaching para que te ayudemos a cumplir tus objetivos profesionales y mejorar tu vida. Hazlo ahora."
+   title: "Conversa con un Mentor sin cargo y cambia tu vida - Mibucle.com"
+  list:
+   action: "¡Quiero conversar!"
+  main:
+   choosecoach: "Elige tu Mentor"
+   detail: "¿Sos parte del mundo tecnológico? Conectate  sin cargo con excelentes referentes del mercado y avanzá en tu carrera."
+   title: "Mentores en Tecnología"
+  mentors:
+   action: "Conocer Mentores"
+   title: "Nuestros Mentores"
+  question:
+   detail_html: '¿Buscas un próximo paso en tu <div class="coaching-question-detail-big">carrera</div>? ¿Quieres insertarte en el <div class="coaching-question-detail-big">mercado tecnológico</div> y no sabes cómo empezar? ¿Tenés dudas sobre cuál es una buena <div class="coaching-question-detail-big">empresa</div> para tus próximos pasos? Conversa con <div class="coaching-question-detail-big">referentes</div> del rubro tecnológico y asesorate en tu carrera profesional. Sacate todas tus dudas. <div class="coaching-question-detail-big">Pregunta</div> lo que necesites.'
+   title: "¿Cuándo conversar con un mentor?"

@@ -1,0 +1,16 @@
+ar:
+ coaching_booking_confirmation:
+  email:
+   alternative: "La compra del pack %{name} por %{currency} %{amount} con el código BCMB%{id}, se encuentra confirmada. Serás contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido."
+   detail_html: "La compra del pack <b>%{name}</b> por <b>%{currency} %{amount} </b> con el código <b>BCMB%{id}</b>, se encuentra confirmada. <br><br> Serás contactado via email por un coach de nuestro staff para coordinar las sesiones del pack elegido."
+   subject: "Compra confirmada"
+  header:
+   description: "Confirma tu compra de %{name} - Mibucle.com - %{summary}"
+   title: "Confirmación de compra - Mibucle.com"
+  main:
+   mercado_pago:
+    info_html: "La compra del pack <b>%{name}</b> por <b>%{currency} %{amount} </b> con el código <b>BCMB%{id}</b>, se encuentra confirmada."
+    next_face_html: 'Serás contactado via email por un coach de nuestro staff para coordinar el lugar, fecha y hora de las sesiones.'
+    next_html: 'Puedes agendar tu primer sesión desde este mail'
+    button: "Agendar sesión"
+   title: "¡Compra Confirmada!"

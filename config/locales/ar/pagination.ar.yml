@@ -1,0 +1,17 @@
+ar:
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: "Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name} de <b>%{total}</b> totales"
+      one_page:
+        display_entries:
+          one: "Mostrando <b>1</b> %{entry_name}"
+          other: "Mostrando <b>todos los %{count}</b> %{entry_name}"
+          zero: "%{entry_name} no encontrado"
+  views:
+    pagination:
+      first: "&laquo; "
+      last: "&raquo;"
+      next: "&rsaquo;"
+      previous: "&lsaquo;"
+      truncate: "&hellip;"

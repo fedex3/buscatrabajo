@@ -1,0 +1,10 @@
+ar:
+ resources:
+  header:
+   description: "Conoce los ebooks, webinars y workshops de Mibucle"
+   title: "Recursos - Mibucle.com"
+  main:
+   summary: "Conoce los ebooks, webinars y wokrshops de Mibucle"
+   title: "Recursos"
+  share:
+   mail: "Te comparto para que descargues este recurso: %{url}"

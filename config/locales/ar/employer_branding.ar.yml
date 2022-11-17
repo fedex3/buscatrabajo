@@ -1,0 +1,231 @@
+---
+ar:
+  employer_branding:
+    clients_html: Nuestros clientes ahorran <span class="bold">50% de su presupuesto</span> en contratación, <span class="bold">disminuyen en 30% la rotación</span> y llevan adelante <span class="bold">entrevistas de calidad</span>
+    contact:
+      company: Empresa
+      mail: Mail de contacto
+      message: Mensaje
+      name: Nombre
+      phone: Teléfono
+      send: Enviar
+      size: Tamaño
+      surname: Apellido
+      title: Ponete en contacto con nuestro equipo experto en marca empleadora
+    email:
+      data:
+        company: 'Empresa:'
+        data_received: 'Datos recibidos:'
+        email: 'Correo:'
+        message: 'Mensaje:'
+        name: 'Nombre:'
+        phone: 'Teléfono:'
+        plan: 'Plan:'
+      enthusiast:
+        respond_shortly: Responderemos a la brevedad 🚀
+        subject: Empieza a desarrollar tu marca empleadora
+        title: Gracias por confiar en Mibucle para comenzar a desarrollar tu Marca Empleadora
+      free:
+        subject: Empieza a desarrollar tu marca empleadora
+        subtitle: Dentro de las próximas 96 horas de completado el formulario te estaremos contactando para validar tu perfil. 🚀
+        title: Gracias por confiar en Mibucle para comenzar a desarrollar tu Marca Empleadora. Para avanzar con la creación de tu perfil necesitamos que complete este form <https://docs.google.com/forms/d/1nwBQGvYwPU5ifttDCniWCVWfsU7k9P7sL20ePNLBtwM/edit?ts=61b75b5d>
+        title_html: Gracias por confiar en Mibucle para comenzar a desarrollar tu Marca Empleadora
+        body: Para avanzar con la creación de tu perfil necesitamos que completes el formulario
+        btn: Completa el formulario
+      full:
+        respond_shortly: Responderemos a la brevedad 🚀
+        subject: Empieza a desarrollar tu marca empleadora
+        title: Gracias por confiar en Mibucle para comenzar a desarrollar tu Marca Empleadora
+      notification:
+        subject: Empezar ahora
+        title: Una persona está interesada en el plan
+    header:
+      alt: Marca Empleadora
+      description: Desarrolla tu marca empleadora contándole tu propuesta de valor a miles de candidatos por mes. Contáctanos ahora para lograrlo.
+      title: Mibucle - Desarrolla tu marca empleadora
+    how:
+      advices: Notas
+      based_on_objective: en base a tu objetivo
+      better_ranking_html: para incrementar<br>tu posicionamiento
+      carrers_and_jobs_html: de carreers y empleos<br>de tu empresa
+      comunication_strategy: Estrategia de comunicación omnicanal
+      empower_your_brand_html: para potenciar y difundir tu<br>marca en nichos target
+      microsite: Micrositio
+      online_events: Eventos online
+      stats:
+        companies: empresas
+        data_updated_at: 'Datos actualizados al '
+        followers: seguidores
+        forty_thousand_html: +<span class="number" data-target="40">40</span>k
+        hundred_html: <span class="number" data-target="100">100</span>
+        hundred_thousand_html: +<span class="number" data-target="100">100</span>k
+        one_million_html: +<span class="number" data-target="999">1</span> millón
+        users: usuarios
+        visits: visitas
+      subtitle: Generamos contenido de valor y lo difundimos entre el talento target
+      title: ¿Cómo lo hacemos?
+    main:
+      1_html: Contratá <br>al <span class="bold">talento correcto</span>
+      2_html: difundiendo tu <span class="bold">marca <br>empleadora con tecnología.</span>
+      action: Contáctanos
+      title: Desarrolla tu marca empleadora
+    manage_your_cvs: Administrá tus cvs desde nuestra plataforma
+    numbers:
+      41%: 41%
+      65%: +65%
+      female_users_html: usuarias<br><span class="bold">mujeres</span>
+      hours_saved_html: hs ahorradas<br>en entrevistas
+      pasive_candidates_html: candidatos<br><span class="bold">pasivos</span>
+      ten_thousand: '+10.000'
+    perks:
+      table:
+        headings:
+          enthusiast: ENTUSIASTA
+          free: FREE
+          full: FULL
+        row_1:
+          one: Logo de la empresa y foto de portada
+        row_10:
+          four: 4
+          one: Notas contenido personalizado
+          three: 2
+        row_11:
+          one: Dashboard de métricas ontime
+        row_12:
+          one: Índice de marca empleadora
+        row_13:
+          four: 50% OFF
+          one: Descuentos participación eventos online
+          three: 30% OFF
+          two: '-'
+        row_14:
+          one: Encuestas a usuarios
+        row_15:
+          one: Reporte personalizado de métricas trimestral
+        row_16:
+          one: Integración con tu ATS
+        row_17:
+          one: Empresa destacada en la home
+        row_2:
+          four: 9 cajas de texto
+          one: Información de la empresa
+          three: 6 cajas de texto
+          two: 3 cajas de texto
+        row_3:
+          four: 15 fotos
+          one: Fotos
+          three: 7 fotos
+          two: 4 fotos
+        row_4:
+          four: 5 videos
+          one: Videos
+          three: 1 video
+          two: '-'
+        row_5:
+          four: Máxima visibilidad
+          one: Visibilidad perfil empresa
+          three: Visibilidad destacada
+          two: Visibilidad media
+        row_6:
+          four: On demand
+          one: Actualización de empresa
+          three: Semestral
+          two: '-'
+        row_7:
+          four: Ilimitados
+          one: Avisos de trabajo
+          three: 5 por mes
+          two: 3
+        row_8:
+          four: On demand
+          one: Duración de los avisos de trabajo
+          three: On demand
+          two: 90 días
+        row_9:
+          one: Acceso al administrador de postulaciones
+      title_html: Compará cada plan para elegir el que mejor se ajusta <br> a la Marca Empleadora de tu empresa
+    plans_cards:
+      enthusiast:
+        body:
+          desktop:
+            bullet_1: Perfil básico de compañia (fotos + videos)
+            bullet_2: 5 avisos de trabajo por mes
+            bullet_3: Acceso al administrador de postulaciones
+          mobile:
+            bullet_1: Logo de la empresa y foto de portada
+            bullet_10: 30% OFF en participación de eventos online
+            bullet_2: Perfil básico de compañia (6 cajas de texto + 7 fotos + 1 video)
+            bullet_3: 5 avisos de trabajo por mes de duración ilimitada
+            bullet_4: Visibilidad destacada del perfil de empresa
+            bullet_5: Acceso al administrador de postulaciones
+            bullet_6: Actualización de empresa semestral
+            bullet_7: 2 notas con contenido personalizado
+            bullet_8: Dashboard de métricas ontime
+            bullet_9: Índice de marca empleadora
+          subtitle: Potenciá tu Marca Empleadora
+        footer:
+          button_html: Contáctanos ahora
+        header:
+          plan_name: ENTUSIASTA
+      free:
+        body:
+          desktop:
+            bullet_1: Perfil básico de compañia
+            bullet_2: 3 avisos de trabajo por única vez
+          mobile:
+            bullet_1: Logo de la empresa y foto de portada
+            bullet_2: Perfil básico de compañia (3 cajas de texto + 4 fotos)
+            bullet_3: 3 avisos de trabajo por única vez con duración de 90 días
+            bullet_4: Visibilidad media del perfil de empresa
+          subtitle: Comenzá por el principio
+        footer:
+          button: Empezar ahora
+          disclaimer: '*Solo para clientes nuevos'
+        header:
+          plan_name: FREE
+      full:
+        body:
+          desktop:
+            bullet_1: Perfil completo de ME (fotos + videos)
+            bullet_10: Contenido, notas personalizadas
+            bullet_2: Trabajos ilimitados
+            bullet_3: Acceso al administrador de postulaciones
+            bullet_4: Dashboard de métricas ontime
+            bullet_5: Índice de Marca Empleadora
+            bullet_6: Encuestas a usuarios
+            bullet_7: Reporte personalizado de métricas
+            bullet_8: Participación de eventos online
+            bullet_9: Máxima visibilidad en la plataforma
+          mobile:
+            bullet_1: Logo de la empresa y foto de portada
+            bullet_10: 50% OFF en participación de eventos online
+            bullet_11: Encuestas a usuarios
+            bullet_12: Reporte personalizado de métricas trimestral
+            bullet_13: Integración con tu ATS
+            bullet_14: Empresa destacada en la home
+            bullet_2: Perfil básico de compañia (9 cajas de texto + 15 fotos + 5 video)
+            bullet_3: Ilimitados avisos de trabajo por mes de sin límite de duración
+            bullet_4: Visibilidad máxima del perfil de empresa
+            bullet_5: Acceso al administrador de postulaciones
+            bullet_6: Actualización de empresa on demand
+            bullet_7: 4 notas con contenido personalizado
+            bullet_8: Dashboard de métricas ontime
+            bullet_9: Índice de marca empleadora
+          subtitle: Brillá con tu compañía
+        footer:
+          button_html: Contáctanos ahora
+          disclaimer: '*El plan full te permite acceder a un perfil de Marca Empleadora completo e integro, con máxima visibilidad en nuestra plataforma y participación de nuestros eventos'
+        header:
+          plan_name: FULL
+      title: Planes pricing
+    sub_header:
+      company_courses: Coaching y Cursos
+      contact: Contáctanos
+      faqs: FAQs
+      how_works: Cómo Funciona
+      resources: Recursos
+    top_bar_html: Agendá una <span class="bold">call de 15 minutos</span> para hablar con un experto en <span class="bold">marca empleadora</span>
+    why:
+      line_1_html: Somos la plataforma elegida para las <span class="bold">nuevas generaciones</span> y <span class="bold">perfiles STEM</span> para desarrollar su carrera profesional.
+      line_2_html: A través de nuestra tecnología, <span class="bold">llegamos a los candidatos más apropiados</span> para tu empresa, para que puedas conectar y contratar talento de calidad, <span class="bold">posicionando tu compañía</span> como un gran lugar para trabajar.
+      why_mibucle: ¿Por qué Mibucle?

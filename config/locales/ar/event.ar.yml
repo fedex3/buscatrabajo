@@ -1,0 +1,52 @@
+ar:
+  activerecord:
+    attributes:
+      event_user:
+        acquisition_channel: ¿Cómo te enteraste del evento?
+        acquisition_channel_admin: Canales de adquisición
+        acquisition_channel_short: Canal
+        company: Empresa
+        country: País
+        created_at: Fecha de registración
+        email: Email
+        event: Evento
+        event_user: Participantes
+        first_name: Nombre
+        last_name: Apellido
+        phone: Teléfono
+        position: Puesto
+    models:
+      event_user: Usuario registrado en evento
+  event:
+    agenda:
+      timezone: Consulta el horario en tu región
+      download: Exportar calendario
+    email:
+      links:
+        detail_html: Hola %{name},<br><br>Muchas gracias por registrarte a nuestro evento. ¡Ahora solo queda esperar! Estamos muy ansiosos por ayudarte a conectar con las mejores empresas y a conseguir el trabajo de tus sueños. ¡Nos vemos pronto!<br><br>
+        subject: ¡Gracias por registrate al evento "%{event_name}"!
+    header:
+      register: Registro
+      schedule: Agenda
+      speakers: Speakers
+    main:
+      accept: 'Al registrarte aceptás los '
+      action: Registrarse
+      download: Descargar Material
+      links: ¡Gracias por registrate al evento %{event_name}!
+      terms: Términos y Condiciones.
+      title: Regístrate
+    register_form:
+      register_here: Regístrate aquí
+      revisit_event: 'Revive el evento'
+      receive_video: 'Ver video del evento'
+    share:
+      facebook: 'Conoce el facebook de Mibucle '
+      linkedin_1: ¿Te gusta lo que hacemos?
+      linkedin_2: Comparte con tus colegas este evento en LinkedIn
+      share: Compartir
+      share_with_friends: Invíta a tus amigos a sumarse
+      twitter_html: 'Comparte el evento en Twitter usando #MibucleCONF y <br> participa por increíbles premios que anunciaremos durante el evento'
+    sponsors:
+      sponsors: Sponsors
+      thanks: Gracias a nuestros partners que nos acompañan

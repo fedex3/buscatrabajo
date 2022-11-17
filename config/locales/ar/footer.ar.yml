@@ -1,0 +1,23 @@
+ar:
+ footer:
+  followus:
+   title: "Seguinos"
+  mibucle:
+   aboutus: "Sobre nosotros"
+   become_author: "Conviertete en Bucler"
+   contact: "Contactanos"
+   employer_branding: "Desarrolla tu Marca Empleadora"
+   faq: "Preguntas frecuentes"
+   team: "Equipo"
+   terms: "Términos y condiciones"
+   title: "Mibucle"
+  services:
+   advices: "Notas y Consejos"
+   coaching: "Coaching"
+   companies: "Conoce a las Empresas"
+   courses: "Realiza Cursos"
+   jobs: "Encuentra trabajo"
+   title: "Servicios"
+  links:
+    instagram: https://instagram.com/mibuclecom
+    facebook: https://www.facebook.com/mibucle/

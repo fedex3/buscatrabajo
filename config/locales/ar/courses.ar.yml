@@ -1,0 +1,37 @@
+ar:
+ courses:
+  benefits:
+   box1:
+    detail: "Llevado adelante por excelentes profesionales."
+    title: "Profesionales Calificados"
+   box2:
+    detail: "Cada Encuentro esta diseñado a medida, con dinámicas originales."
+    title: "Dinámicas Exclusivas"
+   box3:
+    detail: "Un ambiente que inspira a trabajar distinto. Coffee Break."
+    title: "Espacio Amigable"
+   box4:
+    detail: "SEPYME permite a las pymes obtener reintegros en la capacitación de sus colaboradores."
+    title: "Obtene Reintegros"
+  contact:
+   title: "Anotate a este curso"
+  header:
+   description: "Participa de estos cursos y adquiere nuevas herramientas para tu desarrollo profesional"
+   title: "Participa de cursos y adquiere nuevas herramientas - Mibucle.com"
+  main:
+   choosepack: "Inscribite"
+   detail: "Participa de estos cursos y adquiere nuevas herramientas para tu desarrollo profesional"
+   title: "Cursos"
+  steps:
+   box1:
+    detail: "Auto-evaluando el propio liderazgo: fortalezas, capacidades y talentos. ¿Victima o protagonista? Estrategias de motivación. Liderazgo inspirador, consciente y transformacional. Responsabilidad incondicional."
+    title: "Motivación"
+   box2:
+    detail: "La comunicación efectiva como proceso central del Liderazgo. La interpretación y la escucha como factores clave en la comunicación. Modelos mentales. Prejuicios y creencias limitantes. Visión sistémica. Estrategias."
+    title: "Comunicación Efectiva"
+   box3:
+    detail: "Paradigma de la persona integral: Cuerpo, mente y lenguaje. Percepción y regulación de las emociones propias y ajenas. Emociones, vínculos y calidad de vida. Empatía. "
+    title: "Gestión de las emociones"
+   box4:
+    detail: "El rol del líder en la construcción del equipo. Equipos de alto desempeño. Diversidad. Competencia vs. colaboración. Empowerment, contagio y sinergia. Colaboración creativa."
+    title: "Trabajo en equipo"

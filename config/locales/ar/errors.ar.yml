@@ -1,0 +1,14 @@
+ar:
+ errors:
+  internal:
+   detail: "Por favor vuelva a intentarlo nuevamente o comuniquese con info@mibucle.com. Disculpe las molestias ocasionadas."
+   title: "Ha ocurrido un error."
+  notfound:
+   detail: "Verifique la URL ingresada o comuniquese con info@mibucle.com. Disculpe las molestias ocasionadas."
+   title: "Página no encontrada."
+  jobs: "Algunos trabajos que pueden interesarte"
+  companies: "Algunas empresas que pueden interesarte"
+  advices: "Notas y consejos que pueden interesarte"
+  unprocessable:
+   detail: "Quizás intentaste realizar una acción para la cuál no tienes permisos"
+   title: "La acción fue rechazada"

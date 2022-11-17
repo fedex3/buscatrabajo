@@ -1,0 +1,56 @@
+ar:
+  ebook:
+    email:
+      links:
+        saludo: Hola %{name},
+        cuerpo: Puedes descargar el ebook desde este email.
+        button: Descargar Ebook
+        detail_html: Hola %{name},<br><br>Puedes descargar el ebook clickeando <a target="_blank" href="%{file_link}">este link</a>.<br><br>
+        subject: 'Ebook: "%{ebook_name}"'
+    main:
+      accept: 'Al registrarte aceptás los '
+      action: Descargar
+      download: Descargar Material
+      links: 'Te hemos enviado un email con la información necesaria para descargar el ebook. '
+      terms: Términos y Condiciones.
+      title: Descarga GRATIS este Ebook
+    share:
+      facebook: 'Conoce el ebook de Mibucle '
+    user:
+      errors:
+        company:
+          too_short: El nombre de la compañia debe tener por lo menos 3 caracteres
+        email:
+          blank: Tienes que ingresar un Email
+          invalid: Tienes que ingresar un email válido
+          taken: Email ya registrado, inicie sesión o registresé con otro mail
+        last_name:
+          too_short: El apellido debe tener por lo menos 3 caracteres
+        name:
+          too_short: El nombre debe tener por lo menos 3 caracteres
+        password:
+          blank: Tienes que ingresar una contraseña
+          confirmation: Las contraseñas deben coincidir
+          too_short: La contraseña ingresada debe contener al menos 8 caracteres
+        password_confirmation:
+          blank: Tienes que confirmar la contraseña
+          confirmation: Las contraseñas ingresadas deben coincidir
+        position:
+          too_short: La posición debe tener por lo menos 2 caracteres
+        reset_password_token:
+          invalid: No se pudo modificar la contraseña. Reinicie el proceso.
+        telephone:
+          too_short: El teléfono debe tener por lo menos 7 caracteres
+    form:
+      examples:
+        email: "usuario@gmail.com"
+        name: "Julia"
+        last_name: "Gomez"
+        phone: "1574548634"
+        position: "Recruiter"
+        company: "mibucle"
+      subscribe_to_newsletter: "Deseo recibir información relevante en mi correo"
+    recommended_ebooks:
+      title: También podría interesarte
+    recommended_advices:
+      title: Notas y consejos que podrían interesarte

@@ -1,0 +1,37 @@
+ar:
+ become_author:
+  benefits:
+   box1:
+    detail: "Cada autor posee su propia página con una biografia, foto y links a sus trabajos o marcas personales."
+    title: "Perfil y Reconocimiento"
+   box2:
+    detail: "Tu articulo podrá ser visto por nuestros mas de 10000 usuarios en nuestro site. Estamos creciendo rapidamente."
+    title: "Exposición"
+   box3:
+    detail: "Vamos a compartir tu artículo en las redes sociales y promocionarlo por email."
+    title: "Promoción"
+   title: "Tus beneficios..."
+  contact:
+   detail_html: '<i class="fa become-author-needs-small-icon fa-check"></i>Tema que deseas escribir y breve resumen.<br><i class="fa become-author-needs-small-icon fa-check"></i>Tu Bio y Foto 4x4 actual de buena calidad.<br>'
+   title: "Escribinos a info@mibucle.com y no olvides enviarnos"
+  header:
+   description: "Desarrolla tu marca personal, escribe notas sobre los temas que te apasionen y alcanza a más de 10.000 lectores mensuales. Conviertete en Bucler!"
+   title: "Mibucle.com - Escribe un articulo, conviertete en Bucler."
+  main:
+   detail: "¿Te gusta escribir y queres compartirnos tu idea? ¿Queres ayudar a otras personas en su desarrollo profesional? Mibucle es el lugar perfecto para que puedas construir y mejorar tu reputación. Siempre estamos buscando sumar Buclers con ideas nuevas."
+   pretitle: "Escribe notas y consejos"
+   title: "Conviertete en Bucler"
+  needs:
+   detail_html: '<i class="fa become-author-needs-small-icon fa-check"></i>Dirigido a nuestro público joven en formación y adultos profesionales.<br><i class="fa become-author-needs-small-icon fa-check"></i>Dinámico, auténtico y atractivo. <br><i class="fa become-author-needs-small-icon fa-check"></i>Sintético, en forma de claves, tips, consejos y recomendaciones. <br><i class="fa become-author-needs-small-icon fa-check"></i>Original e Innovador.<br>'
+   title: "Que esperamos del contenido..."
+  steps:
+   box1:
+    detail_html: "Secciones: <ul><li>Jóvenes Profesionales</li><li>Desarrollo Profesional</li><li>Cambio de Trabajo</li><li>Herramientas y Capacidades</li></ul>"
+    title: "Elegí el tema"
+   box2:
+    detail_html: "<br><ul><li>Consulta por la guía de formato</li><li>Revisá tu redacción y ortografía</li><li>Envialo a info@mibucle.com</li></ul>"
+    title: "Escribí tu Nota o Consejo"
+   box3:
+    detail_html: "Hasta 275 Caracteres <ul><li>Resumen General y Profesional</li><li>Links a proyectos</li><li>Foto cara 4x4 con <b>¡Buena Definición!</b></li></ul>"
+    title: "Armá tu Bio"
+   title: "Pasos para convertirte en Bucler..."

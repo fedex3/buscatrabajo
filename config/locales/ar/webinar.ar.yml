@@ -1,0 +1,74 @@
+ar:
+ webinar:
+  email:
+   full:
+    detail_html: 'Lamentablemente el cupo para el webinar "%{webinar_name}" se encuentra agotado.'
+    detail2: 'Nos comunicaremos con vos en caso que tengamos nuevos lugares disponibles.'
+    subject: 'Webinar Completo: "%{webinar_name}"'
+   links:
+    detail_html:  'Puedes acceder a la grabación y a la presentación desde este mail'
+    hello: 'Hola %{name},'
+    btn_recording: "Acceder a la grabación"
+    btn_slide: "Acceder a la presentación"
+    subject: 'El material del Webinar: "%{webinar_name}"'
+   registration:
+    detail_html: 'Gracias por registrate al evento: "%{webinar_name}".<br><br>Información del Evento:<br>Fecha: %{webinar_date}.<br><br>%{webinar_detail}'
+    closing_html: 'Envía tus consultas y comentarios a info@mibucle.com.<br><br>En caso que no puedas sumarte, envianos un email para notificarnos para poder darle tu lugar a otra persona.'
+    btn_event: "Ingresar al evento"
+    btn_calendar: "Agendar en Calendar"
+    subject: 'Información del evento: "%{webinar_name}"'
+   registration_workshop:
+    detail_html: 'Gracias por registrate al evento: "%{webinar_name}".<br><br>Información del Evento:<br>Fecha: %{webinar_date}. <br><br>%{webinar_detail}'
+    closing: Envía tus consultas y comentarios a info@mibucle.com.
+    button: "Agendar en Calendar"
+    subject: 'Información del evento: "%{webinar_name}"'
+   reminder_1_day:
+    detail_html: 'Te recordamos que mañana es el webinar "%{webinar_name}". <br><br>Información del Webinar:<br>Fecha: %{webinar_date}.<br><br>%{webinar_detail}'
+    closing_html: 'Envía tus consultas y comentarios a info@mibucle.com.<br><br>En caso que no puedas sumarte, envianos un email para notificarnos'
+    btn_event: "Ingresar al evento"
+    btn_calendar: "Agendar en Calendar"
+    subject: 'No te olvides, participá mañana de "%{webinar_name}"'
+   reminder_1_hour:
+    detail_html: 'Te recordamos que "%{webinar_name}" comienza en 1 hora. <br><br>Información del Webinar:<br>Fecha: %{webinar_date}.<br><br>%{webinar_detail}'
+    closing_html: 'Envía tus consultas y comentarios a info@mibucle.com.<br><br>En caso que no puedas sumarte, envianos un email para notificarnos'
+    btn_event: "Ingresar al evento"
+    btn_calendar: "Agendar en Calendar"
+    subject: 'Recordatorio: En 1 hora comienza "%{webinar_name}"'
+   thanks:
+    detail_html:  'Gracias por participar del Webinar "%{webinar_name}." Puedes acceder a la grabación y a la presentación desde este mail'
+    hello: 'Hola %{name},'
+    btn_recording: "Acceder a la grabación"
+    btn_slide: "Acceder a la presentación"
+    subject: 'El material del Webinar: "%{webinar_name}"'
+   certificate:
+    detail_html:  'Te enviamos adjunto tu certificado de participación en el Workshop "%{webinar_name}". ¡Muchas gracias por haber participado! Te esperamos la próxima.'
+    hello: 'Hola %{name},'
+    subject: 'Certificado de asistencia al Workshop "%{webinar_name}"'
+  main:
+   finish:
+    download: "Descargar Material"
+    message: "Este webinar ha terminado. Regístrate si quieres que te enviemos el material."
+    title: "Regístrate y descarga el material"
+   finish_event:
+    download: "Contactanos"
+    message: "Este evento ha terminado. Contactanos para no perderte del próximo o llevar el evento a tu empresa."
+    title: "Contactanos y enterate del próximo evento"
+   finish_workshop:
+    download: "Contactanos"
+    message: "Este workshop ha terminado. Contactanos para no perderte del próximo o llevar el workshop a tu empresa."
+    title: "Contactanos y enterate del próximo workshop"
+   registration:
+    accept: "Al registrarte aceptás los "
+    action: "Enviar"
+    action_event: "Registrarme"
+    join_event: "Regístrate gratis"
+    join_webinar: "Quiero Participar"
+    links: "Te hemos enviado un email con la información necesaria para descargar el material del webinar. "
+    register: "Regístrate al Webinar"
+    register_event: "Regístrate sin costo y recibirás un email con la URL para acceder cuando comience el evento."
+    register_workshop: "Dejanos tus datos y te contactamos con más información"
+    success: "Te hemos enviado un mail con los datos de acceso. ¡Te esperamos!"
+    success_workshop_html: "Hemos recibido tu consulta. <br><br>Aprovechá el descuento, <b>pagá hoy con 50% off</b> clickeando el botón de pago!."
+    terms: "Términos y Condiciones."
+  share:
+   facebook: "Participa del webinar "

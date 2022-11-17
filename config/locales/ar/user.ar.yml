@@ -1,0 +1,135 @@
+---
+ar:
+  users:
+    actions:
+      back: Volver
+      confirm: Confirmar
+      edit_profile: Editar perfil
+      forgetpassword: Olvidé mi contraseña
+      gotoadmin: Ir al Panel de Administración
+      gotousers: Ir al listado de Usuarios
+      login: Ingresar
+      rememberme: Recordame
+      resend: Reenviar
+      signin: Ingresa
+      signup: Regístrate
+      unlock: Desbloquear
+      update: Actualizar
+    confirmations:
+      new:
+        title: Reenviar instrucciones de confirmación
+    fields:
+      messages:
+        accept: 'Aceptar '
+        charactersminimum: ' caracteres minimo'
+        confirmation: 'Confirmación '
+        enter: 'Ingresa tu '
+        is_company: Soy empresa
+        leaveempty: dejar en blanco si no quieres modificarla
+        needpassword: necesitamos tu contraseña actual para confirmar los cambios
+        new: 'Nueva '
+        notreciveconfirmation: No recibí las instrucciones de confirmación
+        notreciveunlock: No recibí las instrucciones de desbloqueo
+        reenter: 'Reingresa tu '
+        terms: términos y condiciones
+        waitingconfirmation: 'Esperando confirmación para: '
+        wouldlike: Me gustaría...
+    header:
+      passwords:
+        edit:
+          title: Nueva contraseña | Mibucle
+        new:
+          title: Olvide mi contraseña | Mibucle
+      profile: 
+        title: Mi Perfil | Mibucle
+      registrations:
+        edit:
+          title: Editar Perfil | Mibucle
+        new:
+          title: Registrate | Mibucle
+      sessions:
+        new:
+          title: Ingresá | Mibucle
+      title: Usuario | Mibucle
+    mailer:
+      confirmationinstructions:
+        part1: 'Bienvenido '
+        part2: 'Podes confirmar tu contraseña con el siguiente link:'
+      newcompanyuseremail:
+        part1: 'Hola '
+        title: Se registró un nuevo usuario de tipo empresa
+        subject: Se registró un nuevo usuario de tipo empresa
+        button: "Listado de Usuarios"
+      newcompanyuserpendingemail:
+        part1: 'Hola '
+        part2: Muchas gracias por registrarte como empresa.
+        part3: Tu solicitud está siendo analizada, te avisaremos cuando tu cuenta de empresa sea habilitada.
+        farewell: "¡Saludos!"
+        subject: Recibimos tu solicitud de cuenta de tipo empresa
+      passwordchange:
+        part1: 'Hola '
+        part2: Te contactamos para informar que tu contraseña ha sido modificada.
+      resetpassword:
+        part1: 'Hola '
+        part2: Alguien ha solicitado un link para modificar tu contraseña. Lo podes hacer mediante el siguiente link.
+        part3_html: <p>Si no solicitaste esto, por favor ignora este email.</p><p>Tu contraseña no será modificada hasta que accedas al link enviado y crees una nueva.</p>
+      unlockinstructions:
+        part1: 'Hola '
+        part2_html: <p>Tu cuenta ha sido bloqueada a causa de excesivos intentos fallidos para iniciar sesión.</p><p>Clickea el siguiente link para desbloquearla:</p>
+      welcomecompanyuseremail:
+        part1: 'Hola '
+        part2_html: <p>Se aprobó tu usuario de tipo empresa.</p><p>Ya podés acceder al Panel de Administración y comenzar a publicar tus avisos. </p>
+        subject: Se aprobó tu solicitud de usuario de tipo empresa
+    password:
+      edit:
+        title: Modificar la contraseña
+      new:
+        sendinstructions: Enviar instrucciones para reiniciar la contraseña
+        title: ¿Olvidaste tu contraseña?
+    photo:
+      show_photo: ' Mostrar Foto'
+    placeholders:
+      email: Email
+      github_url: "URL de tu perfil de Github"
+      languages: Ingresa tus idiomas
+      linkedin_url: URL de tu perfil de Linkedin
+      long_summary: Aquí podés hacer una descripción tuya
+      name: Nombre
+      short_summary: Título o puesto actual
+      skills: Ingresa tus habilidades
+    registration_thank_you:
+      header:
+        description: Muchas gracias por registrarte en Mibucle. ¡El trabajo de tus sueños está cada vez más cerca!
+        title: Bienvenido/a a Mibucle
+      main-button: Encuentra trabajo
+      main-text: ¡El trabajo de tus sueños está cada vez más cerca!
+      main-title: Muchas gracias por registrarte
+      secondary-button: Conoce a las empresas
+    registrations:
+      edit:
+        title: Editar usuario
+        tree: Editar
+      new:
+        summary: Se necesita una cuenta de Mibucle para continuar.
+        title: Registrate
+        withemail: 'Registrate con tu email:'
+        withfacebook: Registrate con Facebook
+        withlinkedin: Registrate con Linkedin
+    sessions:
+      message: ¿Ya estás registrado?
+      title: Ingresá
+      withemail: 'Ingresa con tu email:'
+      withfacebook: Ingresa con Facebook
+      withlinkedin: Ingresa con Linkedin
+    skills:
+      languages: Idiomas
+      technical_skills: Habilidades técnicas
+    unlocks:
+      new:
+        title: Reenviar instrucciones de desbloqueo
+    validations:
+      all: Por favor, completá todos los datos.
+      exist: Ya tenemos un usuario registrado con el email ingresado. Por favor, ingresa al sitio con tu contraseña y vuelvo a intentarlo.
+      failed: No se puede realizar la operación. Por favor, comuniquese con nosotros para continuar.
+      like: ¡Registrate para agregar favoritos!
+      terms_accepted: Por favor, necesitamos que aceptes para poder continuar.

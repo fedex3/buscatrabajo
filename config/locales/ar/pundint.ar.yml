@@ -1,0 +1,3 @@
+ar:
+  pundit:
+    notauthorizederror: "No estas autorizado para ejecutar esta acción"

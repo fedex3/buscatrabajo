@@ -10,14 +10,10 @@
 <% end %>
 
 <p><br><%=t :'users.registrations.new.withemail' %></p>
-<%= form_for(User) do |f| %>
-  <%= hidden_field_tag("user[analytics_client_id]", "", :id => "user_analytics_client_id")%>
-  <%= hidden_field_tag("user[source]", session[:source].nil? ? "" : session[:source], :id => "user_source")%>
-  <%= hidden_field_tag("user[medium]", session[:medium].nil? ? "" : session[:medium], :id => "user_medium")%>
-  <%= hidden_field_tag("user[campaign]", session[:campaign].nil? ? "" : session[:campaign], :id => "user_campaign")%>
-  <%= hidden_field_tag("user[term]", session[:term].nil? ? "" : session[:term], :id => "user_term")%>
-  <%= hidden_field_tag("user[from_event]", session[:from_event].nil? ? "" : session[:from_event], id: "user_from_event") %>
-  <%= hidden_field_tag("user[ticket_type]", params[:ticket_type].nil? ? "" : params[:ticket_type], id: "user_ticket_type")%>
+
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
   <div class="form-group input-group-lg">
     <%= f.label User.human_attribute_name("name"), :class => "form-label"%>
@@ -39,29 +35,10 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.reenter') + User.human_attribute_name("password") %>
   </div>
 
-  <%
-    selected_country = geokit_country_code
-    unless selected_country
-      selected_country =  session[:country] || I18n.default_locale
-    end
-
-    if params[:user] && params[:user][:country]
-      selected_country = params[:user][:country]
-    end
-  %>
-
   <div class="form-group input-group-lg">
     <%= f.label User.human_attribute_name("country"), :class => "form-label"%>
 
-    <%= f.select(:country, countries_list, {:include_blank => false, :selected => selected_country.upcase.to_s }, {:class => 'form-control'})%>
-  </div>
-
-  <div class="checkbox">
-    <%= f.check_box :is_company %> <%= User.human_attribute_name("is_company") %>
-  </div>
-
-  <div class="checkbox">
-    <%= f.check_box :terms_accepted, class: "" %><%= t('users.fields.messages.accept') %> <%= link_to t('users.fields.messages.terms'), terms_path, target: "_blank", class: "link-soft" %>
+    <%= f.select(:country, countries_list, {:include_blank => false, :selected => "Argentina" }, {:class => 'form-control'})%>
   </div>
 
   <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
@@ -71,5 +48,4 @@
   <p>
     <a href="<%= new_user_session_path(from_event: session[:from_event]) %>"><%=(t('users.actions.signin')).upcase %></a>
   </p>
-
 <%end%>

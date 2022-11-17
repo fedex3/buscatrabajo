@@ -1,0 +1,5 @@
+ar:
+ author:
+  header:
+   description: "%{name} - Mibucle.com - %{summary}"
+   title: "%{name} - Mibucle.com"

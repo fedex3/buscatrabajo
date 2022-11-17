@@ -1,0 +1,19 @@
+ar:
+ coaching_pack:
+  header:
+   description: "Conoce los packs de coaching. Elige tu Coach y participa de Conversaciones individuales. Desarrolla tu potencial y cumple tus objetivos."
+   title: "Conoce los paquetes de coaching que ofrecemos - Mibucle.com"
+  main:
+   advisor_1_html: '¿Aún no estás convencido? '
+   advisor_2_html: 'Agenda'
+   advisor_3_html: ' <b>sin cargo</b> una sesión de 15 minutos y responde todas tus inquietudes.'
+   all:
+    link: "servicios de Coaching"
+    text: "Quiero ver todos los"
+   buy: "Contratar"
+   detail: "Elige el que mejor se adapte a tus necesidades"
+   from: "Desde"
+   less: "Cerrar lista"
+   more: "Ver todos los servicios"
+   more_title: "Más servicios"
+   title: "Servicios más elegidos"
