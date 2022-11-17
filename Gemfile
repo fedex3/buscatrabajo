@@ -59,6 +59,7 @@ gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: 'a4b038c6c1b9d76dac33d571
 gem 'active_record_union', '~> 1.3', '>= 1.3.0'
 gem 'psych', '< 4'
 gem 'countries', '~> 3.0', '>= 3.0.1'
+gem 'material_icons', '~> 2.2', '>= 2.2.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

@@ -1,0 +1,80 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Información Cv Usuario</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+
+      <form action="<%= admin_user_informations_path %>" role="search" style="text-align:center;width:100%;">
+        <table class="table table-striped table-hover table-condensed">
+          <tr>
+            <td width=150>
+              <div class="input-group" style="width:200px;">
+                Busqueda:
+                <input type="text" class="form-control" placeholder="Search...">
+              </div>
+            </td>
+            <td width=150>
+              Area de Trabajo:
+              <%= select_tag :job_area_filter, options_from_collection_for_select(JobArea.order(:name), 'id', 'name'), { include_blank: true, class: 'form-control' } %>
+            </td>
+            <td width=150>
+              Nivel de Estudio:
+              <%= select_tag :study_level_filter, options_from_collection_for_select(StudyLevel.order_by_order, 'id', 'name'), { include_blank: true, class: 'form-control' } %>
+            </td>
+            <td width=150>
+              Estado CV:
+              <%= select_tag :cv_status_filter, options_for_select(User.cv_statuses.to_a), { include_blank: true, class: 'form-control' } %>
+            </td>
+            <td width=150>
+              Idiomas:
+              <%= select_tag :language_filter, options_for_select([true, false]), { include_blank: true, class: 'form-control' } %>
+            </td>
+            <td width=150>
+              Rechazado:
+              <%= select_tag :rejected_filter, options_for_select([true, false]), { include_blank: true, class: 'form-control' } %>
+            </td>
+            <td width=150>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                  <span class="fa fa-search">
+                    <span class="sr-only"><%= t('header.search') %></span>
+                  </span>
+                </button>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </form>
+      <br><br>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-condensed">
+          <thead>
+            <tr>
+              <th><%=User.human_attribute_name("name")%></th>
+              <th><%=User.human_attribute_name("email")%></th>
+              <th><%=User.human_attribute_name("cv_status")%></th>
+              <th><%=User.human_attribute_name("rejected")%></th>
+              <th><%=User.human_attribute_name("created_at")%></th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.cv_status %></td>
+              <td><%= user.rejected %></td>
+              <td><%= user.created_at.in_time_zone('Buenos Aires').strftime("%d-%m-%Y %H:%M") %></td>
+              <td><%= link_to t('admin.show'), admin_user_information_path(user) %></td>
+              <td><%= link_to t('admin.edit'), edit_admin_user_information_path(user) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <%= paginate @users %>
+    </div>
+  </div>
+</main>

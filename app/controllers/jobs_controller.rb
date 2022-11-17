@@ -280,7 +280,7 @@ class JobsController < ApplicationController
       @recommended_jobs = @job.recommended_jobs.company_listable.listable.by_company_in_special_event(@company_special_event.code).preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.active")
     end
 
-    if @job.nil? || !@job.published
+    if @job.nil? || !@job
       redirect_to home_path and return
     else
 

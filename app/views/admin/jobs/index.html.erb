@@ -1,0 +1,53 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Avisos</h1>
+    <%= link_to (t('admin.new') + ' Aviso'), new_admin_job_path, class:"btn btn-primary" %>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= render partial: 'grid_grid' %>
+    </div>
+  </div>
+  <div class="form-row align-items-center">
+    <div class="col-2">
+      <label for="job"><%= Job.human_attribute_name(:name) %></label>
+      <%= grid_filter @grid, :job_name_filter %>
+    </div>
+    <div class="col-2">
+       <label for="job"><%= Job.human_attribute_name(:from_date) %></label>
+      <%= grid_filter @grid, :from_filter %>
+    </div>
+    <div class="col-2">
+      <label for="job"><%= Job.human_attribute_name(:end_date) %></label>
+      <%= grid_filter @grid, :end_filter %>
+    </div>
+    <% if !current_user.company_role? %>
+      <div class="col-2">
+        <label for="company">Empresa</label>
+        <%= grid_filter @grid, :job_company_filter %>
+      </div>
+    <% end %>
+    <div class="col-2">
+      <label for="country"><%= Job.human_attribute_name(:country) %></label>
+      <%= grid_filter @grid, :job_country_filter %>
+    </div>
+
+      <div class="col-2">
+        <label for="active"><%= Job.human_attribute_name("active") %></label>
+        <%= grid_filter @grid, :job_active_filter %>
+      </div>
+    <div class="col-auto mt-4">
+      <button class="wg-external-submit-button btn btn-primary btn-sm" data-grid-name="grid">Filtrar</button>
+      <button class="wg-external-reset-button btn btn-link text-secondary btn-sm" data-grid-name="grid">Limpiar filtros</button>
+      <% if !(current_user.content_editor? || current_user.content_editor_plus?) %>
+        <button class="wg-external-csv-export-button btn btn-primary btn-sm" data-grid-name="grid">Exportar a CSV</button>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-12">
+      <%= render_grid(@grid) %>
+    </div>
+  </div>
+</main>

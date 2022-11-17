@@ -112,16 +112,14 @@ class Company < ApplicationRecord
   scope :by_country, -> (country) { joins(:company_countries).where('company_countries.country_alpha2 = ?', country) }
   scope :by_not_this_country, -> (country) { joins(:company_countries).where.not('company_countries.country_alpha2 = ?', country) }
   scope :by_name, -> (q) { where("lower(name) LIKE ?", "%#{q}%") }
-
+  scope :listable, -> { active.from_date}
   scope :from_date, -> { where("date_trunc('day', companies.from_date) <= ?", Date.today) }
-	scope :published, -> { where(published: true) }
 	scope :active, -> { where(active: true) }
   scope :gold, -> { where(pack: 0) }
   scope :silver, -> { where(pack: 1) }
   scope :bronze, -> { where(pack: 2) }
   scope :free, -> { where(pack: 3) }
   scope :bronze_and_free, -> { where(pack: [2,3]) }
-	scope :listable, -> { from_date.published.active }
   scope :not_show_only_in_special_events, -> { where(show_only_in_special_events: false) }
   scope :featured_on_home, -> { where(home: true) }
   scope :featured_on_chile_home, -> { where(featured_on_chile_home: true) }
@@ -172,7 +170,7 @@ class Company < ApplicationRecord
   end
 
   def listable
-    active && published && from_date <= DateTime.now.strftime("%Y-%m-%d")
+    active && from_date <= DateTime.now.strftime("%Y-%m-%d")
   end
 
   def jobs_syncronizable?
@@ -208,7 +206,7 @@ class Company < ApplicationRecord
   				recommendations << recommended_company
   			end
       else
-        industry.companies.from_date.published.order_by_date.limit(ENV['COMPANY_RECOMMENDATIONS'].to_i - recommendations.size + 1).each do |recommended_company|
+        industry.companies.from_date.order_by_date.limit(ENV['COMPANY_RECOMMENDATIONS'].to_i - recommendations.size + 1).each do |recommended_company|
           Rails.logger.debug('Company :' + industry.name + ' ' + recommended_company.name)
           recommendations << recommended_company
         end
@@ -232,227 +230,7 @@ class Company < ApplicationRecord
 	def create_name_id
 		self.name_id = Url.friendly(name)
 	end
-
-  def jobs_syncro_avature
-    #Despublico
-    jobs.update_all(active: false)
-
-    offset = 0
-    response = HTTParty.get job_provider_url
-    puts response
-    feed = RSS::Parser.parse response.body
-
-    feed.items.each do |item|
-      provider_id = item.link.split("/").last
-      job = jobs.find_by(provider_id: provider_id)
-
-      #Republico
-      if job.present?
-        #Update
-        job.update(active: true, end_date: (Date.today + 30.days))
-      else
-        #Create
-        new_job = Job.create(
-          company_id: id,
-          name: item.title,
-          photo: URI.parse(company_photos.sample.photo(:original)),
-          country: country,
-          state: state,
-          url: job_register_url + provider_id,
-          detail: item.description,
-          published: true,
-          active: true,
-          published_at:  DateTime.now(),
-          from_date: Date.today - 1.day,
-          end_date: Date.today + 30.days,
-          industry_id: industries.first.id,
-          provider_id: provider_id,
-          order: 1
-          )
-      end
-      offset += 1
-      puts offset
-    end
-  end
-
-  def disable_hiringroom_jobs
-    jobs.hiringroom.each do |job|
-      job.update_attributes({active: false})
-    end
-  end
-
-  def disable_workday_jobs
-    jobs.workday.each do |job|
-      job.update_attributes({active: false})
-    end
-  end
-
-  def disable_gh_jobs
-    jobs.greenhouse.each do |job|
-      job.update_attributes({active: false})
-    end
-  end
-
-  def greenhouse_save_job(job_params)
-    job = jobs.where(provider_id: job_params[:id]).first
-    if job
-      puts "Update job #{job.name}.."
-      job.update_attributes({
-        from_date: Date.today - 1.day,
-        end_date: Date.today + 30.days,
-        published: true,
-        active: true})
-    else
-      puts "Create a new job #{job_params[:title]}.."
-      main_office  = offices.listable.first
-      photo_sample = main_office.photos.show_jobs.sample if main_office
-      photo_job = (photo_sample and photo_sample.photo.file?) ? URI.parse(photo_sample.photo(:original)) : ""
-      new_job = Job.create(
-        company_id: id,
-        name:       job_params[:title],
-        photo:      photo_job,
-        country:    country,
-        state:      state,
-        url:        job_params[:absolute_url],
-        detail:     CGI.unescapeHTML(job_params[:content]),
-        published:  true,
-        active:     true,
-        published_at:  DateTime.now(),
-        from_date:  Date.today - 1.day,
-        end_date:   Date.today + 30.days,
-        industry_id: industries.first.id,
-        provider:   'greenhouse',
-        provider_id:   job_params[:id],
-        greenhouse_id: job_params[:id],
-        order: 1
-            )
-      jobs << new_job
-    end
-  end
-
-  def workday_save_job(job_title: nil, job_detail:nil, job_url: nil, job_provider_id: nil, job_state: nil, job_level: nil, job_country: nil)
-    if job_provider_id.present?
-      job = jobs.workday.find_by(provider_id: job_provider_id)
-    end
-    if !job_provider_id.present? || !job
-      job = jobs.workday.find_by(name_id: Url.friendly(job_title))
-    end
-
-    if job
-      puts "Update job #{job.name}.."
-      job.update_attributes({
-        from_date: Date.today - 1.day,
-        end_date: Date.today + 30.days,
-        provider_id:   job_provider_id,
-        level_id:     job_level,
-        url:  job_url,
-        published: true,
-        active: true})
-      if !job.photo.present?
-        main_office  = offices.listable.first
-        photo_sample = main_office.photos.show_jobs.sample if main_office
-        photo_job = (photo_sample and photo_sample.photo.file?) ? URI.parse(photo_sample.photo(:original)) : ""
-        if photo_job.present?
-          job.update_attributes({photo: photo_job})
-        end
-      end
-    else
-      puts "Create a new job #{job_title}.."
-      main_office  = offices.listable.first
-      photo_sample = main_office.photos.show_jobs.sample if main_office
-      photo_job = (photo_sample and photo_sample.photo.file?) ? URI.parse(photo_sample.photo(:original)) : ""
-
-      if job_country.blank?
-        job_country = country
-      end
-      if job_state.blank?
-        job_state = state
-      end
-      new_job = Job.create(
-        company_id: id,
-        name:       job_title,
-        photo:      photo_job,
-        country:    job_country,
-        state:      job_state,
-        url:        job_url,
-        detail:     job_detail,
-        level_id:     job_level,
-        published:  true,
-        published_at:  DateTime.now(),
-        active:     true,
-        from_date:  Date.today - 1.day,
-        end_date:   Date.today + 30.days,
-        industry_id: industries.first.id,
-        provider:   'workday',
-        provider_id:   job_provider_id,
-        order: 1
-            )
-      jobs << new_job
-    end
-  end
-
-  def hiringroom_save_job(job_title: nil, job_detail:nil, job_url: nil, job_provider_id: nil, job_country: nil, job_city: nil, job_level: nil, job_industry: nil)
-    if job_provider_id.present?
-      job = jobs.hiringroom.find_by(provider_id: job_provider_id)
-    end
-
-    if !job_provider_id.present? || !job
-      job = jobs.hiringroom.find_by(name_id: Url.friendly(job_title))
-    end
-
-    if job
-      puts "Update job #{job.name}.."
-      job.update_attributes({
-        from_date: Date.today - 1.day,
-        end_date: Date.today + 30.days,
-        detail:     job_detail,
-        url:  job_url,
-        published: true,
-        active: true})
-      if !job.photo.present?
-        main_office  = offices.listable.first
-        photo_sample = main_office.photos.show_jobs.sample if main_office
-        photo_job = (photo_sample and photo_sample.photo.file?) ? URI.parse(photo_sample.photo(:original)) : ""
-        if photo_job.present?
-          job.update_attributes({photo: photo_job})
-        end
-      end
-    else
-      puts "Create a new job #{job_title}.."
-      main_office  = offices.listable.first
-      photo_sample = main_office.photos.show_jobs.sample if main_office
-      photo_job = (photo_sample and photo_sample.photo.file?) ? URI.parse(photo_sample.photo(:original)) : ""
-
-      if job_city.blank?
-        job_city = state
-      end
-      if job_country.blank?
-        job_country = country
-      end
-
-      new_job = Job.create(
-        company_id: id,
-        name:       job_title,
-        photo:      photo_job,
-        country:    job_country,
-        state:      job_city,
-        url:        job_url,
-        detail:     job_detail,
-        level_id:     job_level,
-        published:  true,
-        published_at:  DateTime.now(),
-        active:     true,
-        from_date:  Date.today - 1.day,
-        end_date:   Date.today + 30.days,
-        industry_id: job_industry,
-        provider:   'hiringroom',
-        provider_id:   job_provider_id,
-        order: 1
-            )
-      jobs << new_job
-    end
-  end
-
+  
   def multioffice?
     !!(offices.listable.count > 1)
   end
@@ -611,48 +389,6 @@ class Company < ApplicationRecord
 
     last_items.sort! { |a,b|  DateTime.parse(a.to_s) <=> DateTime.parse(b.to_s) }.reverse
     last_items.reverse.first.strftime("%d/%m/%Y") if last_items.present?
-  end
-
-  def publicis_save_job(job_data)
-    company = Company.find(ENV['COMPANY_ID_PUBLICIS'].to_i)
-    job = company.jobs.where(publicis_id: job_data['jobId']).first
-    if job
-      puts "Update job #{job[:name]}."
-      job.update_attributes({
-        from_date: Date.today - 1.day,
-        end_date: Date.today + 30.days,
-        published: true,
-        active: true})
-    else
-      puts "Create a new job for #{job_data['jobTitle']}."
-      job_detail = "<h3>Overview</h3>" + job_data['overview'] + "<h3>Qualifications</h3>" + job_data['qualifications'] + "<h3>Responsibilities</h3>" + job_data['responsibilities'] + "<h3>Benefits</h3>" + job_data['benefits']
-      if job_data['city'] == 'Remote'
-        remote = true
-      else
-        remote = false
-      end
-      new_job = Job.create(
-        company_id: ENV['COMPANY_ID_PUBLICIS'].to_i,
-        name_id:    job_data['jobId'],
-        name:       job_data['jobTitle'],
-        state:      job_data['city'],
-        remote: remote,
-        country:    ISO3166::Country.find_country_by_name(job_data['country']).alpha2,
-        url:        "https://careers.bypgd.com/job/" + job_data['jobId'],
-        detail:     job_detail,
-        published:  true,
-        active:     true,
-        published_at:  DateTime.now(),
-        from_date:  Date.today - 1.day,
-        end_date:   Date.today + 30.days,
-        industry_id: company.industries.first.id,
-        provider:   'publicis',
-        provider_id: job_data['jobId'],
-        publicis_id: job_data['jobId'],
-        order: 1
-            )
-      jobs << new_job
-    end
   end
 
   def add_whatsapp_button_click

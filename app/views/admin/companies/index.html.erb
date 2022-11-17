@@ -1,0 +1,66 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Empresas</h1>
+    <div>
+      <%= link_to "Nueva Empresa", new_admin_company_path, class:"btn btn-primary"%>
+      <%= link_to "Importar Empresa", new_admin_company_import_path, class:"btn btn-primary"%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title h3">
+            <%= @active_companies %> / <%= @total_companies %>
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">Empresas activas / totales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card mb-3">
+        <div class="card-body bg-gold">
+          <h5 class="card-title h3">
+            <%= @active_gold_companies %>
+          </h5>
+          <h6 class="card-subtitle mb-2">Pack Oro</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card mb-3">
+        <div class="card-body bg-silver">
+          <h5 class="card-title h3">
+            <%= @active_silver_companies %>
+          </h5>
+          <h6 class="card-subtitle mb-2">Pack Plata</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card mb-3">
+        <div class="card-body bg-bronze">
+          <h5 class="card-title h3">
+            <%= @active_bronze_companies %>
+          </h5>
+          <h6 class="card-subtitle mb-2">Pack Bronce</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title h3">
+            <%= @active_free_companies %>
+          </h5>
+          <h6 class="card-subtitle mb-2">Pack Gratuito</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= render partial: 'grid_grid' %>
+    </div>
+  </div>
+</main>

@@ -15,10 +15,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def registration_thank_you
-    Doppler::SubscribeUserWorker.perform_async(current_user.email) if current_user.present?
-  end
-
   def show
     @user = User.find_by(id: current_user.id)
   end

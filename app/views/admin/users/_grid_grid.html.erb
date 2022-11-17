@@ -1,0 +1,66 @@
+<%= define_grid(@grid, show_filters: :never, hide_submit_button: true, hide_reset_button: true) do |g|
+  g.column name: User.human_attribute_name(:name), attribute: 'name', detach_with_id: :name_filter
+  g.column name: User.human_attribute_name(:email), attribute: 'email', detach_with_id: :email_filter
+  g.column name: User.human_attribute_name(:country), attribute: 'country', detach_with_id: :country_filter
+  g.column name: User.human_attribute_name(:role), attribute: 'role', custom_filter: {'Basic' => 0, 'Recruiter' => 1, 'Community Manager' => 2, 'Admin' => 3, 'Superadmin' => 4, 'Company Role' => 5, 'Conten Editor' => 6, 'Content Editor Plus' => 7 }, detach_with_id: :role_filter, allow_multiple_selection: false
+  g.column name: User.human_attribute_name(:company), assoc: [:company], attribute: 'name', custom_filter: :auto, detach_with_id: :company_filter, allow_multiple_selection: false do |user|
+    user.company.name unless user.company_id.nil?
+  end
+  g.column name: User.human_attribute_name(:from_event), attribute: 'from_event'
+  g.column name: User.human_attribute_name(:is_company), attribute: 'is_company' do |user|
+    humanize_boolean(user.is_company)
+  end
+
+  g.column name: User.human_attribute_name(:created_at), attribute: 'created_at', filter_type: :bootstrap_datepicker, detach_with_id: :date_filter do |user|
+    user.created_at.in_time_zone('Buenos Aires').strftime("%d-%m-%Y %H:%M")
+  end
+  g.column in_csv: false, class: "actions_column" do |user|
+    buffer = ""
+    buffer += "<span class='space_actions'></span>"
+    buffer += link_to 'Login', login_admin_user_path(user)
+    buffer += "<span class='space_actions'></span>"
+    buffer += link_to '<span class="fa fa-eye"></span>'.html_safe,admin_user_path(user)
+    buffer += "<span class='space_actions'></span>"
+    buffer += link_to '<span class="fa fa-edit"></span>'.html_safe, edit_admin_user_path(user)
+    buffer += "<span class='space_actions'></span>"
+    buffer += link_to '<span class="fa fa-trash-o"></span>'.html_safe, admin_user_path(user), method: :delete, data: { confirm: t('admin.confirm') }
+
+    raw buffer
+  end
+end%>
+
+<div class="form-row align-items-center">
+  <div class="col-2">
+    <label for="name">Nombre completo</label>
+    <%= grid_filter @grid, :name_filter %>
+  </div>
+  <div class="col-2">
+    <label for="email">Email</label>
+    <%= grid_filter @grid, :email_filter %>
+  </div>
+  <div class="col-2">
+    <label for="country">País</label>
+    <%= grid_filter @grid, :country_filter %>
+  </div>
+  <div class="col-2">
+    <label for="role">Rol</label>
+    <%= grid_filter @grid, :role_filter %>
+  </div>
+  <div class="col-2">
+    <label for="company">Empresa</label>
+    <%= grid_filter @grid, :company_filter %>
+  </div>
+  <div class="col-2">
+    <%= grid_filter @grid, :date_filter %>
+  </div>
+  <div class="col-auto mt-4">
+    <button class="wg-external-submit-button btn btn-primary btn-sm" data-grid-name="grid">Filtrar</button>
+    <button class="wg-external-reset-button btn btn-link text-secondary btn-sm" data-grid-name="grid">Limpiar filtros</button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-12">
+    <%= render_grid(@grid) %>
+  </div>
+</div>

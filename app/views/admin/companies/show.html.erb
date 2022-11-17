@@ -1,0 +1,163 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%=t('admin.info_of') + ' ' + @company.name %></h1>
+    <%= link_to t('admin.edit') + ' ' + Company.human_attribute_name('company'), admin_company_info_edit_path, class:"btn btn-primary"%>
+  </div>
+  <div class="form-row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%=Company.human_attribute_name("email")%></label>
+        <label class="form-control"><strong><%=@company.email%></strong></label>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%=Company.human_attribute_name("url")%></label>
+        <a href="<%=@company.url%>" target="_blank" class="form-control"><%= @company.url %></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("Título de página") %></label>
+        <label class="form-control"><strong><%= @company.page_title %></strong></label>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("meta_descript") %></label>
+        <label class="form-control"><strong><%= @company.meta_descript %></strong></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("summary") %></label>
+        <textarea class="form-control" rows="4" style="background-color: #fff;" readonly><%= @company.summary %></textarea>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("industries") %></label>
+        <textarea class="form-control" rows="4" style="background-color: #fff;" readonly><% @company.industries.each do |i|%><%= i.name %>&#13;<% end %></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("logo") %></label><br>
+        <% unless @company.logo.blank? %>
+          <%= image_tag @company.logo(:thumbnail), class:"mt-2 w-75", loading: "lazy" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("icon") %></label><br>
+        <% unless @company.icon.blank? %>
+          <%= image_tag @company.icon(:thumbnail), class:"mt-2 w-75", loading: "lazy" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("main_photo") %></label><br>
+        <% unless @company.main_photo.blank? %>
+          <%= image_tag @company.main_photo(:thumbnail), class:"mt-2 w-75", loading: "lazy" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("cover_photo") %></label><br>
+        <% unless @company.cover_photo.blank? %>
+          <%= image_tag @company.cover_photo(:thumbnail), class:"mt-2 w-75", loading: "lazy" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("jobs_email") %></label>
+        <label class="form-control"><strong><%= @company.jobs_email %></strong></label>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("phone") %></label>
+        <label class="form-control"><strong><%= @company.phone %></strong></label>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("from_date") %></label>
+        <label class="form-control"><strong><%= @company.from_date.in_time_zone('Buenos Aires').strftime("%d/%m/%Y") %></strong></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("twitter") %></label>
+        <label class="form-control"><strong><%= @company.twitter %></strong></label>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("facebook") %></label>
+        <label class="form-control"><strong><%= @company.facebook %></strong></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("instagram") %></label>
+        <label class="form-control"><strong><%= @company.instagram %></strong></label>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("linkedin_username") %></label>
+        <label class="form-control"><strong><%= @company.linkedin_username %></strong></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <label class="form-label"><%= t('admin.company_address') %></label>
+        <label class="form-control"><strong><%= show_company_countries(@company) %></strong></label>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <label class="form-label"><%= Company.human_attribute_name("card_text") %></label>
+        <label class="form-control"><strong><%= @company.card_text %></strong></label>
+      </div>
+    </div>
+  </div>
+</main>

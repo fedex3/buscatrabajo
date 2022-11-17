@@ -1,0 +1,30 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%=Industry.human_attribute_name("industry")%></h1>
+    <%= link_to (t('admin.new') + ' ' + Industry.human_attribute_name("industry")), new_admin_industry_path, class:"btn btn-primary"%>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-condensed">
+          <thead>
+            <tr>
+              <th><%=Industry.human_attribute_name("name")%></th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <% @industries.each do |industry| %>
+            <tr>
+              <td><%= industry.name_id %></td>
+              <td><%= link_to t('admin.show'), admin_industry_path(industry) %></td>
+              <td><%= link_to t('admin.edit'), edit_admin_industry_path(industry) %></td>
+              <td><%= link_to t('admin.delete'), admin_industry_path(industry), method: :delete, data: { confirm: t('admin.confirm') } %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <%= paginate @industries %>
+    </div>
+  </div>
+</main>

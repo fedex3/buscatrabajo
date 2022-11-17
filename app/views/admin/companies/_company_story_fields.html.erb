@@ -1,0 +1,31 @@
+<div class="nested-fields">
+  <div class="container-fluid">
+    <br>
+    <h5><%= CompanyStory.human_attribute_name("company_story") %></h5>
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label CompanyStory.human_attribute_name("title"), :class => "form-label"%>
+          <%= f.text_field :title, :class => "form-control company_story_focus" %>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label CompanyStory.human_attribute_name("detail"), :class => "form-label"%>
+          <%= f.cktext_area :detail, rows: 5, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.label CompanyStory.human_attribute_name("order"), :class => "form-label"%>
+          <%= f.number_field :order, :class => "form-control company_story_focus" %>
+        </div>
+      </div>
+    </div>
+    <%= link_to_remove_association '<i class="fa fa-trash"></i>'.html_safe, f, :class => "btn btn-floating"%>
+  </div>
+</div>

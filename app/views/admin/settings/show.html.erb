@@ -1,0 +1,164 @@
+<main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Preferencias</h1>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= form_for(Setting.new, url: admin_settings_path) do |f| %>
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox mt-md-4">
+              <%= f.check_box :show_homepage_banner, checked: Setting.show_homepage_banner?, class: "custom-control-input" %>
+              <%= f.label :show_homepage_banner, Setting.human_attribute_name("show_homepage_banner"), class: "custom-control-label" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("homepage_banner_text"), :class => "form-label"%>
+              <%= f.cktext_area :homepage_banner_text, value: Setting.homepage_banner_text, rows:5, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox mt-md-4">
+              <%= f.check_box :show_subheader_jobs, checked: Setting.show_subheader_jobs?, class: "custom-control-input" %>
+              <%= f.label :show_subheader_jobs, Setting.human_attribute_name("show_subheader_jobs"), class: "custom-control-label" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox mt-md-4">
+              <%= f.check_box :show_subheader_company_job, checked: Setting.show_subheader_company_job?, class: "custom-control-input" %>
+              <%= f.label :show_subheader_company_job, Setting.human_attribute_name("show_subheader_company_job"), class: "custom-control-label" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox mt-md-4">
+              <%= f.check_box :show_subheader_company, checked: Setting.show_subheader_company?, class: "custom-control-input" %>
+              <%= f.label :show_subheader_company, Setting.human_attribute_name("show_subheader_company"), class: "custom-control-label" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("subheader_jobs_text"), :class => "form-label"%>
+              <%= f.cktext_area :subheader_jobs_text, value: Setting.subheader_jobs_text, rows:5, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <br>
+        <h4>Subheader de la sección Notas</h4>
+        <hr>
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group custom-control custom-checkbox mt-md-4">
+              <%= f.check_box :show_subheader_notes, checked: Setting.show_subheader_notes?, class: "custom-control-input" %>
+              <%= f.label :show_subheader_notes, Setting.human_attribute_name("show_subheader_notes"), class: "custom-control-label" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("subheader_notes_text"), :class => "form-label"%>
+              <%= f.text_field :subheader_notes_text, value: Setting.subheader_notes_text, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("subheader_notes_button_text"), :class => "form-label"%>
+              <%= f.text_field :subheader_notes_button_text, value: Setting.subheader_notes_button_text, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("subheader_notes_url"), :class => "form-label"%>
+              <small>(Debe comenzar con "http://" o "https://")</small>
+              <%= f.text_field :subheader_notes_url, value: Setting.subheader_notes_url, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <br>
+        <h4>Popup principal</h4>
+        <hr>
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox">
+              <%= f.check_box :show_main_popup, checked: Setting.show_main_popup?, class: "custom-control-input" %>
+              <%= f.label :show_main_popup, Setting.human_attribute_name("show_main_popup"), class: "custom-control-label" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox">
+              <%= f.check_box :show_main_popup_image, checked: Setting.show_main_popup_image?, class: "custom-control-input" %>
+              <%= f.label :show_main_popup_image, Setting.human_attribute_name("show_main_popup_image"), class: "custom-control-label" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("main_popup_image_url"), class: "form-label" %>
+              <small>(Debe comenzar con "http://" o "https://")</small>
+              <%= f.text_field :main_popup_image_url, value: Setting.main_popup_image_url, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("main_popup_image_link"), class: "form-label" %>
+              <small>(Debe comenzar con "http://" o "https://")</small>
+              <%= f.text_field :main_popup_image_link, value: Setting.main_popup_image_link, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-group custom-control custom-checkbox">
+              <%= f.check_box :show_main_popup_button, checked: Setting.show_main_popup_button?, class: "custom-control-input" %>
+              <%= f.label :show_main_popup_button, Setting.human_attribute_name("show_main_popup_button"), class: "custom-control-label" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("main_popup_button_text"), class: "form-label" %>
+              <%= f.text_field :main_popup_button_text, value: Setting.main_popup_button_text, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label Setting.human_attribute_name("main_popup_button_url"), class: "form-label" %>
+              <small>(Debe comenzar con "http://" o "https://")</small>
+              <%= f.text_field :main_popup_button_url, value: Setting.main_popup_button_url, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.submit class: 'btn btn-lg btn-primary btn-block', data: { disable_with: t(:'messages.sending') }, value: Setting.human_attribute_name("update_settings") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

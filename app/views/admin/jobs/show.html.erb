@@ -1,0 +1,96 @@
+<% if @job %>  
+  <h2><%=t('admin.show') + ' ' + Job.human_attribute_name("job")%></h2>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("name")%></label>
+    <label class="form-label"><strong><%=@job&.name%></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("company_id")%></label>
+    <label class="form-label"><strong><%=@job&.company&.name%></strong></label>
+  </div>
+
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("level_id")%></label>
+    <%unless @job&.level.blank?%>
+      <label class="form-label"><strong><%=@job&.level.name%></strong></label>
+    <%end%>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("industry_id")%></label>
+    <label class="form-label"><strong><%=@job&.industry&.name%></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("application_counter")%></label>
+    <label class="form-label"><strong><%=@job&.application_counter%></strong></label>
+  </div>
+
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("part_time")%></label>
+    <label class="form-label"><strong><%=@job&.part_time%></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("active")%></label>
+    <label class="form-label"><strong><%=@job&.active%></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("from_date")%></label>
+    <label class="form-label"><strong><%=@job&.from_date&.strftime("%Y-%m-%d")%></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("recommended_jobs")%></label>
+    <label class="form-label">
+      <% @job&.recommended_jobs&.each do |recommended_job|%>
+        <%= recommended_job.name.to_s%><br>
+      <%end%>
+    </label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("photo")%></label>
+    <%= image_tag @job.photo(:thumbnail), :class => "img-responsive", loading: "lazy" %>>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("url")%></label>
+    <a href="<%=@job.url%>" target="_blank"><%= job_path(name_id: @job.name_id, locale: :ar) %></a>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("views")%></label>
+    <label class="form-label"><strong><%=@job&.views%></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=t('admin.job_address')%></label>
+    <label class="form-label"><strong><%= show_job_countries(@job) %></strong></label>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <label class="form-label"><%=Job.human_attribute_name("detail")%></label>
+    <div class="job-content">
+      <%=@job.detail.html_safe%>
+    </div>
+  </div>
+
+  <p>
+    <%= link_to t('admin.edit'), edit_admin_job_path(@job), :class => "text" %><br>
+    <%= link_to t('admin.back'), admin_jobs_path, :class => "text" %><br>
+  </p>
+<% else %>
+  <% if current_user&.company_role? || current_user&.content_editor? || current_user&.admin? || current_user&.superadmin? %>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h2><%= t('admin.job_not_found') %></h2>
+      </div>
+    </main>
+  <% end %>
+<% end %>

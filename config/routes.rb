@@ -36,18 +36,17 @@ Rails.application.routes.draw do
   #end
   #resources :company_favorites, only: [:index]
   
-=begin
+
 
   namespace :admin do
     get '/', to: 'dashboard#index'
-
+    get '/dashboard', to: 'dashboard#index'
+    get '/analytics', to: 'analytics#index'
     get	'/company_info', to:	'companies#show'
     get	'/company_info/edit', to:	'companies#edit'
     patch '/company_info', to:	'companies#update'
 
-    authenticate :user, lambda { |u| u.superadmin? || u.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
-    end
+
 
     resource :settings
 
@@ -60,17 +59,11 @@ Rails.application.routes.draw do
     resources :companies do
       get 'jobs_syncro', on: :member
       get 'stats', on: :member
-      resources :offices do
-        get 'edit_columns', on: :member
-        get 'edit_carousel', on: :member
-      end
     end
 
     resources :company_views, only: [:index]
     resources :job_views, only: [:index]
 
-    resources :company_favorites, only: [:index]
-    resources :job_favorites, only: [:index]
     resources :job_applications, only: [:index, :show, :destroy] do
       get 'send_mail', on: :member
       get 'accept', on: :member
@@ -88,18 +81,7 @@ Rails.application.routes.draw do
       end
     end
     resources :user_informations, except: [:create, :new, :destroy]
-
-
   end
 
-  devise_for :users, controllers: { sessions: "users/sessions", passwords: "users/passwords", registrations: "users/registrations", confirmations: "users/confirmations", unlocks: "users/unlocks" }
-  get	'/perfil', to:	'users#show', as: 'user_profile'
-  get	'/perfil/edit', to:	'users#edit', as:'edit_user'
-  put '/perfil', to:	'users#update'
 
-
-  get '/jobs_skills', to: 'jobs_skills#index'
-  get '/languages_skills', to: 'languages_skills#index'
-
-=end
 end

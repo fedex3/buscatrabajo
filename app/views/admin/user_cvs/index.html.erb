@@ -1,0 +1,32 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%=UserCv.human_attribute_name("user_cv")%></h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-condensed">
+          <thead>
+            <tr>
+              <th><%=UserCv.human_attribute_name("user")%></th>
+              <th><%=UserCv.human_attribute_name("active")%></th>
+              <th><%=UserCv.human_attribute_name("created_at")%></th>
+              <th><%=UserCv.human_attribute_name("cv")%></th>
+            </tr>
+          </thead>
+
+          <% @user_cvs.each do |user_cv| %>
+            <tr>
+              <td><%= user_cv.user.email %></td>
+              <td><%= user_cv.active %></td>
+              <td><%= user_cv.created_at.in_time_zone('Buenos Aires').strftime("%d-%m-%Y") %></td>
+              <td><%= link_to 'Ver CV', user_cv.cv.url %></td>
+
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <%= paginate @user_cvs %>
+    </div>
+  </div>
+</main>

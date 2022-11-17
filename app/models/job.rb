@@ -51,11 +51,10 @@ class Job < ApplicationRecord
 
   scope :from_date, -> { where("date_trunc('day', jobs.from_date) <= ?", Date.today) }
   scope :end_date, -> { where("date_trunc('day', jobs.end_date) >= ?", Date.today) }
-  scope :published, -> { where(published: true) }
   scope :active, -> { where(active: true) }
-  scope :listable, -> { active.published.from_date.end_date}
-  scope :company_listable, -> {  joins(:company).where("companies.active = true and companies.published = true and date_trunc('day', companies.from_date) <= ?", Date.today) }
-  scope :company_listable_not_only_special_events, -> {  joins(:company).where("companies.active = true and companies.show_only_in_special_events = false and companies.published = true and date_trunc('day',companies.from_date) <= ?", Date.today) }
+  scope :listable, -> { active.from_date.end_date}
+  scope :company_listable, -> {  joins(:company).where("companies.active = true and date_trunc('day', companies.from_date) <= ?", Date.today) }
+  scope :company_listable_not_only_special_events, -> {  joins(:company).where("companies.active = true and companies.show_only_in_special_events = false and date_trunc('day',companies.from_date) <= ?", Date.today) }
   scope :not_proactive_interview, -> { where.not(name: "Entrevistas proactivas" ) }
   scope :by_company_in_special_event, -> (special_event_code) { joins(:company).where("companies.id IN (?)", Company.joins(:company_special_events).where(company_special_events: { code: special_event_code }).ids) }
   scope :by_year, lambda { |year| where('extract(year from created_at) = ?', year) }
@@ -186,7 +185,7 @@ class Job < ApplicationRecord
   end
 
   def listable
-    published && active && Time.current.between?(from_date, end_date)
+    active && Time.current.between?(from_date, end_date)
   end
 
   def remove_email

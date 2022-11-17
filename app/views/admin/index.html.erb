@@ -1,0 +1,23 @@
+<h2>Ingresa al Administrador de Mibucle</h2>
+<% if alert %>
+  <div class="alert alert-danger" role="alert">
+    <p><%= alert %></p>
+  </div>
+<% end %>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <div class="form-group input-group-lg">
+    <%= f.label User.human_attribute_name("email"), :class => "form-label"%>
+    <%= f.email_field :email, autofocus: true, :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("email") %>
+  </div>
+
+  <div class="form-group input-group-lg">
+    <%= f.label User.human_attribute_name("password"), :class => "form-label"%>
+    <%= f.password_field :password, autocomplete: "off", :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("password") %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit  t('users.actions.signin') , :class => "btn btn-lg btn-primary btn-block", data: { disable_with: t('messages.sending') } %>
+  </div>
+<%end%>

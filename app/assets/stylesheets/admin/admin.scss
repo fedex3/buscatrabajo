@@ -1,0 +1,16 @@
+.wice-grid tr.wg-filter-row {
+  input[type=text], select {
+    width: 100%
+  }
+}
+
+.wice-grid{
+  tr.wg-filter-row  input[type=text] {
+    width: 100%;
+  }
+  tr.wg-filter-row  select {
+    width: 100%;
+  }
+}
+
+

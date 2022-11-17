@@ -75,7 +75,7 @@ class CompaniesController < ApplicationController
 
     @page_name =  '/empresas/' + @param_name_id
 
-    if @company.nil? || !@company.published
+    if @company.nil?
       redirect_to home_path and return
     else
       @multioffice = true if @company.multioffice?
@@ -96,7 +96,7 @@ class CompaniesController < ApplicationController
     @company = Company.find_by(name_id: params[:name_id])
 
     if @company
-      @multioffice = @company.offices.published.count > 1
+      @multioffice = @company.offices.count > 1
       load_company_data_for_preview
 
       @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.state, companies.active, companies.country")
@@ -149,7 +149,7 @@ class CompaniesController < ApplicationController
 
   def load_company_data_for_preview
     if @multioffice
-      @offices  = @company.offices.published.order_by_relevance
+      @offices  = @company.offices.order_by_relevance
       if params[:office_name_id].present?
         @selected_office  = @company.offices.find_by(name_id: params[:office_name_id]) or not_found
       else
@@ -157,7 +157,7 @@ class CompaniesController < ApplicationController
       end
       @selected_office_id = @selected_office.id
     else
-      @office          = @company.offices.published.first
+      @office          = @company.offices.first
       @company_stories = @company.stories
     end
     @company_jobs     = @company.jobs.active.order_by_date

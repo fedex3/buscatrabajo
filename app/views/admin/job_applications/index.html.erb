@@ -1,0 +1,57 @@
+<%= hidden_field_tag 'previous_page', params[:page] %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Postulaciones</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= render partial: 'grid_grid' %>
+    </div>
+  </div>
+
+  <% if !current_user.company_role? %>
+    <div class="form-row align-items-center">
+      <div class="col-3">
+        <label for="company">Empresa</label>
+        <%= grid_filter @grid, :job_application_company_filter %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-row align-items-center">
+    <div class="col-2">
+      <label for="job">Aviso</label>
+      <%= grid_filter @grid, :job_application_job_filter %>
+    </div>
+    <div class="col-2">
+      <label for="user">Nombre completo</label>
+      <%= grid_filter @grid, :job_application_user_filter %>
+    </div>
+    <div class="col-2">
+      <label for="email">Email</label>
+      <%= grid_filter @grid, :email_filter %>
+    </div>
+    <div class="col-2">
+      <label for="country">País</label>
+      <%= grid_filter @grid, :job_application_country_filter %>
+    </div>
+    <div class="col-2">
+      <%= grid_filter @grid, :date_filter %>
+    </div>
+    <div class="col-2">
+      <label for="state">Estado</label>
+      <%= grid_filter @grid, :aasm_state_filter %>
+    </div>
+    <div class="col-auto mt-4">
+      <button class="wg-external-submit-button btn btn-primary btn-sm" data-grid-name="grid">Filtrar</button>
+      <button class="wg-external-reset-button btn btn-link text-secondary btn-sm" data-grid-name="grid">Limpiar filtros</button>
+      <button class="wg-external-csv-export-button btn btn-primary btn-sm" data-grid-name="grid">Exportar a CSV</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-12">
+      <%= render_grid(@grid) %>
+    </div>
+  </div>
+</main>

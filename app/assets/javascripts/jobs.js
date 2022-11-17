@@ -1,6 +1,3 @@
-//= require bootstrap-tagsinput
-//= require bootstrap3-typeahead
-//= require jquery.remotipart
 //=require infinite_scrolling.js 
 //in order to load more jobs only when user scrolls down enough
 $(function(){ // document ready
@@ -104,9 +101,6 @@ $(function(){ // document ready
       $("label[for='job-application-error']").html(errors);
     });
 
-    $("#new_job_application").on("ajax:remotipartComplete", function(e, data){
-    });
-
     $("#new_job_application").bind("ajax:success", function(){
       $("#job_apply_now").hide();
       $("#job_have_apply").show();
@@ -159,23 +153,4 @@ $(function(){ // document ready
       });
     });
   });
-});
-
-$(document).ready(function() {
-  // Load the js only for form view where the field is defined
-  if($('#skills').val() != undefined){
-    $('#skills').tagsinput({
-      typeahead: {
-        autoSelect: false,
-        source: function(query) {
-          return $.get('/jobs_skills?listable=true');
-        }
-      },
-    });
-    $('#skills').on('itemAdded', function(event) {
-      setTimeout(function() {
-      $('.bootstrap-tagsinput :input').val('');
-      }, 0);
-    });
-  }
 });

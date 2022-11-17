@@ -9,25 +9,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-    if current_user.present?
-      if current_user.from_event.present? || session[:from_event].present?
-        @event = CompanySpecialEvent.find_by(code: session[:from_event]) or not_found
-        unless @event.present?
-          @event = CompanySpecialEvent.find_by(code: current_user.from_event) or not_found
-        end
-        current_user.event_users.build(user_id: current_user.id,
-          company_special_event_id: @event.id,
-          first_name: current_user.name,
-          email: current_user.email,
-          country: current_user.country ,
-          register_type: params[:user][:ticket_type]).save(validate: false) 
-        event_user = EventUser.find_by(company_special_event_id: @event.id, email: current_user.email)
-        EventUserMailer.links_email(event_user).deliver_later
-      end
-    end
-  end
+  # def create
+  #   super
+  #   end
+  # end
 
   # GET /resource/edit
   # def edit
@@ -76,13 +61,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def sign_up_params
     # devise_parameter_sanitizer.for(:sign_up) << :attribute
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :country, :terms_accepted, :terms_accepted_at, :analytics_client_id, :source, :term, :campaign, :medium, :from_event, :is_company)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :country)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def account_update_params
     # devise_parameter_sanitizer.for(:account_update) << :attribute
-    params.require(:user).permit(:email, :current_password, :password, :password_confirmation, :name, :country, :terms_accepted, :terms_accepted_at, :short_summary, :long_summary, :show_photo, :photo, :github_url, :linkedin_url, :language_list, :skill_list, :experience, newsletter_attributes: %i[id subscribe] )
+    params.require(:user).permit(:email, :current_password, :password, :password_confirmation, :name, :country, :description, :role, :cv_file_name, :cv_content_type, :cv_file_size, :cv_updated_at)
   end
 
   def update_resource(resource, params)

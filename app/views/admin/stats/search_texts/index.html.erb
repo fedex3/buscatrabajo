@@ -1,0 +1,41 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Busquedas Realizadas</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-condensed dailyTable table-admin" id="dailyTable">
+           <!-- <style>
+            @media (max-width: 767px) {
+              .dailyTable td:nth-of-type(1):before { content: "Question"; }
+              .dailyTable td:nth-of-type(2):before { content: "Option"; }
+              .dailyTable td:nth-of-type(3):before { content: "Total answers"; }
+            }
+          </style> -->
+          <thead>
+            <tr>
+              <th>Texto</th>
+              <th>Total de busquedas</th>
+              <th>Notas</th>
+              <th>Trabajos</th>
+              <th>Empresas</th>
+
+            </tr>
+          </thead>
+
+          <% @search_texts.each do |search_text| %>
+            <tr>
+              <td><%= search_text.key.html_safe %></td>
+              <td><%= search_text.totals %></td>
+              <td><%= search_text.advices_results %></td>
+              <td><%= search_text.jobs_results %></td>
+              <td><%= search_text.companies_results %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <%= paginate @search_texts %>
+    </div>
+  </div>
+</main>

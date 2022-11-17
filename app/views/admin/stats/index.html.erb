@@ -1,0 +1,17 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Stats</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <ul class='nav'>
+          <li><%= link_to "Aplicaciones x Mes x Empresa x Posición", admin_stats_job_applications_path%></li>
+          <li><%= link_to "Aplicaciones x Mes x Empresa", admin_stats_companies_path%></li>
+          <li><%= link_to "Encuestas Totales", admin_stats_answers_path%></li>
+          <li><%= link_to "Busquedas Realizadas", admin_stats_search_texts_path %></li>
+        </ul>
+      </p>
+    </div>
+  </div>
+</main>
