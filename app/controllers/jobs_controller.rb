@@ -38,7 +38,6 @@ class JobsController < ApplicationController
 
     # variables for select_tags input
 		@industries = Industry.all
-		@levels = Level.all
 		@states = JobState.where(:job_id => Job.listable.map{|a| a.id}).map{|a| a.state_full_name}.uniq
 
     @job_search_type = nil
@@ -176,7 +175,7 @@ class JobsController < ApplicationController
       raise 'No se encontraron trabajos' if @jobs.blank?
 
     rescue RuntimeError, NoMethodError
-      @jobs = Job.recommended_jobs(params[:country].present? ? params[:country] : country_from_locale)
+      #@jobs = Job.recommended_jobs(params[:country].present? ? params[:country] : country_from_locale)
       @jobs_not_found = true
 
     ensure
@@ -194,7 +193,7 @@ class JobsController < ApplicationController
     param_company_name_id = params[:company_name_id].downcase
 
     @job = Job.includes(:company, :level, :industry).find_by("companies.name_id": param_company_name_id, name_id: param_name_id) or not_found
-    @recommended_jobs = @job.recommended_jobs.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.active")
+    #@recommended_jobs = @job.recommended_jobs.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.active")
     if @job.nil?
       redirect_to home_path and return
     end
@@ -212,7 +211,7 @@ class JobsController < ApplicationController
   end
 
   def show
-    param_name_id = params[:name_id].downcase
+    param_name_id = params[:name_id]
 
     if param_name_id.starts_with? 'q-'
       param = param_name_id.split(//)
@@ -264,24 +263,20 @@ class JobsController < ApplicationController
       end
     end
 
-    param_company_name_id = params[:company_name_id].downcase
+    param_company_id = params[:company_id]
 
-    @company_special_event = CompanySpecialEvent.find_by(code: params[:special_event])
-
-    @job = Job.includes(:company, :level, :industry).find_by("companies.name_id": param_company_name_id, name_id: param_name_id) or not_found
+    puts params.inspect
+    puts param_company_id
+    puts param_name_id
+    @job = Job.includes(:company).find_by("companies.name_id": param_company_id, name_id: param_name_id)
 
     all_countries = ISO3166::Country.all.map{ |x| {"name" => x.translation('es'), "alpha2" => x.alpha2} }.sort_by!{ |x| x["name"] }
 		listable_countries = Company.listable.distinct.pluck(:country)
 		@countries = all_countries.keep_if{ |country| country["alpha2"].in? listable_countries }
-    
-    if @company_special_event.nil?
-      @recommended_jobs = @job.recommended_jobs.company_listable.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.active")
-    else
-      @recommended_jobs = @job.recommended_jobs.company_listable.listable.by_company_in_special_event(@company_special_event.code).preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.active")
-    end
+  
 
     if @job.nil? || !@job
-      redirect_to home_path and return
+      #redirect_to home_path and return
     else
 
       view_email = nil
@@ -294,12 +289,12 @@ class JobsController < ApplicationController
       end
       @job.update_column(:views, @job.views+1)
       unless view_email.nil?
-        JobView.create(:job => @job, :user => current_user, :email => view_email)
+        #JobView.create(:job => @job, :user => current_user, :email => view_email)
       end
     end
 
-    @page_name = '/empresas/' + param_company_name_id + '/trabajos/' + param_name_id
-    @canonical_url = ENV['HTTP_HOST'] + @page_name
+    @page_name = '/empresas/' + param_company_id + '/trabajos/' + param_name_id
+    #@canonical_url = ENV['HTTP_HOST'] + @page_name
 
     @has_apply = false
     unless current_user.nil?

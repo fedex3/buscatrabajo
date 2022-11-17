@@ -4,60 +4,15 @@
   <% content_for :title, (t('job.show.header.title', :name => @job.name, :company => @job.company.name)) %>
 <% end %>
 
-<% content_for :metadescription, (t('job.show.header.description', :name => @job.name, :company => @job.company.name, :state => (@job.job_states.first.present? ? @job.job_states.first.state_full_name : ''), :country => ISO3166::Country.find_country_by_alpha2(Job.first_country(@job)).translation("es"), :city => (@job.city.blank? ? '' : (@job.city + ', ')) )) %>
 <%share_text = @job.company.name + t('job.share.look') + @job.name %>
 
 <% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
-<% content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
+<%# content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
 
 <%unless @job.active%>
   <% content_for :script, '<meta name="robots" content="noindex" />'.html_safe %>
 <%end%>
 <%= render :partial => 'layouts/structured_data' %>
-
-<% if Rails.env.production? %>
-  <script type="application/ld+json"> {
-    "@context" : "http://schema.org/",
-    "@type" : "JobPosting",
-    "title" : "<%=@job.name%>",
-    "description" : "<%=@job.detail.gsub('"',"'").html_safe%>",
-    "identifier": {
-      "@type": "PropertyValue",
-      "name": "<%=@job.company.name%>",
-      "value": "<%=@job.id%>"
-    },
-    "datePosted" : "<%=@job.created_at.strftime('%FT%T')%>",
-    "validThrough" : "<%=@job.end_date.strftime('%FT%T')%>",
-    "employmentType" : <%=(@job.part_time ? '["FULL_TIME", "PART_TIME"]'.html_safe : '"FULL_TIME"'.html_safe)%>,
-    "hiringOrganization" : {
-      "@type" : "Organization",
-      "name" : "<%=@job.company.name%>",
-      "sameAs" : "<%=@job.company.url%>",
-      "logo" : "<%=@job.company.logo%>"
-    },
-    <% if !@job.remote%>
-      "jobLocation" : {
-        "@type" : "Place",
-        "address" : {
-          "@type" : "PostalAddress",
-          "addressCountry": "<%= Job.first_country(@job)%>"
-          <% if @job.job_states.first.present?%>
-            ,"addressRegion" : "<%=@job.job_states.first.state_full_name%>"
-          <%end%>
-          <% if @job.city.present?%>
-            ,"addressLocality" : "<%=@job.city%>"
-          <%end%>
-        }
-      }
-    <%else%>
-      "jobLocationType" : "TELECOMMUTE"
-    <%end%>
-    <% if @job.url.present?%>
-      ,"directApply" : "true"
-    <%end%>
-  }
-  </script>
-<%end%>
 
 
 <%
@@ -208,7 +163,6 @@ opengraph += '<meta name="twitter:url" content="' + request.original_url + '">'
         <%unless @job.city.blank?%>
           <%=@job.city + ' | '%>
         <%end%>
-        <%=(@job.state.present? ? @job.state + ' | ' : '') + country_name%>
 
         <div class="job-services-company-summary"><%=@job.company.long_summary %></div>
         <% if @job.company.main_photo.present? %>
@@ -230,9 +184,7 @@ opengraph += '<meta name="twitter:url" content="' + request.original_url + '">'
             <li><a href="<%= jobs_path(special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_jobs')%></a></li>
             <li><a href="<%= jobs_path(:empresa => @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_company_jobs', :name => @job.company.name)%></a></li>
             <li><a href="<%= jobs_path(:industria => @job.industry.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_industry_jobs', :name => @job.industry.name)%></a></li>
-            <%if @job.state.present?%>
-              <li><a href="<%= jobs_path(:estado => @job.state.gsub(' ','-').html_safe, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_location_jobs', :name => @job.state)%></a></li>
-            <%end%>
+
             <li><a href="<%= jobs_path(:pais => Url.friendly(country_name), special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_country_jobs', :name => country_name)%></a></li>
             <%unless @job.level.blank?%>
               <li><a href="<%= jobs_path(:nivel => @job.level.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_level_jobs', :name => @job.level.name)%></a></li>

@@ -14,7 +14,7 @@ development:
   <<: *default
   database: busca_trabajo
   host:     '127.0.0.1'
-  username: pguser
+  username: postgres
   password: postgres
 
 # Warning: The database defined as "test" will be erased and
