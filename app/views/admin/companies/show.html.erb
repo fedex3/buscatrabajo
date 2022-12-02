@@ -147,14 +147,6 @@
   <div class="form-row">
     <div class="col-md-8">
       <div class="form-group">
-        <label class="form-label"><%= t('admin.company_address') %></label>
-        <label class="form-control"><strong><%= show_company_countries(@company) %></strong></label>
-      </div>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-md-8">
-      <div class="form-group">
         <label class="form-label"><%= Company.human_attribute_name("card_text") %></label>
         <label class="form-control"><strong><%= @company.card_text %></strong></label>
       </div>

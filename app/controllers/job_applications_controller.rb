@@ -9,7 +9,7 @@ class JobApplicationsController < ApplicationController
     end
     current_user or not_found
 
-    @jobs = current_user.apply_job.preload(:company, :level, :industry).select("jobs.level_id, jobs.updated_at, jobs.part_time, jobs.industry_id, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.remote").where(:job_applications => {:full => true}).includes(:company)
+    @jobs = current_user.apply_job.preload(:company, :level, :industry).select("jobs.level_id, jobs.updated_at, jobs.part_time, jobs.industry_id, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote").where(:job_applications => {:full => true}).includes(:company)
 
     case @order
       when 'relevance'    #compare to 1

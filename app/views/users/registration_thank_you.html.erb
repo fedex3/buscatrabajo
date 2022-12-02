@@ -1,17 +1,4 @@
 <% content_for :title, (t('.header.title')) %>
-<% content_for :metadescription, (t('.header.description')) %>
-<%= render :partial => 'layouts/structured_data' %>
-
-<%
-opengraph = ""
-opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
-opengraph += '<meta property="og:title" content="' + (t('.header.title')) + '" />'
-opengraph += '<meta property="og:description" content="' + (t('.header.description')) + '" />'
-opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
-opengraph += '<meta property="og:image" content="' + image_url("logoFB.webp") + '" />'
-opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
-%>
-<% content_for :opengraph, opengraph.html_safe %>
 
 <section>
   <div class="container-fluid">

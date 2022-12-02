@@ -14,26 +14,6 @@
     if params[:user] && params[:user][:country]
       selected_country = params[:user][:country]
     end
-
-   unless @user.state.nil?
-     selected_state = @user.state
-   end
-
-  if params[:user] && params[:user][:state]
-    selected_state = params[:user][:state]
-  end
-
-  states = Rails.cache.fetch("states_names/" + selected_country, expires_in: 12.hours) do
-    ISO3166::Country.find_country_by_alpha2(selected_country).states.map{|x| [x[1]['name']]}.sort
-  end
-
-  if selected_state == ""
-    if selected_country == "AR"
-      selected_state = "Capital federal"
-    else
-      selected_state = states[0]
-    end
-  end
   %>
 
   <%= hidden_field_tag 'previous_page', params[:page] %>
@@ -48,12 +28,6 @@
       <div class="form-group input-group-md">
         <%= f.label User.human_attribute_name("country"), :class => "form-label"%>
         <%= f.select(:country, countries_list, {:include_blank => false, :selected => selected_country}, {:class => 'form-control'})%>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group input-group-md">
-        <%= f.label User.human_attribute_name("state"), :class => "form-label"%>
-        <%= f.select(:state, states, {:include_blank => false, :selected => selected_state}, {:class => 'form-control'})%>
       </div>
     </div>
     <div class="col-md-4">

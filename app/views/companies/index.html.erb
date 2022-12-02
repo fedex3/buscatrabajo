@@ -1,23 +1,6 @@
-<% content_for :title, t('company.index.header.title') %>
-<% content_for :metadescription, t('company.index.header.description') %>
-<% content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
-<%= render :partial => 'layouts/structured_data' %>
+<% content_for :title, "t('company.index.header.title')" %>
 
-<% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
-
-<%
-opengraph = ""
-opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
-opengraph += '<meta property="og:title" content="' + t('company.index.header.title') + '" />'
-opengraph += '<meta property="og:description" content="' + t('company.index.header.description') + '" />'
-opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
-opengraph += '<meta property="og:image" content="https://s3.amazonaws.com/mibucle/images/companies.jpg" />'
-opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
-opengraph += '<meta property="og:type" content="' + "website" + '" />'
-%>
-<% content_for :opengraph, opengraph.html_safe %>
-
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 50px;">
   <div class="row no-gutter">
     <div class="col-md-2 col-sm-0">
     </div>
@@ -56,9 +39,6 @@ opengraph += '<meta property="og:type" content="' + "website" + '" />'
                 <div class="col-md-4">
                   <%= select_tag :country, options_for_select(@countries.collect {|c| [ c['name'], c['alpha2'] ] }, params[:country]), include_blank: "País", class: "form-control margin-bottom-sm" %>
                 </div>
-                <div class="col-md-4">
-                  <%= select_tag :state, options_for_select(@states, params[:state]), include_blank: "Provincia", class: "form-control margin-bottom-sm" %>
-                </div>
                 <%= submit_tag("Filtrar", name: nil, class: "btn btn-filter btn-block-xs margin-bottom-sm col-md-2") %>
                 <div class="col-md-1"></div>
               </div>
@@ -74,9 +54,8 @@ opengraph += '<meta property="og:type" content="' + "website" + '" />'
         <h3 class ="companies-not-found"><%=t('company.index.empty')%></h3>
       </section>
     </div>
-    <%= render :partial => 'errors/recommended_companies' %>
   <% end %>
 	<%= render :partial => 'companies/companies_list_default' %>
 </div>
 
-<%= render :partial => 'layouts/askmail' %>
+ 

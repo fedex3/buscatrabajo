@@ -4,10 +4,6 @@ class Company < ApplicationRecord
   include ShowPhotoName
   attr_accessor :terms_accepted
 
-  has_many :company_stories, as: :storiable, :dependent => :destroy
-  has_many :company_countries
-  has_many :company_states
-
   paginates_per 10
 
   has_many :company_favorites
@@ -29,7 +25,6 @@ class Company < ApplicationRecord
     :association_foreign_key => "recommended_company_id",
     :class_name => "Company")
 
-  accepts_nested_attributes_for :company_stories, allow_destroy: true
 
 	has_attached_file :main_photo, {
       default_url: ActionController::Base.helpers.asset_path("missing.webp"),
@@ -84,10 +79,9 @@ class Company < ApplicationRecord
 
   enum jobs_process_status: %i[jobs_dont_apply jobs_pending jobs_finished jobs_processing]
 
-  scope :by_q, -> (q) { joins(:industries, :companies_industries, :company_speeches, :company_stories, :jobs).where("lower(companies.name) LIKE ? OR lower(companies.state) LIKE ? OR lower(industries.name) LIKE ? OR lower(company_speeches.detail) LIKE ? OR lower(company_stories.detail)  LIKE ? OR lower(jobs.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%").distinct}
-  scope :by_state, -> (state) {  joins(:company_states).where('company_states.state_full_name = ?', state) }
-  scope :by_country, -> (country) { joins(:company_countries).where('company_countries.country_alpha2 = ?', country) }
-  scope :by_not_this_country, -> (country) { joins(:company_countries).where.not('company_countries.country_alpha2 = ?', country) }
+  scope :by_q, -> (q) { joins(:industries, :companies_industries, :company_speeches, :jobs).where("lower(companies.name) LIKE ? OR lower(industries.name) LIKE ? OR lower(company_speeches.detail) LIKE ? OR lower(jobs.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%").distinct}
+  scope :by_country, -> (country) { where country: country }
+  scope :by_not_this_country, -> (country) { where.not country: country }
   scope :by_name, -> (q) { where("lower(name) LIKE ?", "%#{q}%") }
   scope :listable, -> { active.from_date}
   scope :from_date, -> { where("date_trunc('day', companies.from_date) <= ?", Date.today) }
@@ -117,10 +111,8 @@ class Company < ApplicationRecord
     selected_order = (add_order == 'created_at' ? 'created_at DESC' : 'manual_order asc NULLS LAST')
     all_order = <<~SQL
       CASE WHEN (main_photo_url IS NOT NULL AND main_photo_url <> 'missing.webp') THEN 0 ELSE 1 END,
-      CASE WHEN company_countries.country_alpha2 = '#{locale}' THEN 0 ELSE 1 END,
       #{selected_order}
     SQL
-    joins(:company_countries).order(all_order)
   }
 
   def id_name
@@ -204,11 +196,6 @@ class Company < ApplicationRecord
 
   def industries_names
     self.industries.map(&:name).join(' | ')
-  end
-
-  def stories
-    c_stories = self.company_stories.order_by_date
-    c_stories = c_stories.empty? && !self.offices.listable.empty? ? self.offices.listable.first.stories : []
   end
 
   def update_recommended_jobs

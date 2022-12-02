@@ -45,10 +45,9 @@ Rails.application.routes.draw do
     get	'/company_info', to:	'companies#show'
     get	'/company_info/edit', to:	'companies#edit'
     patch '/company_info', to:	'companies#update'
+    resources :industries
 
 
-
-    resource :settings
 
     resources :jobs do
       member do

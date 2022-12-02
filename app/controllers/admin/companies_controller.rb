@@ -86,29 +86,6 @@ module Admin
 
       if @company.update(company_params)
         @company.update(updated_at: DateTime.now) ##QUESTION: Why ? is supossed that updated_at is automatically set #CHECK IT
-        unless @company.company_countries.blank?
-          @company.company_countries.each do |company_country|
-            company_country.destroy
-          end
-        end
-
-        unless params[:company_countries].blank?
-          params[:company_countries].each do |country|
-            CompanyCountry.new(company_id: @company.id, country_alpha2: country).save
-          end
-        end
-
-        unless @company.company_states.blank?
-          @company.company_states.each do |company_state|
-            company_state.destroy
-          end
-        end
-
-        unless params[:company_states].blank?
-          params[:company_states].each do |state|
-            CompanyState.new(company_id: @company.id, state_full_name: state).save
-          end
-        end
 
         if current_user.company_role?
           redirect_to admin_company_info_path
@@ -146,10 +123,10 @@ module Admin
     private
       def company_params
         params.require(:company).permit(:name, :manual_order, :page_title, :meta_descript, :url, :long_summary, :job_provider_type, :job_provider_url, :job_register_url, :jobs_button,
-          :proactive_interviews, :link_for_proactive_interviews, :logo, :icon, :main_photo, :city, :state, :country, :views, :active, :from_date, :location, :jobs_text,
+          :proactive_interviews, :link_for_proactive_interviews, :logo, :icon, :main_photo, :city, :country, :views, :active, :from_date, :location, :jobs_text,
           :jobs_url, :email, :jobs_email, :logo_name, :list_label, :is_special_event_gold, :greenhouse_id, :facebook, :twitter, :linkedin, :card_text,
-          :home, :show_only_in_special_events, :phone, :show_whatsapp_button, :show_email_button, :featured_on_chile_home, :featured_on_spain_home, :order_in_event, :linkedin_username, :instagram, :cover_photo,
-          :featured_on_mexico_home, :featured_on_colombia_home, :available_credits_for_tests, :show_tests, :enable_tests, company_stories_attributes: [:id, :detail, :order, :title, :_destroy])
+          :home, :phone, :show_whatsapp_button, :show_email_button, :featured_on_chile_home, :featured_on_spain_home, :order_in_event, :linkedin_username, :instagram, :cover_photo,
+          :featured_on_mexico_home, :featured_on_colombia_home, :available_credits_for_tests, :show_tests, :enable_tests)
       end
 
       def companies

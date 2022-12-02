@@ -26,7 +26,7 @@ module Admin
     end
 
     def user_params
-       params.require(:user).permit(:email, :name, :country, :language, :rejected, :cv_status, :comment, :state, :city, :study_level_id, :born_year)
+       params.require(:user).permit(:email, :name, :country, :language, :rejected, :cv_status, :comment, :city, :study_level_id, :born_year)
     end
 
     private

@@ -58,12 +58,13 @@
     </div>
   </div>
 
+  <% selected_country = "AR"%>
   <div class="form-row">
     <div class="col-md-3">
       <div class="form-group">
         <%= f.label Job.human_attribute_name("country"), :class => "form-label"%>
-        <span class= "multiselect-tip" data-toggle='tooltip' title= '<%= t('admin.select_multiple')%>'>?</span>
-        <%= select_tag "company_countries", options_for_select(reduced_countries_list), {class:"form-control", :multiple => true, :size => 6} %>
+        <% country = selected_country(@job, params[:job]) %>
+        <%= f.select(:country, countries_list, {:include_blank => false, :selected => country}, {:class => 'form-control'})%>
       </div>
     </div>
 

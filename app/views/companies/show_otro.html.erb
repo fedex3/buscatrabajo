@@ -1,0 +1,26 @@
+<input type="hidden" id="hdn_company_id" name="hdn_company_id" value="<%=@company.id%>">
+
+<div class="container-fluid">
+	<%= render partial: 'information' %>
+
+	<% if @multioffice %>
+	  <%= render partial: 'multioffice' %>
+	<% elsif @company.office.present?  %>
+    <%= render partial: 'office_detail', locals: { office: @company.office, office_id: 0 } %>
+  <% end %>
+</div>
+
+<div class="container-fluid">
+  <div id="company-jobs" class="anchor"></div>
+	<%= render :partial => 'other_jobs' %>
+</div>
+
+<div class = "container-fluid">
+  <% unless @recommended_advices.blank?%>
+    <%= render :partial => 'advice_list' %>
+  <% end %>
+</div>
+
+<%if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true') %>
+	 
+<%end%>

@@ -1,32 +1,4 @@
-<% if @company_special_event.present? && @company_special_event.code == "PortalEmpleoFinteChile" %>
-  <% content_for :title, t('job.index.header.title_fintechile') %>
-<% else %>
-  <% content_for :title, t('job.index.header.title') %>
-<% end %>
-
-<% content_for :metadescription, t('job.index.header.description') %>
-<% content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
-<%= render :partial => 'layouts/structured_data' %>
-
-<% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
-
-<%
-opengraph = ""
-opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
-opengraph += '<meta property="og:title" content="' + t('job.index.header.title') + '" />'
-opengraph += '<meta property="og:description" content="' + t('job.index.header.description') + '" />'
-opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
-opengraph += '<meta property="og:image" content="https://s3.amazonaws.com/mibucle/images/jobs.jpg" />'
-opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
-opengraph += '<meta property="og:type" content="' + "website" + '" />'
-%>
-<% content_for :opengraph, opengraph.html_safe %>
-
-<% if Setting.show_subheader_jobs? %>
-  <% unless @company_special_event.present? && ["udesa", "PortalEmpleoFinteChile"].include?(@company_special_event.code) %>
-    <%= render :partial => 'layouts/subheader_jobs' %>
-  <% end %>
-<% end %>
+<% content_for :title, t('job.index.header.title') %>
 
 <%# if @company_special_event.present? && @company_special_event.home_banner_active? && !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true')%>
     <%# render :partial => 'home/special_event_live_banner' %>
@@ -73,9 +45,6 @@ opengraph += '<meta property="og:type" content="' + "website" + '" />'
                 <div class="form-row col-md-12">
                   <div class="col-md-4">
                     <%= select_tag :country, options_for_select(@countries.collect {|c| [ c['name'], c['alpha2'] ] }, params[:country]), include_blank: "País", class: "form-control margin-bottom-sm" %>
-                  </div>
-                  <div class="col-md-4">
-                    <%= select_tag :state, options_for_select(@states, params[:state]), include_blank: "Provincia", class: "form-control margin-bottom-sm" %>
                   </div>
                   <div class="col-md-4">
                     <%= select_tag :industry, options_from_collection_for_select(@industries, :id, :name, params[:industry]), include_blank: "Industria", class: "form-control margin-bottom-sm" %>
@@ -133,9 +102,6 @@ opengraph += '<meta property="og:type" content="' + "website" + '" />'
                     <%= select_tag :country, options_for_select(@countries.collect {|c| [ c['name'], c['alpha2'] ] }, params[:country]), include_blank: "País", class: "form-control margin-bottom-sm" %>
                   </div>
                   <div class="col-md-4">
-                    <%= select_tag :state, options_for_select(@states, params[:state]), include_blank: "Provincia", class: "form-control margin-bottom-sm" %>
-                  </div>
-                  <div class="col-md-4">
                     <%= select_tag :industry, options_from_collection_for_select(@industries, :id, :name, params[:industry]), include_blank: "Industria", class: "form-control margin-bottom-sm" %>
                   </div>
                 </div>
@@ -145,9 +111,9 @@ opengraph += '<meta property="og:type" content="' + "website" + '" />'
                   </div>
                 </div>
                 <div class="form-row col-md-12">
-                  <div class="col-md-4">
-                    <%= select_tag :level, options_from_collection_for_select(@levels, :id, :name, params[:level]), include_blank: "Nivel", class: "form-control margin-bottom-sm" %>
-                  </div>
+                  <!--<div class="col-md-4">
+                    <%# select_tag :level, options_from_collection_for_select(@levels, :id, :name, params[:level]), include_blank: "Nivel", class: "form-control margin-bottom-sm" %>
+                  </div>-->
                   <div class="col-md-3">
                     <div class="checkbox" style="padding:0 3px;">
                     <label style="padding-left:0;">
@@ -180,7 +146,7 @@ opengraph += '<meta property="og:type" content="' + "website" + '" />'
 	<%= render :partial => 'jobs_list_default' %>
 </div>
 
-<%= render :partial => 'layouts/askmail' %>
+ 
 
 <% if params[:special_event] == "fintechweek"%>
   <section id="sticky-footer-container">

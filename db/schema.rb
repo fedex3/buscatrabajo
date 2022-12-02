@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20221117210147) do
     t.string "detail", limit: 20000
     t.integer "views", default: 0
     t.boolean "active", default: false
-    t.datetime "from_date", default: "2022-11-17 00:00:00"
+    t.datetime "from_date", default: "2022-12-01 00:00:00"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20221117210147) do
     t.string "city", limit: 100
     t.integer "views", default: 0
     t.boolean "active", default: false
-    t.datetime "from_date", default: "2022-11-17 00:00:00"
-    t.datetime "end_date", default: "2022-11-17 00:00:00"
+    t.datetime "from_date", default: "2022-12-01 00:00:00"
+    t.datetime "end_date", default: "2022-12-01 00:00:00"
     t.bigint "company_id"
     t.integer "application_counter", default: 0
     t.string "country"

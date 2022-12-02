@@ -3,7 +3,6 @@
   office_photos_small = office.photos.small.order('"order" asc')
   office_videos_big = office.media_objects.has_big_video.order('company_videos.order asc')
   office_videos_small = office.videos.small.order('"order" asc')
-  office_stories = office.stories.order('"order" asc')
   office_speeches = office.speeches.order('"order" asc')
   office_secondary_photo = nil
 
@@ -162,7 +161,7 @@
                       <%if company_job.remote%>
                         <p class="list-group-item-text"><i class='fa fa-map-marker' aria-hidden='true'></i> Remoto</p>
                       <%else%>
-                        <p class="list-group-item-text"><i class='fa fa-map-marker' aria-hidden='true'></i> <%= company_job.state %></p>
+                        <p class="list-group-item-text"><i class='fa fa-map-marker' aria-hidden='true'></i> <%= company_job.city %></p>
                       <%end%>
                     </a>
                   <% end %>
@@ -299,7 +298,6 @@
                       end
 
                     when 'story'
-                      company_story = office_stories[company_container.value]
                       %>
                         <div class="company-story">
                           <h3>
@@ -314,7 +312,6 @@
                         </div>
                       <%
                       company_container.value = company_container.value + 1
-                      if company_container.value < office_stories.length
                         pq.push(company_container)
                       end
 

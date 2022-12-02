@@ -30,7 +30,7 @@ class JobsController < ApplicationController
 		# Traigo todos los paises desde la gema
 		all_countries = ISO3166::Country.all.map{ |x| {"name" => x.translation('es'), "alpha2" => x.alpha2} }.sort_by!{ |x| x["name"] }
 		# Y traigo todos los paises que tengan Jobs activos
-		listable_countries = JobCountry.where(:job_id => Job.listable.map{|a| a.id}).map{|a| a.country_alpha2}
+		listable_countries = Job.listable.distinct.pluck(:country)
 		# Luego borro del array de todos los paises los que NO estan en el segundo array
 		@countries = all_countries.keep_if{ |country| country["alpha2"].in? listable_countries }
 
@@ -38,7 +38,6 @@ class JobsController < ApplicationController
 
     # variables for select_tags input
 		@industries = Industry.all
-		@states = JobState.where(:job_id => Job.listable.map{|a| a.id}).map{|a| a.state_full_name}.uniq
 
     @job_search_type = nil
     @job_search_value = nil
@@ -92,14 +91,14 @@ class JobsController < ApplicationController
 
     begin
       if @company_special_event.present?
-        @jobs = Job.company_listable.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.remote") 
+        @jobs = Job.company_listable.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote") 
         @jobs = @jobs.where("company_id in (select company_id from companies_company_special_events where company_special_event_id = " + @company_special_event.id.to_s + ") ")
       else
-        @jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.remote")
+        @jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
       end
       
       if company.present?
-        @jobs = Job.company_listable.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.remote")
+        @jobs = Job.company_listable.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
         @jobs = @jobs.by_company(company)
       elsif !@company_special_event.present?
         @jobs = @jobs.where("companies.active = true")
@@ -112,12 +111,7 @@ class JobsController < ApplicationController
       unless level.nil?
         @jobs = @jobs.by_level(level)
       end
-  
-      unless params[:estado].blank?
-        param_state = params[:estado]
-        canonical_params = canonical_params + (!canonical_params.blank? ? '&' : '') + 'state=' + param_state
-        @jobs = @jobs.by_state(param_state.gsub('-',' '))
-      end
+
   
       unless params[:part_time].blank?
         param_part_time = params[:part_time].downcase
@@ -144,10 +138,6 @@ class JobsController < ApplicationController
         @jobs = @jobs.order_by_date
       else
         @jobs = @jobs.order_by_default
-      end
-  
-      unless params[:state].blank?
-        @jobs = @jobs.by_state(params[:state])
       end
         
       if params[:country].blank?
@@ -193,7 +183,7 @@ class JobsController < ApplicationController
     param_company_name_id = params[:company_name_id].downcase
 
     @job = Job.includes(:company, :level, :industry).find_by("companies.name_id": param_company_name_id, name_id: param_name_id) or not_found
-    #@recommended_jobs = @job.recommended_jobs.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.active")
+    #@recommended_jobs = @job.recommended_jobs.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.active")
     if @job.nil?
       redirect_to home_path and return
     end

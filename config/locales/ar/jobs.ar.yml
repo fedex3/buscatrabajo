@@ -46,7 +46,7 @@ ar:
    logged_test_message: "Al aplicar te será enviado un mail con una invitación a realizar un test que aumentará tus chances de conseguir tu nuevo empleo."
    unlogged_test_message: "Al iniciar sesión y aplicar te será enviado un mail con una invitación a realizar un test que aumentará tus chances de conseguir tu nuevo empleo."
    header:
-    description: "Mira la descripción de la búsqueda de trabajo de %{name} en %{company}, ubicada en {city} {state}, {country}."
+    description: "Mira la descripción de la búsqueda de trabajo de %{name} en %{company}, ubicada en {city}, {country}."
     title: "%{name} - %{company} - Mibucle.com"
     title_fintechile: "%{name} - %{company} - FinteChile | Mibucle"
    location: "Ubicación"

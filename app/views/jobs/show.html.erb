@@ -1,47 +1,4 @@
-<% if @company_special_event.present? && @company_special_event.code == "PortalEmpleoFinteChile" %>
-  <% content_for :title, (t('job.show.header.title_fintechile', :name => @job.name, :company => @job.company.name)) %>
-<% else %>
-  <% content_for :title, (t('job.show.header.title', :name => @job.name, :company => @job.company.name)) %>
-<% end %>
-
-<%share_text = @job.company.name + t('job.share.look') + @job.name %>
-
-<% content_for :analytics_page_name, ("ga('set', 'page', '" + @page_name + "')").html_safe %>
-<%# content_for :script, ('<link rel="canonical" href="' + @canonical_url + '" />').html_safe %>
-
-<%unless @job.active%>
-  <% content_for :script, '<meta name="robots" content="noindex" />'.html_safe %>
-<%end%>
-<%= render :partial => 'layouts/structured_data' %>
-
-
-<%
-opengraph = ""
-opengraph += '<meta property="og:url" content="' + request.original_url + '" />'
-opengraph += '<meta property="og:title" content="' + @job.name + '" />'
-opengraph += '<meta property="og:description" content="' + share_text + '" />'
-opengraph += '<meta property="og:site_name" content="' + ENV['SITE_NAME'] + '" />'
-opengraph += '<meta property="og:image" content="' + @job.photo.url + '" />'
-opengraph += '<meta property="og:image:width" content="1600" />'
-opengraph += '<meta property="og:image:height" content="1064" />'
-opengraph += '<meta property="og:type" content="' + "article" + '" />'
-opengraph += '<meta property="fb:app_id" content="' + ENV['FB_APP_ID'] + '" />'
-opengraph += '<meta name="twitter:card" content="summary_large_image">'
-opengraph += '<meta name="twitter:site" content="@mibuclecom">'
-opengraph += '<meta name="twitter:title" content="' + share_text + '">'
-opengraph += '<meta name="twitter:description" content="' + strip_tags(@job.detail)[0..250] + '">'
-opengraph += '<meta name="twitter:image" content="' + @job.photo.url + '">'
-opengraph += '<meta name="twitter:domain" content="mibucle.com">'
-opengraph += '<meta name="twitter:url" content="' + request.original_url + '">'
-
-%>
-<% content_for :opengraph, opengraph.html_safe %>
-
-<% if Setting.show_subheader_company_job? %>
-  <% unless @company_special_event.present? && ["udesa", "PortalEmpleoFinteChile"].include?(@company_special_event.code) %>
-    <%= render :partial => 'layouts/subheader_jobs' %>
-  <% end %>
-<% end %>
+<% content_for :title, (t('job.show.header.title', :name => @job.name, :company => @job.company.name)) %>
 
 <% country_name = ISO3166::Country.find_country_by_alpha2(Job.first_country(@job)).translation("es").to_s %>
 <input type="hidden" id="hdn_company_id" name="hdn_company_id" value="<%=@job.company_id%>">
@@ -307,7 +264,7 @@ opengraph += '<meta name="twitter:url" content="' + request.original_url + '">'
   <%= render :partial => 'other_jobs' %>
 </div>
 
-<%= render :partial => 'layouts/askmail' %>
+ 
 
 <%if @job.active%>
   <%= render :partial => 'job_applications/new_soft' %>

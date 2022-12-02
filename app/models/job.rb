@@ -4,8 +4,6 @@ class Job < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :level, optional: true
   belongs_to :industry, optional: true
-  has_many :job_countries
-  has_many :job_states
 
   has_many :job_applications
 
@@ -52,7 +50,7 @@ class Job < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :listable, -> { active.from_date.end_date}
   scope :company_listable, -> {  joins(:company).where("companies.active = true and date_trunc('day', companies.from_date) <= ?", Date.today) }
-  scope :company_listable_not_only_special_events, -> {  joins(:company).where("companies.active = true and companies.show_only_in_special_events = false and date_trunc('day',companies.from_date) <= ?", Date.today) }
+  scope :company_listable_not_only_special_events, -> {  joins(:company).where("companies.active = true and date_trunc('day',companies.from_date) <= ?", Date.today) }
   scope :not_proactive_interview, -> { where.not(name: "Entrevistas proactivas" ) }
   scope :by_company_in_special_event, -> (special_event_code) { joins(:company).where("companies.id IN (?)", Company.joins(:company_special_events).where(company_special_events: { code: special_event_code }).ids) }
   scope :by_year, lambda { |year| where('extract(year from created_at) = ?', year) }
@@ -61,12 +59,11 @@ class Job < ApplicationRecord
   scope :by_industry, -> (industry) { where industry_id: industry }
   scope :by_level, -> (level) { where level_id: level }
   scope :by_part_time, -> (part_time) { where part_time: part_time }
-  scope :by_state, -> (state) { joins(:job_states).where('job_states.state_full_name = ?', state) }
   scope :by_country, -> (country) { joins(:job_countries).where('job_countries.country_alpha2 = ?', country) }
   scope :by_not_this_country, -> (country) { joins(:job_countries).where.not('job_countries.country_alpha2 = ?', country) }
   scope :by_remote, -> (remote) { where remote: remote }
 
-  scope :by_q, -> (q) { joins(:industry, :company).where("lower(jobs.name) LIKE ? OR lower(jobs.detail) LIKE ? OR lower(jobs.state) LIKE ? OR lower(companies.name) LIKE ? OR lower(industries.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%")}
+  scope :by_q, -> (q) { joins(:industry, :company).where("lower(jobs.name) LIKE ? OR lower(jobs.detail) LIKE ? OR  lower(companies.name) LIKE ? OR lower(industries.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%")}
 
   scope :default_order, -> { order(name: :asc) }
   scope :order_by_date, -> { order(created_at: :desc) }
@@ -194,7 +191,7 @@ class Job < ApplicationRecord
   end
 
   def self.recommended_jobs(locale)
-    jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country, jobs.remote")
+    jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
     jobs = jobs.with_photo.by_country(locale).last(6)
   end
 

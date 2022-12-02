@@ -1,11 +1,7 @@
 class Admin::JobPolicy < Admin::ApplicationPolicy
 	class Scope < Scope
     def resolve
-      if user.company_role?
-        scope.where("jobs.company_id = ?", user.company_id)
-      else
-        scope
-      end
+      scope
     end
   end
 

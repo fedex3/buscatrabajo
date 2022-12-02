@@ -10,15 +10,13 @@ class CompaniesController < ApplicationController
     	@order = params[:order]
     end
 
-    @companies = Company.includes(:industries).listable.not_show_only_in_special_events
-    @recommended_companies = Company.order('RANDOM()').not_show_only_in_special_events.listable.limit(4)
-
-    @states = CompanyState.where(:company_id => Company.listable.map{|a| a.id}).map{|a| a.state_full_name}.uniq
+    @companies = Company.includes(:industries).listable
+    @recommended_companies = Company.order('RANDOM()').listable.limit(4)
     
     # Traigo todos los paises desde la gema
 		all_countries = ISO3166::Country.all.map{ |x| {"name" => x.translation('es'), "alpha2" => x.alpha2} }.sort_by!{ |x| x["name"] }
 		# Y traigo todos los paises que tengan Jobs activos
-		listable_countries = CompanyCountry.where(:company_id => Company.listable.map{|a| a.id}).map{|a| a.country_alpha2}
+		listable_countries = Company.listable.distinct.pluck(:country)
 		# Luego borro del array de todos los paises los que NO estan en el segundo array
 		@countries = all_countries.keep_if{ |country| country["alpha2"].in? listable_countries }
 
@@ -27,10 +25,6 @@ class CompaniesController < ApplicationController
 
     unless params[:country].blank?
       @companies = @companies.by_country(params[:country])
-    end
-
-    unless params[:state].blank?
-      @companies = @companies.by_state(params[:state])
     end
     
     unless params[:q].blank?
@@ -41,7 +35,6 @@ class CompaniesController < ApplicationController
 
 		country_from_locale = [:ar, :cl, :co, :es, :mx].include?(I18n.locale) ? I18n.locale.upcase.to_s : 'AR'  
 
-    @companies = @companies.order_by_country_photo_and_manual(country_from_locale, @order).uniq
     @companies = Kaminari.paginate_array(@companies)
     @companies = @companies.page(params[:page]).per(10)
 
@@ -66,8 +59,8 @@ class CompaniesController < ApplicationController
 
     @company = Company.preload(:industries).find_by(name_id: @param_name_id) or not_found
 
-    @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.state, companies.active, companies.country")
-    @recommended_jobs = @company.jobs.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country").limit(4)
+    @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.active, companies.country")
+    @recommended_jobs = @company.jobs.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
     @recommended_advices = @company.advices.listable.limit(2)
 
     @multioffice = false
@@ -98,8 +91,8 @@ class CompaniesController < ApplicationController
       @multioffice = @company.offices.count > 1
       load_company_data_for_preview
 
-      @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.state, companies.active, companies.country")
-      @recommended_jobs = @company.jobs.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.state, jobs.country").limit(4)
+      @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.active, companies.country")
+      @recommended_jobs = @company.jobs.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
     else
       not_found
     end
@@ -136,7 +129,6 @@ class CompaniesController < ApplicationController
       @selected_office_id = @selected_office.id
     else
       @office          = @company.office
-      @company_stories = @company.stories
     end
     @company_jobs     = @company.jobs.listable.order_by_date
 
@@ -157,7 +149,6 @@ class CompaniesController < ApplicationController
       @selected_office_id = @selected_office.id
     else
       @office          = @company.offices.first
-      @company_stories = @company.stories
     end
     @company_jobs     = @company.jobs.active.order_by_date
   end

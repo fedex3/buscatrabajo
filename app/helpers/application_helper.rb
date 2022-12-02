@@ -24,4 +24,9 @@ module ApplicationHelper
     end
     return countries
   end
+
+  def selected_country(resource, params = nil)
+    country = 'AR'
+    return country
+  end
 end

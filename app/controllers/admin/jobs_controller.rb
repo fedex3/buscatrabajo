@@ -53,30 +53,6 @@ module Admin
           end
         end
 
-        unless params[:job_states].blank?
-          params[:job_states].each do |state|
-            if job.job_states.blank?
-              JobState.new(job_id: @job.id, state_full_name: state).save
-            else
-              unless @job.job_states.map{|a| a.state_full_name}.include?(state)
-                JobState.new(job_id: @job.id, state_full_name: state).save
-              end
-            end
-          end
-        end
-        
-        unless @job.job_states.blank?
-          @job.job_states.each do |job_state|
-            if params[:job_states].blank?
-              job_state.destroy
-            else
-              unless params[:job_states].include?(job_state.state_full_name)
-                job_state.destroy
-              end
-            end
-          end
-        end
-
         redirect_to admin_jobs_path('grid[page]': params['previous_page'])
         
       else
@@ -107,7 +83,7 @@ module Admin
 
     private
       def job_params
-        params.require(:job).permit(:name, :email, :detail, :photo, :url, :city, :state, :country, :views, 
+        params.require(:job).permit(:name, :email, :detail, :photo, :url, :city, :country, :views, 
           :active, :from_date, :end_date, :company_id, :industry_id, :level_id, :part_time, :review_application, 
           :remote, :skill_list, :card_text)
       end

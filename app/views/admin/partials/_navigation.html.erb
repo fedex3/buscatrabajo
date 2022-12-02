@@ -1,4 +1,4 @@
-<div class=".admin">
+<div class=".admin" style="margin-top: 67px;">
 <nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
     <% if @media_objs_flag %>
@@ -27,6 +27,15 @@
           <% end %>
         </li>
         <li class="nav-item">
+          <%= link_to admin_companies_path, class:"nav-link" do %>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="feather bi bi-building" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+              <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+            </svg>
+            Empresas
+          <% end %>
+        </li>
+        <li class="nav-item">
           <%= link_to admin_jobs_path, class:"nav-link" do %>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
           Avisos
@@ -48,125 +57,14 @@
         <% end %>
         <hr>
 
-        <% if current_user&.company_role? && ENV['COMPANIES_AUTO_ADMIN'].split(',').map(&:to_i).include?(current_user.company_id) %>
-          <li class="nav-item">
-            <%= link_to admin_company_info_path, class:"nav-link" do %>
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="feather bi bi-card-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                <path fill-rule="evenodd" d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
-              </svg>
-              Información de empresa
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to admin_offices_path, class:"nav-link" do %>
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="feather bi bi-building" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-                <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-              </svg>
-              Oficinas
-            <% end %>
-          </li>
-        <% end %>
-
-        <% if !current_user&.company_role? %>
-          <% if !(current_user&.content_editor? || current_user&.content_editor_plus?) %>
-            <li class="nav-item">
-              <%= link_to admin_settings_path, class:"nav-link" do %>
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="feather bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
-                  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
-                </svg>
-                Ajustes
-              <% end %>
-            </li>
-          <% end %>
-          <li class="nav-item">
-            <%= link_to admin_companies_path, class:"nav-link" do %>
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="feather bi bi-building" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-                <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-              </svg>
-              Empresas
-            <% end %>
-          </li>
-
-          
+        <li class="nav-item list-inline-item"><%= link_to Industry.human_attribute_name("industry"), admin_industries_path, class:"nav-link" %></li>
 
 
-          <% if false#!(current_user&.content_editor? || current_user&.content_editor_plus?) %>
-            <li class="nav-item"><%= link_to UserCv.human_attribute_name("user_cv"), admin_user_cvs_path, class:"nav-link" %></li>
-            <li class="nav-item list-inline-item"><%= link_to Industry.human_attribute_name("industry"), admin_industries_path, class:"nav-link" %></li>
-            <li class="nav-item list-inline-item"><%= link_to Level.human_attribute_name("level"), admin_levels_path, class:"nav-link" %></li>
-            <li class="nav-item list-inline-item"><%= link_to MediaArticle.human_attribute_name("media_articles"), admin_media_articles_path, class:"nav-link" %></li>
-            <li class="nav-item list-inline-item"><%= link_to t("admin.about_us"), admin_people_path, class:"nav-link" %></li>
+        <li class="nav-item"><%= link_to User.human_attribute_name("user"), admin_users_path, class:"nav-link" %></li>
+        <ul>
+          <li class="nav-item list-inline-item"><%= link_to "Información Cv Usuario", admin_user_informations_path, class:"nav-link" %></li>
+        </ul>
 
-            <li class="nav-item"><%= link_to Coach.human_attribute_name("coach"), admin_coaches_path, class:"nav-link" %></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to CoachingPack.human_attribute_name("coaching_pack"), admin_coaching_packs_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to CoachingPackTag.human_attribute_name("coaching_pack_tag"), admin_coaching_pack_tags_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to CoachingBooking.human_attribute_name("coaching_booking"), admin_coaching_bookings_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to Coupon.human_attribute_name("coupon"), admin_coupons_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><%= link_to User.human_attribute_name("user"), admin_users_path, class:"nav-link" %></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to "Información Cv Usuario", admin_user_informations_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to Contact.human_attribute_name("contact"), admin_contacts_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to Newsletter.human_attribute_name("newsletter"), admin_newsletters_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to JobArea.human_attribute_name("job_area"), admin_job_areas_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to StudyLevel.human_attribute_name("study_level"), admin_study_levels_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><%= link_to Collection.human_attribute_name("collection"), admin_collections_path, class:"nav-link" %></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to CurrencyExchange.human_attribute_name("currency_exchange"), admin_currency_exchanges_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to BankTransferCollection.human_attribute_name("bank_transfer_collection"), admin_bank_transfer_collections_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to CreditCardCollection.human_attribute_name("credit_card_collection") + ' Otros Países', admin_credit_card_collections_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to MercadoPagoCollection.human_attribute_name("mercado_pago_collection") + ' Argentina', admin_mercado_pago_collections_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to MercadoPagoAttempt.human_attribute_name("mercado_pago_attempt") + ' Argentina Attempt', admin_mercado_pago_attempts_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to PaypalCollection.human_attribute_name("paypal_collection") + 'Paypal', admin_paypal_collections_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to PaypalAttempt.human_attribute_name("paypal_attempt") + 'Paypal Attempt', admin_paypal_attempts_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to PaypalAttemptResult.human_attribute_name("paypal_attempt_result"), admin_paypal_attempt_results_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><span class="nav-link">Vistas</span></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to CompanyView.human_attribute_name("company_view"), admin_company_views_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to JobView.human_attribute_name("job_view"), admin_job_views_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to AdviceView.human_attribute_name("advice_view"), admin_advice_views_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to AuthorView.human_attribute_name("author_view"), admin_author_views_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to CategoryView.human_attribute_name("category_view"), admin_category_views_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><span class="nav-link">Favoritos</span></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to CompanyFavorite.human_attribute_name("company_favorite"), admin_company_favorites_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to AdviceFavorite.human_attribute_name("advice_favorite"), admin_advice_favorites_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to JobFavorite.human_attribute_name("job_favorite"), admin_job_favorites_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><%= link_to Webinar.human_attribute_name("webinar"), admin_webinars_path, class:"nav-link" %></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to WebinarToken.human_attribute_name("webinar_token"), admin_webinar_tokens_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to WebinarUser.human_attribute_name("webinar_user"), admin_webinar_users_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><%= link_to Ebook.human_attribute_name("ebook"), admin_ebooks_path, class:"nav-link" %></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to EbookUser.human_attribute_name("ebook_user"), admin_ebook_users_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><%= link_to Question.human_attribute_name("question"), admin_questions_path, class:"nav-link" %></li>
-            <ul>
-              <li class="nav-item list-inline-item"><%= link_to QuestionOption.human_attribute_name("question_option"), admin_question_options_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to Answer.human_attribute_name("answer"), admin_answers_path, class:"nav-link" %></li>
-              <li class="nav-item list-inline-item"><%= link_to AnswerQuestion.human_attribute_name("answer_question"), admin_answer_questions_path, class:"nav-link" %></li>
-            </ul>
-
-            <li class="nav-item"><%= link_to "Otras estadisticas", admin_stats_path, class:"nav-link" %></li>
-          <% end %>
-        <% end %>
       </ul>
     <% end %>
   </div>

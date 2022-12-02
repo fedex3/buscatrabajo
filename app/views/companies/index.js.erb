@@ -9,7 +9,3 @@ $("<%=j render(:partial => 'companies/companies_list', :object => @companies) %>
   $('.pagination')
     .html("<%=j link_to_next_page(@companies, '...', :remote => true, params: request.query_parameters.except('page')) %>");
 <% end %>
-
-<% if Rails.env.production? %>
-	ga('send', 'event', 'Companies', 'Scroll', 'Page_ + <%= @companies.current_page.to_s %>');
-<% end %>
