@@ -1,13 +1,7 @@
 class Admin::JobApplicationPolicy < Admin::ApplicationPolicy
 	class Scope < Scope
     def resolve
-      if user&.recruiter?
-        scope.joins(:job).where("jobs.email = ?", user.email)
-      elsif user&.company_role?
-        scope.joins(:job).where("jobs.company_id = ?", user.company_id)
-      else
-        scope
-      end
+      scope
     end
   end
 

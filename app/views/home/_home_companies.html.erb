@@ -4,47 +4,16 @@
   </h2>
   <hr>
   <div id="home-companies-container">
+  <% Company.last(4).each do |company|%>
     <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-        Nombre_empresa
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
+      <a href="<%=company_path(company.name_id)%>">
+        <%= image_tag company.cover_photo , :id => "home-company-photo"%>
+        <h4 style="background: rgba(0,0,0,0.5); color: white;">
+          <%=company.name%>
+        </h4>
+        <%= image_tag company.logo(:thumbnail) , :id => "home-company-logo", :width => "70", :height => "auto"%>
+      </a>
     </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre_empresa
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre_empresa
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre_empresa
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre_empresa
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre_empresa
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
+  <%end%>
   </div>
 </section>

@@ -4,47 +4,16 @@
   </h2>
   <hr>
   <div id="home-companies-container">
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-        Nombre trabajo
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre trabajo
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre trabajo
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre trabajo
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre trabajo
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
-    <div id="home-companies-card">
-      <%= image_tag 'placeholder-image' , :id => "home-company-photo"%>
-      <h4>
-          Nombre trabajo
-      </h4>
-      <%= image_tag 'logo-placeholder-image' , :id => "home-company-logo", :width => "70", :height => "auto"%>
-    </div>
+    <% Job.last(4).each do |job|%>
+      <a href="<%=company_job_path(:name_id => job.name_id, :company_name_id => job.company.name_id)%>" class="home_job_card">
+        <div id="home-companies-card">
+          <%= image_tag job.photo , :id => "home-company-photo"%>
+          <h4 style="background: rgba(0,0,0,0.5); color: white;">
+            <%=job.name%>
+          </h4>
+          <%= image_tag job.company.logo , :id => "home-company-logo", :width => "70", :height => "auto"%>
+        </div>
+      </a>
+    <%end%>
   </div>
 </section>

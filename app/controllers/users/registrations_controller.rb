@@ -77,17 +77,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    if current_user.from_event.present? || session[:from_event].present?
-      flash[:notice] = "¡Gracias por registrarte al evento!"
-      if session[:from_event].present?
-        company_special_event_path(session[:from_event], token: session[:token], :just_created => "true")
-      else
-        company_special_event_path(current_user.from_event, token: session[:token], :just_created => "true")
-      end
-    else
-      registration_thank_you_path
+      home_path
       #super(resource)
-    end
   end
 
   # The path used after sign up for inactive accounts.

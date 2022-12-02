@@ -21,6 +21,13 @@ Rails.application.routes.draw do
     #post 'statistics', to: 'companies#statistics'
   end
 
+  resources :companies, only: [] do
+    resources :company_favorites, only: [:create]
+    resources :jobs, only: [] do
+      resources :job_favorites, only: [:create]
+      resources :job_applications, only: [:create, :new]
+    end
+  end
 
   #get '/companies', to: redirect {|params,request| "/empresas?#{request.params.to_query}" } , as: :companies_old
   #match 'companies/:name_id' => redirect {|params,request| "/empresas/#{params[:name_id]}?#{(request.params.except :name_id).to_query}" }, :via => [:get]

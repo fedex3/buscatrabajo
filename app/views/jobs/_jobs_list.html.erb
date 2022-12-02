@@ -8,11 +8,11 @@
 					</a>
 				</div>
 		<% else %>
-			<% if job.company.offices.listable.first.photos.show_jobs.present? %>
+			<% if job.photo.present? %>
 				<div class="job-summary">
 					<div class="job-summary-image">
 						<a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" target="<%= a_target_for_iframe %>">
-							<img src="<%= job.company.offices.listable.first.photos.show_jobs.sample.photo(:small_for_job)%>" alt="<%=job.name + ' - ' +job.company.name%>" class="img-responsive" loading="lazy">
+							<img src="<%= job.photo(:small_for_job)%>" alt="<%=job.name + ' - ' +job.company.name%>" class="img-responsive" loading="lazy">
 						</a>
 					</div>
 			<% else %>
@@ -29,17 +29,12 @@
 				</h3>
 				<div class="job-summary-bottom">
 					<div class="job-summary-bottom-logo">
-						<a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><img loading="lazy" src="<%=job.company.icon%>" alt="<%=job.name%>" class="img-responsive"></a>
+						<a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><img loading="lazy" src="<%=job.company.logo%>" alt="<%=job.name%>" class="img-responsive"></a>
 					</div>
 					<div class="job-summary-bottom-text">
 						<h4><a href="<%= company_job_path(name_id: job.name_id, company_name_id: job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%= job.company.name%></a></h4>
-						<%if job.level.present?%>
-							<%=job.level.name + ' | '%>
-						<%end%>
-						<%=job.industry.name %>
-						<%if job.part_time%>
-							<%=' | ' + Job.human_attribute_name("part_time")%>
-						<%end%>
+						<%#job.company.industry.name %>
+
 						<br>
 						<% if job.remote? %>
 							<%= '100% Remoto' %>

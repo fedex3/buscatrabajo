@@ -67,7 +67,6 @@ module Admin
 
     def block
       job.active ^= true
-      job = true if job.active
       job.save
       redirect_to admin_jobs_path('grid[page]': params['page'])
     end
@@ -83,7 +82,7 @@ module Admin
     private
       def job_params
         params.require(:job).permit(:name, :email, :detail, :photo, :url, :city, :country, :views, 
-          :active, :from_date, :end_date, :company_id, :industry_id, :level_id, :part_time, :review_application, 
+          :active, :from_date, :end_date, :company_id, :industry_id, :part_time, :review_application, 
           :remote, :skill_list, :card_text)
       end
 

@@ -9,7 +9,7 @@ class JobApplicationsController < ApplicationController
     end
     current_user or not_found
 
-    @jobs = current_user.apply_job.preload(:company, :level, :industry).select("jobs.level_id, jobs.updated_at, jobs.part_time, jobs.industry_id, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote").where(:job_applications => {:full => true}).includes(:company)
+    @jobs = current_user.apply_job.preload(:company, :industry).select("jobs.updated_at, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote").includes(:company)
 
     case @order
       when 'relevance'    #compare to 1
@@ -84,22 +84,15 @@ class JobApplicationsController < ApplicationController
             @job_application = JobApplication.new(job_application_params)
             @job_application.user_id = @user.id
             @job_application.job_id = @job.id
-            @job_application.email = @user.email
-            @job_application.full = true
-            unless @user.user_cvs.active.take().nil?
-              @job_application.user_cv_id = @user.user_cvs.active.take().id
-            end
+
             #Falta ponerle el CV
             if @job_application.save
               company = Company.find_by(id: Job.find_by(id: @job_application.job_id).company_id)
-              if ENV['TESTS_ENABLED'].to_boolean && company.enable_tests && !current_user.user_tests.present?
-                create_test_for_job_applications
-              end
               cid = nil
               unless params[:cid].blank?
                 cid = params[:cid]
               end
-              
+
               respond_to do |format|
                 format.html { }
                 format.js   { }
@@ -198,7 +191,6 @@ class JobApplicationsController < ApplicationController
               render :json => {:errors => errors}, :status => 422 and return
             end
           end
-          @job_application.full = false
           @job_application.save
           company = Company.find_by(id: Job.find_by(id: @job_application.job_id).company_id)
           if ENV['TESTS_ENABLED'].to_boolean &&  company.enable_tests && !current_user.user_tests.present?
@@ -271,6 +263,6 @@ class JobApplicationsController < ApplicationController
 
   private
     def job_application_params
-      params.require(:job_application).permit(:cv, :comment, :full)
+      params.require(:job_application).permit(:cv, :comment)
     end
 end

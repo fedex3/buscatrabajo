@@ -12,7 +12,6 @@
         <input type="hidden" id="txt_job_application_source" value="<%=session[:source].nil? ? "" : session[:source]%>">
         <input type="hidden" id="txt_job_application_medium" value="<%=session[:medium].nil? ? "" : session[:medium]%>">
         <input type="hidden" id="txt_job_application_campaign" value="<%=session[:campaign].nil? ? "" : session[:campaign]%>">
-        <input type="hidden" id="txt_job_application_term" value="<%=session[:term].nil? ? "" : session[:term]%>">
         <h2><%=t :'job_application.soft_application.title' %></h2>
         <div id="job-application-soft-alert" class="alert alert-danger" role="alert" style="display:none;">
           <label for="job-application-soft-error"></label>
@@ -32,10 +31,7 @@
         <div class="form-group input-group-lg">
           <label class="form-label"><%=User.human_attribute_name("country")%></label>
           <%= select_tag :select_user_country, options_for_select(reduced_countries_list), class: "form-control margin-bottom-sm" %>
-        </div>
-        <p>
-          <%=t('job_application.accept')%> <%= link_to t('job_application.terms'), terms_path, target: "_blank", :class => "link-soft" %>
-        </p>  
+        </div> 
         <div class="form-group">
           <input type="button" data-disable-with="<%=t('messages.sending')%>" class="btn btn-lg btn-primary btn-block" value="<%=t :'job_application.soft_application.submit' %>" id="btn_job_application_soft_submit">
         </div>

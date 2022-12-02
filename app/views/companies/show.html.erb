@@ -1,7 +1,7 @@
 <% content_for :title, (t('company.show.header.title', :name => @company.name)) %>
 
 <input type="hidden" id="hdn_company_id" name="hdn_company_id" value="<%=@company.id%>">
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 50px;">
 
 	<%= render partial: 'information' %>
 
@@ -42,9 +42,7 @@
 <div class="container-fluid">
   <div id="company-jobs" class="anchor"></div>
 	<%= render :partial => 'other_jobs' %>
-	<%#if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true') %>
 		<%#= render :partial => 'list_other_companies' %>
-	<%#end%>
 </div>
 
 <%if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true') %>

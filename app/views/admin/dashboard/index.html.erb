@@ -16,9 +16,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title h3">
-                <% if current_user.admin? || current_user.superadmin? || current_user.recruiter? %>
                   <%= @listable_jobs.count %>
-                <% end %>
                 </h5>
                 <h6 class="card-subtitle mb-2 text-muted">Avisos activos</h6>
               </div>
@@ -28,9 +26,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title h3">
-                  <% if current_user.admin? || current_user.superadmin? || current_user.recruiter? %>
-                    <%= @job_applications_of_listable_jobs.count %>
-                  <% end %>
+                  <%= @job_applications_of_listable_jobs.count %>
                 </h5>
                 <h6 class="card-subtitle mb-2 text-muted">Postulaciones (avisos activos)</h6>
               </div>
@@ -40,9 +36,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title h3">
-                  <% if !current_user.company_role? %>
-                    <%= @listable_jobs_views %>
-                  <% end %>
+                  <%= @listable_jobs_views %>
                 </h5>
                 <h6 class="card-subtitle mb-2 text-muted">Vistas de avisos activos</h6>
               </div>

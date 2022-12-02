@@ -14,7 +14,7 @@
     job_application.user.name if job_application.user.present?
   end
 
-  g.column name: JobApplication.human_attribute_name(:email), attribute: 'email', detach_with_id: :email_filter
+  g.column name: "email", assoc: [:user], attribute: 'email', detach_with_id: :email_filter
 
   g.column name: "País", assoc: [:user], attribute: 'country', custom_filter: countries_list, detach_with_id: :job_application_country_filter, allow_multiple_selection: false do |job_application|
     job_application.user.country if job_application.user.present?
@@ -24,54 +24,26 @@
     job_application.created_at.in_time_zone('Buenos Aires').strftime("%d/%m/%Y")
   end
 
-  g.column name: 'Test de competencias', assoc: [:user], attribute: 'id', filter: false do |job_application|
-    if job_application.full || job_application.user.present?
-      [download_company_report(job_application, job_application.user), {style: 'text-align: center; vertical-align: middle;'}]
-    end
-  end
-
-  g.column name: "", assoc: [:user], attribute: 'linkedin_url', filter: false do |job_application|
-    link_to('<span class="fa fa-linkedin"></span>'.html_safe, job_application.user.linkedin_url, class: "btn btn-primary btn-sm", target: '_blank') if job_application.user&.linkedin_url.present?
-  end
-
-  g.column name: JobApplication.human_attribute_name(:aasm_state), attribute: 'aasm_state', detach_with_id: :aasm_state_filter, filter: :string, custom_filter: { "Pendiente de revisión": :pending, "Aceptada": :accepted, "Rechazada": :rejected, "Rechazada positivamente": :positive_rejected, "En standby": :on_standby }, allow_multiple_selection: false, in_csv: false do |job_application|
-    iconize_aasm_state(job_application.aasm_state) if job_application.full
-  end
-
-  g.column name: JobApplication.human_attribute_name(:aasm_state), in_html: false do |job_application|
-    t(job_application.aasm_state) if job_application.full
-  end
 
   g.column in_csv: false, class: "actions_column" do |job_application|
     buffer = ""
     buffer += '<div class="btn-group btn-group-xs">'
-      if job_application.full
+
         buffer += "<span class='space_actions'></span>"
-        buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, job_application.user_cv.cv.url, class:'btn btn-light btn-xs', target: :_blank
+        #buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, job_application.user_cv.cv.url, class:'btn btn-light btn-xs', target: :_blank
         buffer += button_tag '<span class="sr-only">Más acciones</span>'.html_safe, type: 'button', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', class:'btn btn-xs btn-light dropdown-toggle dropdown-toggle-split'
         buffer += '<div class="dropdown-menu">'
           buffer += link_to '<span class="fa fa-tasks"></span> Procesar'.html_safe, edit_admin_user_information_path(job_application.user, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item'
           buffer += '<div class="dropdown-divider"></div>'
           buffer += '<h6 class="dropdown-header">Cambiar estado a:</h6>'
-          buffer += link_to '<span class="fa fa-circle text-light"></span> Pendiente de revisión'.html_safe, to_pending_admin_job_application_path(job_application, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item' if !job_application.pending?
-          buffer += link_to '<span class="fa fa-circle text-success"></span> Aceptada'.html_safe, accept_admin_job_application_path(job_application, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item' if !job_application.accepted?
-          buffer += link_to '<span class="fa fa-circle text-danger"></span> Rechazada'.html_safe, reject_admin_job_application_path(job_application, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item' if !job_application.rejected?
-          buffer += link_to '<span class="fa fa-plus-circle text-danger"></span> Rechazada positivamente'.html_safe, positive_reject_admin_job_application_path(job_application, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item' if !job_application.positive_rejected?
-          buffer += link_to '<span class="fa fa-circle text-warning"></span> En standby'.html_safe, put_on_standby_admin_job_application_path(job_application, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item' if !job_application.on_standby?
-     end
+          buffer += link_to '<span class="fa fa-circle text-light"></span> Pendiente de revisión'.html_safe, "/", class:'dropdown-item'
+          buffer += link_to '<span class="fa fa-circle text-success"></span> Aceptada'.html_safe, "/", class:'dropdown-item'
+          buffer += link_to '<span class="fa fa-circle text-danger"></span> Rechazada'.html_safe, "/", class:'dropdown-item'
+          buffer += link_to '<span class="fa fa-plus-circle text-danger"></span> Rechazada positivamente'.html_safe, "/", class:'dropdown-item'
+          buffer += link_to '<span class="fa fa-circle text-warning"></span> En standby'.html_safe, "/", class:'dropdown-item'
 
-      if !current_user.company_role?
-        if job_application.full && !job_application.email_sent && !job_application.rejected
-          buffer += '<div class="dropdown-divider"></div>'
-          buffer += link_to '<span class="fa fa-paper-plane"></span> Enviar CV'.html_safe, send_mail_admin_job_application_path(job_application), class:'dropdown-item'
-          buffer += link_to '<span class="fa fa-trash text-danger"></span> Eliminar'.html_safe, admin_job_application_path(job_application), method: :delete, data: { confirm: t('admin.confirm') }, class:'dropdown-item'
-        elsif job_application.full
-          buffer += '<div class="dropdown-divider"></div>'
-          buffer += link_to '<span class="fa fa-trash text-danger"></span> Eliminar'.html_safe, admin_job_application_path(job_application), method: :delete, data: { confirm: t('admin.confirm') }, class:'dropdown-item'
-        else
-          buffer += link_to '<span class="fa fa-trash text-danger"></span>'.html_safe, admin_job_application_path(job_application), method: :delete, data: { confirm: t('admin.confirm') }, class:'btn btn-light btn-xs'
-        end
-      end
+
+
       buffer += '</div>'
     buffer += '</div>'
     raw buffer

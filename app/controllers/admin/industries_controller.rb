@@ -1,6 +1,6 @@
 module Admin
   class Admin::IndustriesController < Admin::AdminController
-    before_action -> { authorize auth_resource }, only: %i[index new create]
+    #before_action -> { authorize auth_resource }, only: %i[index new create]
     before_action -> { authorize resource(industry) }, only: %i[show edit update destroy]
 
     def index

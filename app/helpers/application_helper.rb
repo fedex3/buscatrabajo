@@ -29,4 +29,10 @@ module ApplicationHelper
     country = 'AR'
     return country
   end
+
+  def a_target_for_iframe
+    if cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true'
+      return "_blank"
+    end
+  end
 end

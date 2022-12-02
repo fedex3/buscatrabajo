@@ -3,9 +3,6 @@ class Job < ApplicationRecord
   include FriendlyUrl
 
   belongs_to :company, optional: true
-  belongs_to :level, optional: true
-  belongs_to :industry, optional: true
-
   has_many :job_applications
 
   has_and_belongs_to_many(:recommended_jobs,
@@ -57,14 +54,12 @@ class Job < ApplicationRecord
   scope :by_year, lambda { |year| where('extract(year from created_at) = ?', year) }
 
   scope :by_company, -> (company) { where company_id: company }
-  scope :by_industry, -> (industry) { where industry_id: industry }
-  scope :by_level, -> (level) { where level_id: level }
   scope :by_part_time, -> (part_time) { where part_time: part_time }
   scope :by_country, -> (country) { joins(:job_countries).where('job_countries.country_alpha2 = ?', country) }
   scope :by_not_this_country, -> (country) { joins(:job_countries).where.not('job_countries.country_alpha2 = ?', country) }
   scope :by_remote, -> (remote) { where remote: remote }
 
-  scope :by_q, -> (q) { joins(:industry, :company).where("lower(jobs.name) LIKE ? OR lower(jobs.detail) LIKE ? OR  lower(companies.name) LIKE ? OR lower(industries.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%")}
+  scope :by_q, -> (q) { joins(:company).where("lower(jobs.name) LIKE ? OR lower(jobs.detail) LIKE ? OR  lower(companies.name) LIKE ?", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%")}
 
   scope :default_order, -> { order(name: :asc) }
   scope :order_by_date, -> { order(created_at: :desc) }
@@ -74,57 +69,6 @@ class Job < ApplicationRecord
 
   scope :with_photo, -> { where.not(photo_url: ["missing.webp", nil] ) }
   scope :without_photo, -> { where(photo_url: ["missing.webp", nil]) }
-  scope :get_and_order_by_ids, ->(ids) {
-    order = sanitize_sql_array(
-      ["position((',' || jobs.id::text || ',') in ?)", ids.join(',') + ',']
-    )
-    where(:id => ids).order(order)
-  }
-
-  class << self
-
-		def update_order
-			actual_order = 1
-
-
-			companies_order = {}
-			companies_queue = {}
-			Company.packs.each do |pack|
-				Job.joins(:company).listable.where("companies.pack = ?", pack.last).shuffle.each do |job|
-					companies_order[job.company_id] = 0 unless companies_order.include?(job.company_id)
-		      companies_order[job.company_id] += 1
-		      if companies_order[job.company_id] == 1
-						job.update(order: actual_order)
-						actual_order += 1
-					else
-						companies_queue[job.company_id] = [] unless companies_queue.include?(job.company_id)
-						companies_queue[job.company_id] << job.id
-					end
-				end
-			end
-
-			while companies_queue.keys.length > 0 do
-				companies_queue.keys.each do |company_id|
-					Job.find(companies_queue[company_id].shift).update(order: actual_order)
-					companies_queue.delete(company_id) if companies_queue[company_id].length == 0
-					actual_order += 1
-				end
-			end
-		end
-
-    def reorder_by_country_and_all_remotes(jobs:, locale: 'AR', order:)
-      return [] if jobs.empty?
-      jobs_ids = jobs.pluck(:id)
-      field_order = order == 'created_at' ? 'created_at' : 'order'
-      direct_order = order == 'created_at' ? 'desc' : 'asc'
-      by_country_not_remote = self.where(id: jobs_ids).by_country(locale).by_remote([false, nil]).order("jobs.#{field_order} #{direct_order}").pluck(:id)
-      by_country_remote = self.where(id: jobs_ids).by_country(locale).by_remote(true).order("jobs.#{field_order} #{direct_order}").pluck(:id)
-      by_not_country_remote = self.where(id: jobs_ids).by_not_this_country(locale).by_remote(true).order("jobs.#{field_order} #{direct_order}").pluck(:id)
-      by_not_country = self.where(id: jobs_ids).by_not_this_country(locale).by_remote([false, nil]).order("jobs.#{field_order} #{direct_order}").pluck(:id)
-      new_order_jobs_ids = by_country_not_remote + by_country_remote + by_not_country_remote + by_not_country
-      self.get_and_order_by_ids(new_order_jobs_ids)
-    end
-	end
 
 	def id_name
 		id.to_s + ' - ' + company.name + ' - ' + name
@@ -192,7 +136,7 @@ class Job < ApplicationRecord
   end
 
   def self.recommended_jobs(locale)
-    jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
+    jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company).select("jobs.active, jobs.updated_at, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
     jobs = jobs.with_photo.by_country(locale).last(6)
   end
 

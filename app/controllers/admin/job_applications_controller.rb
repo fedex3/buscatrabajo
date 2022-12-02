@@ -1,7 +1,7 @@
 module Admin
   class Admin::JobApplicationsController < Admin::AdminController
     before_action :authenticate_user!
-    before_action -> { authorize auth_resource }, only: %i[index]
+    #before_action -> { authorize auth_resource }, only: %i[index]
     before_action -> { authorize resource(job_application) }, only: %i[send_mail destroy accept reject positive_reject put_on_standby to_pending]
 
     def index

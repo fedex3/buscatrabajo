@@ -1,10 +1,10 @@
-<% content_for :title, (t('job.show.header.title', :name => @job.name, :company => @job.company.name)) %>
 
-<% country_name = ISO3166::Country.find_country_by_alpha2(Job.first_country(@job)).translation("es").to_s %>
+<%=puts @job.inspect%>
+<% country_name = ISO3166::Country.find_country_by_alpha2(@job.country).translation("es").to_s %>
 <input type="hidden" id="hdn_company_id" name="hdn_company_id" value="<%=@job.company_id%>">
 <input type="hidden" id="hdn_job_id" name="hdn_job_id" value="<%=@job.id%>">
 
-<div class="container-fluid" style="<%= 'margin-top: 45px;' if params[:special_event].present?%>">
+<div class="container-fluid" style="margin-top: 68px;">
 
   <%unless @job.active%>
     <div class="row no-gutter">
@@ -52,7 +52,7 @@
         	<% end %>
         </h2>
 
-        <div class="job-services-company-summary"><%=@job.company.long_summary %></div>
+        <div class="job-services-company-summary"><%=@job.company.detail.html_safe %></div>
 
         <% if @job.company.main_photo.present? %>
           <div class="job-services-company-photo">
@@ -76,16 +76,9 @@
           </a>
         </div>
 
-        <%if @job.level.present?%>
-          <%=@job.level.name + ' | '%>
-        <%end%>
-
-        <%=@job.industry.name %>
-        <%if @job.part_time%>
-          <%=' | ' + Job.human_attribute_name("part_time")%>
-        <%end%>
+        <%#@job.company.industry.name %>
         <br>
-        <%= show_job_countries(@job) %>
+        <%= @job.country.to_s %>
       </div>
     </div>
     <div class="col-md-6 col-sm-8 col-xs-12">
@@ -106,22 +99,15 @@
             <a href="<%=company_path(@job.company.name_id)%>"><%= @job.company.name%></a>
           <% end %>
         </h2>
+        <br>
+        <%#@job.company.industry.name %>
 
-          <br>
-        <%unless @job.level.blank?%>
-          <%=@job.level.name + ' | '%>
-        <%end%>
-
-        <%=@job.industry.name %>
-        <%if @job.part_time%>
-          <%=' | ' + Job.human_attribute_name("part_time")%>
-        <%end%>
         <br>
         <%unless @job.city.blank?%>
           <%=@job.city + ' | '%>
         <%end%>
 
-        <div class="job-services-company-summary"><%=@job.company.long_summary %></div>
+        <div class="job-services-company-summary"><%=@job.company.detail.html_safe %></div>
         <% if @job.company.main_photo.present? %>
           <div class="job-services-company-photo">
             <% if !@company_special_event.nil? && @company_special_event.code == "PortalEmpleoFinteChile" %>
@@ -138,17 +124,10 @@
       <%if !(cookies[:iframe_mode].present? && cookies[:iframe_mode] == 'true')%>
         <div class="job-links">
           <ul>
-            <li><a href="<%= jobs_path(special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_jobs')%></a></li>
-            <li><a href="<%= jobs_path(:empresa => @job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_company_jobs', :name => @job.company.name)%></a></li>
-            <li><a href="<%= jobs_path(:industria => @job.industry.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_industry_jobs', :name => @job.industry.name)%></a></li>
+            <li><a href="<%= jobs_path %>"><%=t('job.other.view_all')%><%=t('job.other.all_jobs')%></a></li>
+            <li><a href="<%= jobs_path(:empresa => @job.company.name_id) %>"><%=t('job.other.view_all')%><%=t('job.other.all_company_jobs', :name => @job.company.name)%></a></li>
 
-            <li><a href="<%= jobs_path(:pais => Url.friendly(country_name), special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_country_jobs', :name => country_name)%></a></li>
-            <%unless @job.level.blank?%>
-              <li><a href="<%= jobs_path(:nivel => @job.level.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_level_jobs', :name => @job.level.name)%></a></li>
-            <%end%>
-            <%if @job.part_time%>
-              <li><a href="<%= jobs_path(:part_time => "true", special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>"><%=t('job.other.view_all')%><%=t('job.other.all_part_time_jobs')%></a></li>
-            <%end%>
+            <li><a href="<%= jobs_path(:pais => country_name) %>"><%=t('job.other.view_all')%><%=t('job.other.all_country_jobs', :name => country_name)%></a></li>
           </ul>
         </div>
       <%end%>
@@ -165,62 +144,7 @@
       <div class="col-md-2 col-sm-0">
       </div>
       <div class="col-md-8 col-sm-12">
-  			<nav class="navbar navbar-social navbar-fixed-bottom" id="job-social-bar-nav">
-    			<div class="container-fluid">
-  					<div class="job-social-bar" id="job-social-bar">
-  						<ul>
-  							<li class="job-social-share">
-  								<%if current_user%>
-  									<a id="btn_job_favorite" name="btn_job_favorite" href="#" onclick="ga('send', 'event', 'LikeJob', 'Mibucle', '<%=@job.name.html_safe%> - <%=@job.company.name.html_safe%>');">
-  										<i id="btn_favorite_heart" class="fa fa-heart
-  										<%if current_user.job.include?(@job)%>
-  											fa-heart-favorite
-  										<%end%>
-  										">
-  										</i>
-  									</a>
-  								<%else%>
-  									<a href="" data-toggle="tooltip" data-placement="top" title="<%=t('users.validations.like')%>">
-  										<i id="btn_favorite_heart" class="fa fa-heart ">
-  										</i>
-  									</a>
-  								<%end%>
-  							</li>
-                <li class="job-social-apply">
-                  <%if @job.url.blank?%>
-                    <%if @has_apply%>
-                      <a class="btn btn-job btn-lg page-scroll btn-margin disabled" id="job_apply_now">
-                        <%=t('job_application.already_apply')%>
-                      </a>
-                    <%else%>
-                      <a onclick="ga('send', 'event', 'Apply Job', 'Full Apply', '<%=@job.company.name + ' - ' + @job.name%>');" class="btn btn-job btn-lg page-scroll btn-margin" id="job_apply_now">
-                        <%=t('job.show.apply')%>
-                      </a>
-                      <a class="btn btn-job btn-lg page-scroll btn-margin disabled" id="job_have_apply" style="display:none;">
-                        <%=t('job_application.already_apply')%>
-                      </a>
-                    <%end%>
-                  <%else%>
-
-                    <%if current_user.nil?%>
-                      <a target="_blank" class="btn btn-job btn-lg page-scroll btn-margin" data-toggle="modal" data-target='#modalJobApplicationSoft' id="btn_job_application_soft_modal">
-                        <%=t('job.show.apply')%>
-                      </a>
-                    <%else%>
-                      <a target="_blank" onclick="ga('send', 'event', 'Apply Job', 'Soft Apply', '<%=@job.company.name + ' - ' + @job.name%>');" class="btn btn-job btn-lg page-scroll btn-margin" id="btn_job_application_soft_submit"
-                        <%if current_user.nil?%>
-                          style="display:none;"
-                        <%end%>
-                      >
-                      <%=t('job.show.apply')%>
-                      </a>
-                    <%end%>
-                  <%end%>
-                </li>
-  						</ul>
-  					</div>
-  				</div>
-  			</nav>
+  			
       </div>
       <div class="col-md-2 col-sm-0">
       </div>
@@ -230,7 +154,7 @@
 
 <%if @job.active%>
   <div id="job_application_container" >
-    <%if @job.url.blank? && !@has_apply%>
+    <%if !@has_apply%>
       <div class="job-application-container">
         <div class="row">
           <div class="col-md-4 col-sm-2">
@@ -245,20 +169,6 @@
     <%end%>
   </div>
 <%end%>
-
-<% if @job.active %>
-  <% if @job.url.present? %>
-    <div style="text-align:center; font-family: 'Noto Sans', sans-serif;">
-      <% if current_user %> 
-      <%= t('job.show.logged_test_message') %>
-      <% else %>
-      <%= t('job.show.unlogged_test_message') %>
-      <% end %>
-      <br>
-      <br>
-    </div>
-  <% end %>
-<% end %>
 
 <div class="container-fluid">
   <%= render :partial => 'other_jobs' %>

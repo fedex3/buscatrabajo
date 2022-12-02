@@ -3,13 +3,6 @@
   g.column name: User.human_attribute_name(:email), attribute: 'email', detach_with_id: :email_filter
   g.column name: User.human_attribute_name(:country), attribute: 'country', detach_with_id: :country_filter
   g.column name: User.human_attribute_name(:role), attribute: 'role', custom_filter: {'Basic' => 0, 'Recruiter' => 1, 'Community Manager' => 2, 'Admin' => 3, 'Superadmin' => 4, 'Company Role' => 5, 'Conten Editor' => 6, 'Content Editor Plus' => 7 }, detach_with_id: :role_filter, allow_multiple_selection: false
-  g.column name: User.human_attribute_name(:company), assoc: [:company], attribute: 'name', custom_filter: :auto, detach_with_id: :company_filter, allow_multiple_selection: false do |user|
-    user.company.name unless user.company_id.nil?
-  end
-  g.column name: User.human_attribute_name(:from_event), attribute: 'from_event'
-  g.column name: User.human_attribute_name(:is_company), attribute: 'is_company' do |user|
-    user.is_company
-  end
 
   g.column name: User.human_attribute_name(:created_at), attribute: 'created_at', filter_type: :bootstrap_datepicker, detach_with_id: :date_filter do |user|
     user.created_at.in_time_zone('Buenos Aires').strftime("%d-%m-%Y %H:%M")
@@ -45,10 +38,6 @@ end%>
   <div class="col-2">
     <label for="role">Rol</label>
     <%= grid_filter @grid, :role_filter %>
-  </div>
-  <div class="col-2">
-    <label for="company">Empresa</label>
-    <%= grid_filter @grid, :company_filter %>
   </div>
   <div class="col-2">
     <%= grid_filter @grid, :date_filter %>

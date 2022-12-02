@@ -14,7 +14,7 @@
         <% session[:job_name_id] = params[:name_id]%>
         
         <p><br><%=t :'users.sessions.withemail' %></p>
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name, soft_login_application: "true", external_job_link: (@job.url if @job.url.present?), internal_job_link: (request.original_url if @job.url.blank?))) do |f| %>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name, soft_login_application: "true", internal_job_link: request.original_url )) do |f| %>
           <div class="form-group input-group-lg">
             <%= f.label User.human_attribute_name("email"), :class => "form-label"%>
             <%= f.email_field :email, autofocus: true, :class => "form-control", :placeholder => t('users.fields.messages.enter') + User.human_attribute_name("email") %>

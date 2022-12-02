@@ -30,6 +30,8 @@ module Admin
     end
 
     def edit
+      @company ||= scope.find(params[:id])
+      puts @company.inspect
       if params[:logo]
         @company.logo.destroy
         @company.save
@@ -63,13 +65,10 @@ module Admin
     end
 
     def update
+      @company ||= scope.find(params[:id])
       @industries = Industry.where(:id => params[:industries])
       @company.industries.destroy_all   #disassociate the already added industries
       @company.industries << @industries
-
-      @company_special_events = CompanySpecialEvent.where(:id => params[:company_special_events])
-      @company.company_special_events.destroy_all   #disassociate the already added company_special_events
-      @company.company_special_events << @company_special_events
 
       if params[:delete_logo]
         @company.logo.clear
@@ -86,12 +85,7 @@ module Admin
 
       if @company.update(company_params)
         @company.update(updated_at: DateTime.now) ##QUESTION: Why ? is supossed that updated_at is automatically set #CHECK IT
-
-        if current_user.company_role?
-          redirect_to admin_company_info_path
-        else
-          redirect_to admin_companies_path
-        end
+        redirect_to admin_companies_path
       else
         render 'edit'
       end
@@ -134,11 +128,7 @@ module Admin
       end
 
       def company
-        if current_user.company_role?
-          @company ||= scope.find(current_user.company_id)
-        else
-          @company ||= scope.find(params[:id])
-        end
+        @company ||= scope.find(params[:id])
       end
   end
 end

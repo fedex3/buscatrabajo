@@ -1,6 +1,6 @@
 module Admin
   class Admin::UsersController < Admin::AdminController
-    before_action -> { authorize auth_resource }, only: %i[index]
+    #before_action -> { authorize auth_resource }, only: %i[index]
     before_action -> { authorize resource(user) }, only: %i[show edit update destroy login ]
 
     def index

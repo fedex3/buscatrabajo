@@ -10,14 +10,14 @@
                 <img src="<%= @company.logo(:small) %>" alt="<%= @company.name %>" class="company-logo" loading="lazy">
               </div>
             </div>
-            <div class="company-box-caption">
+
+          </div>
+            <div class="company-box-caption" style="margin-top:40px;">
               <div class="company-box-caption-content">
                 <h1 class="h2 company-name"><%= @company.name %></h1>
-                <%= @company.detail %>
+                <%= @company.detail.html_safe %>
               </div>
             </div>
-          </div>
-
           <div class="company-subheader">
             <ul class="list-inline">
                 <li class="linkedin-follow-btn">
@@ -35,36 +35,16 @@
                 </li>
               <li>
                 <%if current_user%>
-									<a data-color="
-                    <%if current_user.company.include?(@company)%>
-                      purple
-                    <%else%>
-                      green
-                    <% end %>
-                    " 
+									<a data-color="green" 
                   id="btn_company_favorite" name="btn_company_favorite" title="Agregar empresa a favoritos" href="#" onclick="ga('send', 'event', 'LikeCompany', 'Mibucle', '<%=@company.name.html_safe%>');">
-										<i id="company-btn-favourite-heart" class="fa fa-heart 
-										<%if current_user.advice.include?(@company)%>
-											fa-heart-favorite
-										<%end%>
-                    <%if current_user.company.include?(@company)%>
-											company-in-favorite
-										<%else%>
-                      company-not-favorite
-                    <% end %>
-										">
+										<i id="company-btn-favourite-heart" class="fa fa-heart fa-heart-favorite company-not-favorite">
 										</i>
 									</a>
 								<%end%>
               </li>
               <li><span class='marker hidden-xs'><i class='fa fa-map-marker' aria-hidden='true'></i></span></li> 
-
-              <% if @multioffice %>
-                <li><%= render partial: "multioffice_text_menu" %></li>
-              <% else %>
                 <li class="company-address">
                 </li>
-              <% end %>
             </ul>
           </div>
 

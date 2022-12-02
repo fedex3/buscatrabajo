@@ -36,14 +36,14 @@
   g.column in_csv: false, class: "actions_column" do |job|
     buffer = ""
     buffer += '<div class="btn-group btn-group-xs">'
-      buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, company_job_path(name_id: job.name_id, company_id: job.company.name_id), class:'btn btn-light btn-xs', target: :_blank
+      buffer += link_to '<span class="fa fa-eye"></span>'.html_safe, company_job_path(name_id: job.name_id, company_name_id: job.company.name_id), class:'btn btn-light btn-xs', target: :_blank
       buffer += button_tag '<span class="sr-only">Toggle Dropdown</span>'.html_safe, type: 'button', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', class:'btn btn-xs btn-light dropdown-toggle dropdown-toggle-split'
       buffer += '<div class="dropdown-menu">'
         buffer += link_to '<span class="fa fa-edit"></span> Editar'.html_safe, edit_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item'
         if job.active
-          buffer += link_to '<span class="fa fa-toggle-on"></span> Desactivar'.html_safe, block_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 2), class:'dropdown-item'
+          buffer += link_to '<span class="fa fa-toggle-on"></span> Desactivar'.html_safe, block_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item'
         else
-          buffer += link_to '<span class="fa fa-toggle-off"></span> Activar'.html_safe, block_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 2), class:'dropdown-item'
+          buffer += link_to '<span class="fa fa-toggle-off"></span> Activar'.html_safe, block_admin_job_path(job, page: params[:grid].present? ? params[:grid][:page] : 1), class:'dropdown-item'
         end
 
         buffer += link_to '<span class="fa fa-trash text-danger"></span> <span class="text-danger">Eliminar</span>'.html_safe, admin_job_path(job), method: :delete, data: { confirm: t('admin.confirm') }, class:'dropdown-item'

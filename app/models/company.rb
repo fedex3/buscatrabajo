@@ -14,11 +14,7 @@ class Company < ApplicationRecord
   has_many :company_photos, :dependent => :destroy    #TODO: remove after all is merged
   has_many :company_views
   has_many :company_reaches
-  has_many :advices
-  has_many :advice_companies
   has_many :jobs
-  has_many :offices
-  has_and_belongs_to_many :company_special_events
 	has_and_belongs_to_many :industries
 	has_and_belongs_to_many(:recommended_companies,
     :join_table => "recommended_companies",
@@ -175,8 +171,8 @@ class Company < ApplicationRecord
 			end
 		end
 
-		self.recommended_companies.destroy_all
-		self.recommended_companies << (recommendations - [self]).take(ENV['COMPANY_RECOMMENDATIONS'].to_i)
+		#self.recommended_companies.destroy_all
+		#self.recommended_companies << (recommendations - [self]).take(ENV['COMPANY_RECOMMENDATIONS'].to_i)
 	end
 
 	def create_name_id

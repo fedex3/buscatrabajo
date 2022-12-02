@@ -60,7 +60,7 @@ class CompaniesController < ApplicationController
     @company = Company.preload(:industries).find_by(name_id: @param_name_id) or not_found
 
     @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.active, companies.country")
-    @recommended_jobs = @company.jobs.listable.preload(:company, :company, :industry).select("jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
+    @recommended_jobs = @company.jobs.listable.preload(:company, :company).select("jobs.updated_at, jobs.active, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
 
     @multioffice = false
 

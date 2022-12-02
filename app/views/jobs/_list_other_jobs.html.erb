@@ -8,11 +8,11 @@
           </a>
   			</div>
     <% else %>
-      <% if recommended_job.company.offices.listable.first.photos.show_jobs.present? %>
+      <% if recommended_job.photo.present? %>
         <div class="other-job-summary">
           <div class="other-job-summary-image">
             <a href="<%=company_job_path(name_id: recommended_job.name_id, company_name_id: recommended_job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" target="<%= a_target_for_iframe %>">
-              <%=image_tag recommended_job.company.offices.listable.first.photos.show_jobs.sample.photo(:small_for_job), :alt => recommended_job.name + ' - ' + recommended_job.company.name, :class => "img-responsive", loading: "lazy"%>
+              <%=image_tag recommended_job.photo(:small_for_job), :alt => recommended_job.name + ' - ' + recommended_job.company.name, :class => "img-responsive", loading: "lazy"%>
             </a>
           </div>
       <% else %>
@@ -26,13 +26,7 @@
         <div class="other-job-summary-bottom">
         	<div class="other-job-summary-bottom-text">
         		<h4><a href="<%= company_job_path(name_id: recommended_job.name_id, company_name_id: recommended_job.company.name_id, special_event: (@company_special_event.code unless @company_special_event.nil?), token: (@company_special_event.token unless @company_special_event.nil?)) %>" target="<%= a_target_for_iframe %>"><%= recommended_job.company.name %></a></h4>
-            <%unless recommended_job.level.blank?%>
-              <%=recommended_job.level.name + ' | '%>
-            <%end%>
-            <%=recommended_job.industry.name %>
-            <%if recommended_job.part_time%>
-              <%=' | ' + Job.human_attribute_name("part_time")%>
-            <%end%>
+            <%#recommended_job.company.industry.name %>
       		</div>
         </div>
       </div>

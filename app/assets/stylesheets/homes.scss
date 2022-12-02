@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 #cover{
-    background-image: url('/assets/cover-photo-robada.webp');
+    background-image: url('/assets/fondo.jpg');
     min-height: 90vh;
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,7 +21,7 @@
 
         #home-companies-card{
             position: relative;
-            width: 25vw;
+            width: 33vw;
             margin: 1em 3em;
             #home-company-photo{
                 width: 100%;
@@ -39,4 +39,8 @@
             right: 25px;
         }
     }
+}
+
+.home_job_card:hover{
+    background-color: transparent !important;
 }

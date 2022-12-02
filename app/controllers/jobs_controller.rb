@@ -23,10 +23,6 @@ class JobsController < ApplicationController
       @order = params[:order]
     end
 
-    if params[:special_event].present?
-      @company_special_event = CompanySpecialEvent.find_by(code: params[:special_event])
-    end
-
 		# Traigo todos los paises desde la gema
 		all_countries = ISO3166::Country.all.map{ |x| {"name" => x.translation('es'), "alpha2" => x.alpha2} }.sort_by!{ |x| x["name"] }
 		# Y traigo todos los paises que tengan Jobs activos
@@ -47,7 +43,6 @@ class JobsController < ApplicationController
 
     company = nil
     industry = nil
-    level = nil
 
     param_empresa = params[:empresa]
     if param_empresa.blank?
@@ -77,46 +72,19 @@ class JobsController < ApplicationController
       end
     end
 
-    unless params[:nivel].blank?
-      param_level = params[:nivel].downcase
-      canonical_params = canonical_params + (!canonical_params.blank? ? '&' : '')
-      level_find = Level.find_by(name_id: param_level)
-      unless level_find.nil?
-        level = level_find.id
-        @canonical_url += '/l-' + param_level
-        @job_search_type = 'level'
-        @job_search_value = param_level
-      end
-    end
-
     begin
-      if @company_special_event.present?
-        @jobs = Job.company_listable.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote") 
-        @jobs = @jobs.where("company_id in (select company_id from companies_company_special_events where company_special_event_id = " + @company_special_event.id.to_s + ") ")
-      else
-        @jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
-      end
+
+      @jobs = Job.company_listable_not_only_special_events.listable.joins(:company).preload(:company).select("jobs.active, jobs.updated_at , jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
       
       if company.present?
-        @jobs = Job.company_listable.listable.joins(:company).preload(:company, :level, :industry).select("jobs.level_id, jobs.active, jobs.updated_at, jobs.industry_id, jobs.part_time, jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
+        @jobs = Job.company_listable.listable.joins(:company).preload(:company).select("jobs.active, jobs.updated_at , jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.remote")
         @jobs = @jobs.by_company(company)
-      elsif !@company_special_event.present?
+
         @jobs = @jobs.where("companies.active = true")
       end
   
       unless industry.nil?
         @jobs = @jobs.by_industry(industry)
-      end
-  
-      unless level.nil?
-        @jobs = @jobs.by_level(level)
-      end
-
-  
-      unless params[:part_time].blank?
-        param_part_time = params[:part_time].downcase
-        canonical_params = canonical_params + (!canonical_params.blank? ? '&' : '') + 'part_time=' + param_part_time
-        @jobs = @jobs.by_part_time(param_part_time)
       end
   
       unless params[:remote].blank?
@@ -131,27 +99,15 @@ class JobsController < ApplicationController
         @jobs = @jobs.by_q(query)
       end
   
-      case @order
-      when 'relevance'    #compare to 1
-        @jobs = @jobs.order_by_relevance
-      when 'created_at'
-        @jobs = @jobs.order_by_date
-      else
-        @jobs = @jobs.order_by_default
-      end
         
       if params[:country].blank?
-        @jobs = Job.reorder_by_country_and_all_remotes(jobs: @jobs, locale: country_from_locale, order: @order)
+        @jobs = Job.reorder_by_country(jobs: @jobs, locale: country_from_locale)
       else
         @jobs = @jobs.by_country(params[:country])
       end
 
       if params[:industry].present?
         @jobs = @jobs.by_industry(params[:industry])
-      end
-  
-      if params[:level].present?
-        @jobs = @jobs.by_level(params[:level])
       end
   
       @jobs = @jobs.tagged_with(params[:skills], any: true) if params[:skills].present?
@@ -182,8 +138,8 @@ class JobsController < ApplicationController
     param_name_id = params[:job_name_id].downcase
     param_company_name_id = params[:company_name_id].downcase
 
-    @job = Job.includes(:company, :level, :industry).find_by("companies.name_id": param_company_name_id, name_id: param_name_id) or not_found
-    #@recommended_jobs = @job.recommended_jobs.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.active")
+    @job = Job.includes(:company, :industry).find_by("companies.name_id": param_company_name_id, name_id: param_name_id) or not_found
+    @recommended_jobs = @job.recommended_jobs.preload(:company, :company).select("jobs.updated_at ,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country, jobs.active")
     if @job.nil?
       redirect_to home_path and return
     end
@@ -202,63 +158,9 @@ class JobsController < ApplicationController
 
   def show
     param_name_id = params[:name_id]
+    param_company_name_id = params[:company_name_id]
 
-    if param_name_id.starts_with? 'q-'
-      param = param_name_id.split(//)
-      query = param.last(param.length - 2).join
-      unless params[:page].blank?
-        redirect_to jobs_path(:q => query, :page => params[:page].to_s) and return
-      else
-        redirect_to jobs_path(:q => query) and return
-      end
-    end
-
-    if param_name_id.starts_with? 'c-'
-      param = param_name_id.split(//)
-      query = param.last(param.length - 2).join
-      unless params[:page].blank?
-        redirect_to jobs_path(:empresa => query, :page => params[:page].to_s) and return
-      else
-        redirect_to jobs_path(:empresa => query) and return
-      end
-    end
-
-    if param_name_id.starts_with? 'o-'
-      param = param_name_id.split(//)
-      query = param.last(param.length - 2).join
-      unless params[:page].blank?
-        redirect_to jobs_path(:pais => query, :page => params[:page].to_s) and return
-      else
-        redirect_to jobs_path(:pais => query) and return
-      end
-    end
-
-    if param_name_id.starts_with? 'l-'
-      param = param_name_id.split(//)
-      query = param.last(param.length - 2).join
-      unless params[:page].blank?
-        redirect_to jobs_path(:nivel => query, :page => params[:page].to_s) and return
-      else
-        redirect_to jobs_path(:nivel => query) and return
-      end
-    end
-
-    if param_name_id.starts_with? 'i-'
-      param = param_name_id.split(//)
-      query = param.last(param.length - 2).join
-      unless params[:page].blank?
-        redirect_to jobs_path(:industria => query, :page => params[:page].to_s) and return
-      else
-        redirect_to jobs_path(:industria => query) and return
-      end
-    end
-
-    param_company_id = params[:company_id]
-
-    puts params.inspect
-    puts param_company_id
-    puts param_name_id
-    @job = Job.includes(:company).find_by("companies.name_id": param_company_id, name_id: param_name_id)
+    @job = Job.includes(:company).find_by("companies.name_id": param_company_name_id, name_id: param_name_id)
 
     all_countries = ISO3166::Country.all.map{ |x| {"name" => x.translation('es'), "alpha2" => x.alpha2} }.sort_by!{ |x| x["name"] }
 		listable_countries = Company.listable.distinct.pluck(:country)
@@ -282,9 +184,6 @@ class JobsController < ApplicationController
         #JobView.create(:job => @job, :user => current_user, :email => view_email)
       end
     end
-
-    @page_name = '/empresas/' + param_company_id + '/trabajos/' + param_name_id
-    #@canonical_url = ENV['HTTP_HOST'] + @page_name
 
     @has_apply = false
     unless current_user.nil?
