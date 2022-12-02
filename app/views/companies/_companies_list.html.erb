@@ -1,11 +1,7 @@
 <% @companies.each do |company| %>
 	<% cache [:locale => I18n.locale, :company => company], :expires_in => 1.hour do %>
     <div class="col-md-4 col-sm-6 col-xs-12">
-			<% if company.main_photo.present?   %>
-				<a href="<%= company_path(company.name_id) %>">
-			<% else %>
-				<a href="<%= company_companies_jobs_path(company_name_id: company.name_id) %>">
-			<% end %>
+			<a href="<%= company_path(company.name_id) %>">
 				<% if company.main_photo.present? %>
 				<div class="company-summary">
 					<% if company.company_special_events.where( status: 'in_progress').where.not(code: 'PortalEmpleoFinteChile').present?%>
@@ -36,7 +32,7 @@
 
     			<div class="company-summary-info">
             <div class="company-summary-bottom-logo">
-              <img loading="lazy" src="<%=company.icon(:small)%>" alt="<%=company.name%>" class="img-responsive">
+              <img loading="lazy" src="<%=company.logo(:small)%>" alt="<%=company.name%>" class="img-responsive">
             </div>
             <h3>
             	<%=company.name%>

@@ -1,5 +1,6 @@
 class Industry < ApplicationRecord
 	acts_as_paranoid
+	include FriendlyUrl
 
 	has_and_belongs_to_many :companies
 	has_many :jobs
@@ -12,7 +13,6 @@ class Industry < ApplicationRecord
 	scope :order_by_menu, -> { order(order: :asc) }
 
 	def create_name_id
-		self.name_id = Url.friendly(name) if name.present?
+		self.name_id = friendly_url(name) if name.present?
 	end
-
 end

@@ -2,6 +2,7 @@ class Company < ApplicationRecord
   require 'rss'
   #require 'httparty'
   include ShowPhotoName
+  include FriendlyUrl
   attr_accessor :terms_accepted
 
   paginates_per 10
@@ -179,16 +180,8 @@ class Company < ApplicationRecord
 	end
 
 	def create_name_id
-		self.name_id = name
+		self.name_id = friendly_url(name)
 	end
-  
-  def multioffice?
-    !!(offices.listable.count > 1)
-  end
-
-  def office
-    offices.listable.first if offices.listable.count == 1
-  end
 
   def viewed!
     self.update_column(:views, self.views+1)

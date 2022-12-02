@@ -16,9 +16,6 @@ module Admin
     def update
 
       if @user.update(user_params)
-        if @user.company_role?
-          UserMailer.welcome_company_user_email(@user).deliver_later
-        end
         redirect_to admin_users_path
       else
         render 'edit'

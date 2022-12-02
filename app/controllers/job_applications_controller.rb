@@ -99,12 +99,7 @@ class JobApplicationsController < ApplicationController
               unless params[:cid].blank?
                 cid = params[:cid]
               end
-
-              params[:special_event].present? ? @job_application.send_emails(params[:special_event]) : @job_application.send_emails
-              if Rails.env.production?
-                tracker = Staccato.tracker(ENV['ANALYTICS_TRACKING_ID'], cid)
-                tracker.event(category: 'Job Application', action: 'Full Apply', label: @job.company.name + ' - ' + @job.name, value: 1)
-              end
+              
               respond_to do |format|
                 format.html { }
                 format.js   { }

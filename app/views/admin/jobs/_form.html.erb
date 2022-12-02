@@ -15,14 +15,10 @@
 
   <div class="form-row">
     <div class="col-md-3">
-      <%if !current_user.company_role?%>
-        <div class="form-group">
-          <%= f.label :company_id, "Empresa", class:"form-label"%>
-          <%= f.collection_select :company_id, Company.order(:name),:id,:name, {include_blank: false}, {:class => "form-control"}  %>
-        </div>
-      <%else%>
-        <%= f.hidden_field :company_id, value: current_user.company_id %>
-      <%end%>
+      <div class="form-group">
+        <%= f.label :company_id, "Empresa", class:"form-label"%>
+        <%= f.collection_select :company_id, Company.order(:name),:id,:name, {include_blank: false}, {:class => "form-control"}  %>
+      </div>
     </div>
   </div>
 

@@ -28,7 +28,6 @@ module Admin
       publish if publish_button_pressed?
 
       if @job.save
-        AlertMailer.new_job(job.id).deliver_now if current_user.company_role?
         redirect_to admin_jobs_path
       else
         render 'new'

@@ -1,5 +1,6 @@
 class Job < ApplicationRecord
   include ShowPhotoName
+  include FriendlyUrl
 
   belongs_to :company, optional: true
   belongs_to :level, optional: true
@@ -167,7 +168,7 @@ class Job < ApplicationRecord
 	end
 
 	def create_name_id
-		self.name_id = name
+		self.name_id = friendly_url(name)
 	end
 
   def increment_counter

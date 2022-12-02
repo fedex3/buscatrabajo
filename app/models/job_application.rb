@@ -64,31 +64,6 @@ class JobApplication < ApplicationRecord
     self.job.increment_counter
   end
 
-  def send_company_email(with_bcc)
-    if !email_sent && !rejected
-      JobApplicationMailer.company_with_bcc_email(self).deliver_now if with_bcc
-      JobApplicationMailer.company_without_bcc_email(self).deliver_now if !with_bcc
-      update_attributes(email_sent: true)
-    end
-  end
-
-  def send_emails(event_id = nil)
-    if full
-      send_company_email(true) unless job.review_application
-      JobApplicationMailer.company_only_bcc_email(self).deliver_now if job.review_application
-      if event_id.present?
-        event = CompanySpecialEvent.find_by(code: event_id)
-        unless event.nil?
-          JobApplicationMailer.user_email(self, event).deliver_now
-        else
-          JobApplicationMailer.user_email(self).deliver_now
-        end
-      else
-        JobApplicationMailer.user_email(self).deliver_now
-      end
-    end
-  end
-
   def create_application(user_id, user_mail, job_name_id)
     @job_id = Job.find_by(name_id: job_name_id).id
     if JobApplication.find_by(user_id: user_id, job_id: @job_id).nil?

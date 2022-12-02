@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #match 'jobs' => redirect {|params,request| "/trabajos?#{(request.params.except :name_id).to_query}" }, :via => [:get]
 
   #resources :companies, only: [:show, :index], param: :name_id, :path => "empresas"  do
-  resources :companies do
+  resources :companies, param: :name_id, :path => "empresas" do
     get 'trabajos', to: 'jobs#index', as: :companies_jobs
     resources :jobs, only: [:show], param: :name_id , :path => "trabajos"
     #post 'statistics', to: 'companies#statistics'

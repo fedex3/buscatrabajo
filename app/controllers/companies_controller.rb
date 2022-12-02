@@ -44,7 +44,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    Mobility.locale = :es
+    Mobility.locale = :ar
     @param_name_id = params[:name_id].downcase
 
     if @param_name_id.starts_with? 'q-'
@@ -60,8 +60,7 @@ class CompaniesController < ApplicationController
     @company = Company.preload(:industries).find_by(name_id: @param_name_id) or not_found
 
     @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.active, companies.country")
-    @recommended_jobs = @company.jobs.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
-    @recommended_advices = @company.advices.listable.limit(2)
+    @recommended_jobs = @company.jobs.listable.preload(:company, :company, :industry).select("jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
 
     @multioffice = false
 
@@ -70,13 +69,8 @@ class CompaniesController < ApplicationController
     if @company.nil?
       redirect_to home_path and return
     else
-      @multioffice = true if @company.multioffice?
       load_company_data
     end
-
-    @canonical_url = ENV['HTTP_HOST'] + @page_name
-
-		@company_special_event = CompanySpecialEvent.find_by(code: params[:special_event])
 
     respond_to do |format|
       format.html
@@ -84,23 +78,6 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def preview
-    @company = Company.find_by(name_id: params[:name_id])
-
-    if @company
-      @multioffice = @company.offices.count > 1
-      load_company_data_for_preview
-
-      @recommended_companies = @company.recommended_companies.preload(:industries).select("companies.updated_at, companies.name, companies.name_id, companies.id, companies.main_photo_file_name, companies.main_photo_updated_at, companies.city, companies.active, companies.country")
-      @recommended_jobs = @company.jobs.listable.preload(:company, :level, :company, :industry).select("jobs.level_id, jobs.updated_at, jobs.active, jobs.industry_id, jobs.part_time,jobs.company_id, jobs.name, jobs.name_id, jobs.id, jobs.photo_file_name, jobs.photo_updated_at, jobs.city, jobs.country").limit(4)
-    else
-      not_found
-    end
-    @preview   = true
-    @page_name = '/empresas/' + @company.name_id
-    @canonical_url = ENV['HTTP_HOST'] + @page_name
-    render :show, :preview => true
-  end
 
   def statistics
     company = Company.find_by(id: params[:company_name_id])
@@ -118,38 +95,12 @@ class CompaniesController < ApplicationController
   protected
 
   def load_company_data
-    if @multioffice
-      @offices = @company.offices.listable.order_by_relevance
-      if params[:office_name_id].present?
-        @selected_office  = @company.offices.find_by(name_id: params[:office_name_id]) or not_found
-        @page_name        =  '/empresas/' + @param_name_id + '/oficinas/' + @selected_office.name_id
-      else
-        @selected_office  = @offices.first
-      end
-      @selected_office_id = @selected_office.id
-    else
-      @office          = @company.office
-    end
+
     @company_jobs     = @company.jobs.listable.order_by_date
-
-    view_email = !current_user.nil? ? current_user.email : (!cookies[:newsletter_email].nil? ? cookies[:newsletter_email].nil? : nil)
-    @company.viewed!
-
-    CompanyView.create(:company => @company, :user => current_user, :email => view_email) if view_email
+    #view_email = !current_user.nil? ? current_user.email : (!cookies[:newsletter_email].nil? ? cookies[:newsletter_email].nil? : nil)
+    #@company.viewed!
+    #CompanyView.create(:company => @company, :user => current_user, :email => view_email) if view_email
   end
 
-  def load_company_data_for_preview
-    if @multioffice
-      @offices  = @company.offices.order_by_relevance
-      if params[:office_name_id].present?
-        @selected_office  = @company.offices.find_by(name_id: params[:office_name_id]) or not_found
-      else
-        @selected_office  = @offices.first
-      end
-      @selected_office_id = @selected_office.id
-    else
-      @office          = @company.offices.first
-    end
-    @company_jobs     = @company.jobs.active.order_by_date
-  end
+
 end

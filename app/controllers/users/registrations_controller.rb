@@ -77,10 +77,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    if current_user.is_company
-      UserMailer.new_company_user_pending_email(current_user).deliver_later
-      UserMailer.new_company_user_email(current_user).deliver_later
-    end
     if current_user.from_event.present? || session[:from_event].present?
       flash[:notice] = "¡Gracias por registrarte al evento!"
       if session[:from_event].present?

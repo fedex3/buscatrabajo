@@ -126,7 +126,7 @@ module Admin
           :proactive_interviews, :link_for_proactive_interviews, :logo, :icon, :main_photo, :city, :country, :views, :active, :from_date, :location, :jobs_text,
           :jobs_url, :email, :jobs_email, :logo_name, :list_label, :is_special_event_gold, :greenhouse_id, :facebook, :twitter, :linkedin, :card_text,
           :home, :phone, :show_whatsapp_button, :show_email_button, :featured_on_chile_home, :featured_on_spain_home, :order_in_event, :linkedin_username, :instagram, :cover_photo,
-          :featured_on_mexico_home, :featured_on_colombia_home, :available_credits_for_tests, :show_tests, :enable_tests)
+          :featured_on_mexico_home, :featured_on_colombia_home, :available_credits_for_tests, :show_tests, :enable_tests, :detail)
       end
 
       def companies
